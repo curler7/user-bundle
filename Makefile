@@ -1,6 +1,6 @@
 #/bin/bash
 
-RUN=docker-compose exec php
+run=docker-compose exec php
 
 # Build local images
 .PHONY: build
@@ -32,26 +32,32 @@ remove:
 .PHONY: tests
 tests:
 	make up
-	 ${RUN} vendor/bin/simple-phpunit
+	 ${run} vendor/bin/simple-phpunit
 
-# Run single test: make test TEST="IndexTest.php"
+# Run single test: make test test="IndexTest.php"
 .PHONY: test
 test:
 	make up
-	${RUN} vendor/bin/simple-phpunit -c ./ ${TEST}
+	${run} vendor/bin/simple-phpunit -c ./ ${test}
 
-# Run composer with args. make composer ARGS="..."
+# Run composer with args. make composer args="..."
 .PHONY: composer
 composer:
 	make up
-	${RUN} composer ${ARGS}
+	${run} composer ${args}
 
 # Run composer update
 .PHONY: composer-update
 composer-update:
 	make composer ARGS="update"
 
-# Run composer require with args. make composer-require BUNDLE="..."
+# Run composer require with args. make composer-require bundle="..."
 .PHONY: composer-require
 composer-require:
-	make composer ARGS="require ${BUNDLE}"
+	make composer ARGS="require ${bundle}"
+
+# Run symfony console with args. make console args="..."
+.PHONY: console
+console:
+	make up
+	${run} fixtures/bin/console ${args}
