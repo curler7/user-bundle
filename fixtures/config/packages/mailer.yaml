@@ -1,0 +1,3 @@
+framework:
+  mailer:
+    dsn: smtp://webmaster@smart-media.design:jKlo94%3Fk3@smtp.ionos.de:465

@@ -1,0 +1,12 @@
+<container xmlns="http://symfony.com/schema/dic/services">
+    <parameters>
+        <parameter key="curler7_user.group_manager.class">Curler7\UserBundle\Bridge\ORM\GroupManager</parameter>
+    </parameters>
+
+    <services>
+        <service id="curler7_user.group_manager.default" class="%curler7_user.group_manager.class%" public="false">
+            <argument type="service" id="curler7_user.object_manager" />
+            <argument>%curler7_user.model.group.class%</argument>
+        </service>
+    </services>
+</container>

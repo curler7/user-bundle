@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services">
+    <services>
+        <service id="curler7_user.command.create_user" class="Curler7\UserBundle\Command\CreateUserCommand">
+            <argument type="service" id="curler7_user.user_manager"/>
+            <tag name="console.command"/>
+        </service>
+    </services>
+</container>

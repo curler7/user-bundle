@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services">
+    <services>
+        <service id="curler7_user.util.canonicalizer.default" class="Curler7\UserBundle\Util\Canonicalizer"/>
+        <service id="curler7_user.util.password_updater.default" class="Curler7\UserBundle\Util\PasswordUpdater" public="false">
+            <argument type="service" id="security.user_password_hasher" />
+        </service>
+        <service id="curler7_user.util.canonical_fields_updater" class="Curler7\UserBundle\Util\CanonicalFieldsUpdater">
+            <argument type="service" id="curler7_user.util.username_canonicalizer"/>
+            <argument type="service" id="curler7_user.util.email_canonicalizer"/>
+        </service>
+    </services>
+</container>

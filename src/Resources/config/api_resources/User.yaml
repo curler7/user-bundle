@@ -1,0 +1,17 @@
+App\Entity\User:
+  shortName: user
+  attributes:
+    normalization_context:
+      groups: [ 'read' ]
+    denormalization_context:
+      groups: [ 'write' ]
+  collectionOperations:
+    get: ~
+    post:
+      validation_groups: [ 'post' ]
+  itemOperations:
+    get: ~
+    put:
+      validation_groups: [ 'put' ]
+    delete:
+      validation_groups: [ 'delete' ]

@@ -1,0 +1,100 @@
+{
+    "name": "curler7/user-bundle",
+    "description": "Curler7 User Bundle",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Gunnar Suwe",
+            "email": "suwe@smart-media.design"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": ">=8.0.2",
+        "ext-ctype": "*",
+        "ext-iconv": "*",
+        "api-platform/core": "^2.6",
+        "composer/package-versions-deprecated": "^1.11",
+        "doctrine/annotations": "^1.0",
+        "doctrine/doctrine-bundle": "^2.1",
+        "doctrine/doctrine-migrations-bundle": "^3.0",
+        "doctrine/orm": "^2.7",
+        "guzzlehttp/guzzle": "^7.0",
+        "nelmio/cors-bundle": "^2.1",
+        "phpdocumentor/reflection-docblock": "^5.2",
+        "ramsey/uuid-doctrine": "1.*",
+        "symfony/asset": "5.3.*",
+        "symfony/console": "5.3.*",
+        "symfony/dotenv": "5.3.*",
+        "symfony/expression-language": "5.3.*",
+        "symfony/flex": "^1.3.1",
+        "symfony/framework-bundle": "5.3.*",
+        "symfony/mailer": "5.3.*",
+        "symfony/mercure-bundle": "^0.3.2",
+        "symfony/monolog-bundle": "^3.5",
+        "symfony/property-access": "5.3.*",
+        "symfony/property-info": "5.3.*",
+        "symfony/runtime": "5.3.*",
+        "symfony/security-bundle": "5.3.*",
+        "symfony/serializer": "5.3.*",
+        "symfony/twig-bundle": "5.3.*",
+        "symfony/validator": "5.3.*",
+        "symfony/yaml": "5.3.*"
+    },
+    "require-dev": {
+        "api-platform/schema-generator": "^3.0",
+        "symfony/browser-kit": "5.3.*",
+        "symfony/css-selector": "5.3.*",
+        "symfony/debug-bundle": "5.3.*",
+        "symfony/maker-bundle": "^1.21",
+        "symfony/phpunit-bridge": "5.3.*",
+        "symfony/stopwatch": "5.3.*",
+        "symfony/var-dumper": "5.3.*",
+        "symfony/web-profiler-bundle": "5.3.*",
+        "lexik/jwt-authentication-bundle": "2.*",
+        "symfony/translation": "5.*",
+        "matthiasnoback/symfony-dependency-injection-test": "4.*"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "Curler7\\UserBundle\\": "src/",
+            "App\\": "fixtures/src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Curler7\\UserBundle\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+        },
+        "prepare-orm": [
+            "./fixtures/bin/console doctrine:database:drop --force",
+            "./fixtures/bin/console doctrine:database:create",
+            "./fixtures/bin/console doctrine:schema:update --force"
+        ],
+        "generate-jwt-key": "./fixtures/bin/console lexik:jwt:generate-key",
+        "test": "./vendor/bin/simple-phpunit"
+    },
+    "conflict": {
+        "symfony/symfony": "*"
+    },
+    "extra": {
+        "symfony": {
+            "allow-contrib": false,
+            "require": "5.3.*"
+        }
+    }
+}

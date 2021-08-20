@@ -1,0 +1,12 @@
+Curler7\UserBundle\Model\User:
+  constraints:
+    - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+        fields: usernameCanonical
+        errorPath: username
+        message: curler7_user.user.username.unique_entity
+        groups: [ 'post', 'put' ]
+    - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+        fields: emailCanonical
+        errorPath: email
+        message: curler7_user.user.email.unique_entoty
+        groups: [ 'post', 'put' ]

@@ -1,0 +1,5 @@
+curler7_user:
+  user_class: App\Entity\User
+  api_platform: true
+  group:
+    group_class: App\Entity\Group

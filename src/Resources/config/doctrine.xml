@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
+>
+    <services>
+        <service id="curler7_user.object_manager" class="Doctrine\Common\Persistence\ObjectManager" public="false">
+            <argument>%curler7_user.model_manager_name%</argument>
+        </service>
+        <service id="curler7_user.user_manager.default" class="Curler7\UserBundle\Bridge\ORM\UserManager" public="true">
+            <argument type="service" id="curler7_user.util.password_updater"/>
+            <argument type="service" id="curler7_user.util.canonical_fields_updater"/>
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <argument>%curler7_user.model.user.class%</argument>
+        </service>
+        <service id="curler7_user.user_listener.default" class="Curler7\UserBundle\Bridge\ORM\UserListener" public="false">
+            <argument type="service" id="curler7_user.util.password_updater"/>
+            <argument type="service" id="curler7_user.util.canonical_fields_updater"/>
+            <tag name="doctrine.event_subscriber"/>
+        </service>
+    </services>
+</container>
