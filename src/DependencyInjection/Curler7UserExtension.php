@@ -53,7 +53,7 @@ class Curler7UserExtension extends Extension implements PrependExtensionInterfac
         $container->prependExtensionConfig('api_platform', [
             'mapping' => [
                 'paths' => [
-                    $container->getParameter('kernel.cache_dir').'/curler7/user_bundle/api_resources',
+                    $container->getParameter('kernel.cache_dir'),
                 ],
             ],
         ]);

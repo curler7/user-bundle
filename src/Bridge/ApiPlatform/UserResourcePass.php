@@ -38,7 +38,7 @@ class UserResourcePass implements CompilerPassInterface
 
     private function generateApiResourceCache(ContainerBuilder $container, $template, $path): void
     {
-        $path = sprintf('%s/curler7/user_bundle/api_resources/%s', $container->getParameter('kernel.cache_dir'), $path);
+        $path = sprintf('%s/%s', $container->getParameter('kernel.cache_dir'), $path);
         $cache = new ConfigCache($path, $container->getParameter('kernel.debug'));
 
         if (!$cache->isFresh()) {
