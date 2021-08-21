@@ -66,7 +66,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Curler7\\UserBundle\\": "src/"
+            "Curler7\\UserBundle\\": "src/",
+            "App\\": "fixtures/src/"
         }
     },
     "autoload-dev": {
