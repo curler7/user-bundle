@@ -21,19 +21,17 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
  */
 class ValidationPass implements CompilerPassInterface
 {
-    protected const PARAMETER = 'curler7_user.storage';
-
     public function process(ContainerBuilder $container): void
     {
-        if (!$container->hasParameter(self::PARAMETER) ||
-            'custom' === $storage = $container->getParameter(self::PARAMETER))
+        if (!$container->hasParameter('curler7_user.storage') ||
+            'custom' === $container->getParameter('curler7_user.storage'))
         {
             return;
         }
 
         foreach (['User', 'Group'] as $value) {
             $container->getDefinition('validator.builder')->addMethodCall('addYamlMapping', [
-                sprintf('%s/../../Resources/config/storage-validation/%s.yaml', __DIR__, $value)
+                sprintf('%s/../../../config/storage_validation/%s.yaml', __DIR__, $value)
             ]);
         }
     }

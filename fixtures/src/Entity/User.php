@@ -15,7 +15,7 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Curler7\UserBundle\Model\User as BaseUser;
+use Curler7\UserBundle\Model\AbstractUser;
 use Ramsey\Uuid\Doctrine\UuidGenerator;
 use Ramsey\Uuid\UuidInterface;
 
@@ -24,7 +24,7 @@ use Ramsey\Uuid\UuidInterface;
  */
 #[ORM\Entity]
 #[ORM\Table(name: 'app_user')]
-class User extends BaseUser
+class User extends AbstractUser
 {
     #[ORM\Id]
     #[ORM\Column(type: 'uuid')]

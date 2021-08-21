@@ -49,12 +49,12 @@ composer:
 # Run composer update
 .PHONY: composer-update
 composer-update:
-	make composer ARGS="update"
+	make composer args="update"
 
 # Run composer require with args. make composer-require bundle="..."
 .PHONY: composer-require
 composer-require:
-	make composer ARGS="require ${bundle}"
+	make composer args="require ${bundle}"
 
 # Run symfony console with args. make console args="..."
 .PHONY: console

@@ -1,6 +1,7 @@
-# Usage
+Usage
+============
 
-## Composer
+### Composer
 ``` json
 # composer.json
 "repositories": [
@@ -13,17 +14,16 @@
 **Note:**
 > Need to add github token to repository, because it's private
 
-## Config
+### Config
 ``` yaml
 # config/packages/curler7.yaml
 curler7_user:
-  user_class: App\Entity\User
-  api_platform: true
-  group:
-    group_class: App\Entity\Group
+    user_class:  ~ # Required
+    group_class: ~ # Required
 ```
 
-## Entity
+### Entity
+#### User
 ``` php
 # App/Entity/User.php
 <?php
@@ -57,6 +57,7 @@ class User extends BaseUser
 ```
 
 
+#### Group
 ``` php
 # App/Entity/Group.php
 <?php
@@ -82,12 +83,16 @@ class Group extends BaseGroup
 }
 ```
 
-## Config Reference
+### Config Reference
 ``` yaml
 # config/packages/curler7.yaml
 curler7_user:
-  user_class: App\Entity\User
-  api_platform: true
-  group:
-    group_class: App\Entity\Group
+    db_driver:            orm
+    user_class:           ~ # Required
+    group_class:          ~ # Required
+    model_manager_name:   default
+    api_platform:         true
+    service:
+        email_canonicalizer:    curler7_user.util.canonicalizer
+        username_canonicalizer: curler7_user.util.canonicalizer
 ```

@@ -29,21 +29,20 @@ class UserResourcePass implements CompilerPassInterface
             return;
         }
 
-        $this->generateApiResourceCache($container, 'user-resource.yaml', 'User.yaml');
+        $this->generateApiResourceCache($container, 'user_resource.yaml', 'User.yaml');
 
         if ($container->hasParameter('curler7_user.model.group.class')) {
-            $this->generateApiResourceCache($container, 'group-resource.yaml', 'Group.yaml');
+            $this->generateApiResourceCache($container, 'group_resource.yaml', 'Group.yaml');
         }
     }
 
     private function generateApiResourceCache(ContainerBuilder $container, $template, $path): void
     {
-        $debug = $container->getParameter('kernel.debug');
-        $path  = sprintf('%s/../../Resources/config/api_resources/%s', __DIR__, $path);
-        $cache = new ConfigCache($path, $debug);
+        $path = sprintf('%s/curler7/user_bundle/api_resources/%s', $container->getParameter('kernel.cache_dir'), $path);
+        $cache = new ConfigCache($path, $container->getParameter('kernel.debug'));
 
         if (!$cache->isFresh()) {
-            $template = sprintf('%s/../../Resources/config/template/%s', __DIR__, $template);
+            $template = sprintf('%s/../../../config/template/%s', __DIR__, $template);
             $contents = file_get_contents($template);
             $contents = strtr($contents, [
                 '%curler7_user.model.user.class%'  => $container->getParameter('curler7_user.model.user.class'),

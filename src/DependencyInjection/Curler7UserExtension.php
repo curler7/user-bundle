@@ -27,7 +27,7 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 class Curler7UserExtension extends Extension implements PrependExtensionInterface
 {
-    private static array $doctrineDrivers = [
+    private const DOCTRINE_DRIVERS = [
         'orm' => [
             'registry' => 'doctrine',
             'tag'      => 'doctrine.event_subscriber',
@@ -41,6 +41,11 @@ class Curler7UserExtension extends Extension implements PrependExtensionInterfac
             'tag'            => 'doctrine_couchdb.event_subscriber',
             'listener_class' => 'Curler7\UserBundle\Bridge\CouchDB\UserListener',
         ],
+        'phpcr' => [
+            'registry'       => 'doctrine_phpcr',
+            'tag'            => 'doctrine_phpcr.event_subscriber',
+            'listener_class' => 'Curler7\UserBundle\Bridge\Phpcr\UserListener',
+        ],
     ];
 
     public function prepend(ContainerBuilder $container): void
@@ -48,7 +53,7 @@ class Curler7UserExtension extends Extension implements PrependExtensionInterfac
         $container->prependExtensionConfig('api_platform', [
             'mapping' => [
                 'paths' => [
-                    __DIR__.'/../Resources/config/api_resources',
+                    $container->getParameter('kernel.cache_dir').'/curler7/user_bundle/api_resources',
                 ],
             ],
         ]);
@@ -59,70 +64,31 @@ class Curler7UserExtension extends Extension implements PrependExtensionInterfac
      */
     public function load(array $configs, ContainerBuilder $container): void
     {
-        $processor     = new Processor();
+        $processor = new Processor();
         $configuration = new Configuration();
 
         $config = $processor->processConfiguration($configuration, $configs);
 
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-
-        $map = [
-            'model_manager_name',
-            'api_platform',
-        ];
+        $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../../config'));
 
         $container->setParameter('curler7_user.model.user.class', $config['user_class']);
+        $container->setParameter('curler7_user.model.group.class', $config['group_class']);
+        $container->setParameter('curler7_user.model_manager_name', $config['model_manager_name']);
+        $container->setParameter('curler7_user.api_platform', $config['api_platform']);
 
-        foreach ($map as $key) {
-            $container->setParameter('curler7_user.'.$key, $config[$key]);
-        }
+        $container->setAlias('curler7_user.util.email_canonicalizer', $config['service']['email_canonicalizer']);
+        $container->setAlias('curler7_user.util.username_canonicalizer', $config['service']['username_canonicalizer']);
 
         $loader->load('util.xml');
         $loader->load('command.xml');
 
         $this->loadDbDriver($loader, $container, $config);
 
-        if (!empty($config['group'])) {
-            $this->loadGroups($config['group'], $container, $loader, $config['db_driver']);
-        }
-
         $container->setParameter('curler7_user.storage', $config['db_driver']);
 
-        $container->setAlias('curler7_user.util.email_canonicalizer', $config['service']['email_canonicalizer']);
-        $container->setAlias('curler7_user.util.username_canonicalizer', $config['service']['username_canonicalizer']);
-        $container->setAlias('curler7_user.util.password_updater', $config['service']['password_updater']);
-        $container->setAlias('curler7_user.user_manager', $config['service']['user_manager']);
-
         if ($config['api_platform']) {
-            $loader->load('api-platform.xml');
+            $loader->load('api_platform.xml');
         }
-
-        if (!empty($config['group'])) {
-            $this->loadGroups($config['group'], $container, $loader, $config['db_driver']);
-        }
-    }
-
-    /**
-     * @throws \Exception
-     */
-    private function loadGroups(array $config, ContainerBuilder $container, XmlFileLoader $loader, $dbDriver)
-    {
-        if ('custom' !== $dbDriver) {
-            if (isset(self::$doctrineDrivers[$dbDriver])) {
-                $loader->load('group.xml');
-            } else {
-                $loader->load(sprintf('%s_group.xml', $dbDriver));
-            }
-        }
-
-        $container->setAlias('curler7_user.group_manager', new Alias($config['group_manager'], true));
-        $container->setAlias('Curler7\UserBundle\Model\GroupManagerInterface', new Alias('curler7_user.group_manager', false));
-
-        $this->remapParametersNamespaces($config, $container, [
-            '' => [
-                'group_class' => 'model.group.class',
-            ],
-        ]);
     }
 
     /**
@@ -131,48 +97,18 @@ class Curler7UserExtension extends Extension implements PrependExtensionInterfac
     private function loadDbDriver(XmlFileLoader $loader, ContainerBuilder $container, $config)
     {
         if ('custom' !== $config['db_driver']) {
-            if (isset(self::$doctrineDrivers[$config['db_driver']])) {
+            if (self::DOCTRINE_DRIVERS[$config['db_driver']] ?? null) {
                 $loader->load('doctrine.xml');
-                $container->setAlias('curler7_user.doctrine_registry', new Alias(self::$doctrineDrivers[$config['db_driver']]['registry'], false));
+                $container->setAlias('curler7_user.doctrine_registry', new Alias(self::DOCTRINE_DRIVERS[$config['db_driver']]['registry'], false));
             } else {
                 $loader->load(sprintf('%s.xml', $config['db_driver']));
             }
             $container->setParameter($this->getAlias().'.backend_type_'.$config['db_driver'], true);
         }
 
-        if (isset(self::$doctrineDrivers[$config['db_driver']])) {
+        if (self::DOCTRINE_DRIVERS[$config['db_driver']] ?? null) {
             $definition = $container->getDefinition('curler7_user.object_manager');
             $definition->setFactory([new Reference('curler7_user.doctrine_registry'), 'getManager']);
-        }
-    }
-
-    protected function remapParameters(array $config, ContainerBuilder $container, array $map)
-    {
-        foreach ($map as $name => $paramName) {
-            if (\array_key_exists($name, $config)) {
-                $container->setParameter('curler7_user.'.$paramName, $config[$name]);
-            }
-        }
-    }
-
-    protected function remapParametersNamespaces(array $config, ContainerBuilder $container, array $namespaces)
-    {
-        foreach ($namespaces as $ns => $map) {
-            if ($ns) {
-                if (!\array_key_exists($ns, $config)) {
-                    continue;
-                }
-                $namespaceConfig = $config[$ns];
-            } else {
-                $namespaceConfig = $config;
-            }
-            if (\is_array($map)) {
-                $this->remapParameters($namespaceConfig, $container, $map);
-            } else {
-                foreach ($namespaceConfig as $name => $value) {
-                    $container->setParameter('curler7_user.'.sprintf($map, $name), $value);
-                }
-            }
         }
     }
 }

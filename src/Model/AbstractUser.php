@@ -19,7 +19,7 @@ use Ramsey\Uuid\UuidInterface;
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
  */
-abstract class User implements UserInterface, GroupableInterface
+abstract class AbstractUser implements UserInterface, GroupableInterface
 {
     use GroupsAwareTrait;
 

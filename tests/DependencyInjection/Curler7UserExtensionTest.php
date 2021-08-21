@@ -25,6 +25,7 @@ class Curler7UserExtensionTest extends AbstractExtensionTestCase
 {
     private array $default = [
         'user_class' => User::class,
+        'group_class' => Group::class,
     ];
 
     protected function getContainerExtensions(): array
@@ -32,6 +33,13 @@ class Curler7UserExtensionTest extends AbstractExtensionTestCase
         return [
             new Curler7UserExtension(),
         ];
+    }
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->container->setParameter('kernel.cache_dir', \sys_get_temp_dir());
     }
 
     public function testLoadedService()
@@ -46,7 +54,7 @@ class Curler7UserExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasParameter('curler7_user.api_platform');
 
         $container = $this->container;
-        $this->assertFalse($container->getParameter('curler7_user.api_platform'));
+        $this->assertTrue($container->getParameter('curler7_user.api_platform'));
     }
 
     public function testApiPlatformLoading()
@@ -59,13 +67,7 @@ class Curler7UserExtensionTest extends AbstractExtensionTestCase
 
     public function testGroupLoading()
     {
-        $config = array_merge($this->default, [
-            'group' => [
-                'group_class' => Group::class,
-            ],
-        ]);
-
-        $this->load($config);
+        $this->load($this->default);
 
         $this->assertContainerBuilderHasService('curler7_user.group_manager');
         $this->assertContainerBuilderHasParameter('curler7_user.model.group.class');

@@ -37,7 +37,7 @@ class Curler7UserBundle extends Bundle
         if (class_exists(DoctrineOrmMappingsPass::class)) {
             $container->addCompilerPass(
                 DoctrineOrmMappingsPass::createXmlMappingDriver(
-                    [realpath(__DIR__.'/Resources/config/doctrine-mapping') => 'Curler7\UserBundle\Model'],
+                    [realpath(__DIR__ . '/../config/doctrine_mapping') => 'Curler7\UserBundle\Model'],
                     ['curler7_user.model_manager_name'],
                     'curler7_user.backend_type_orm'
                 )

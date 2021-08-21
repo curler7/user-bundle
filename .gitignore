@@ -4,6 +4,7 @@
 /config/
 /var/
 /vendor/
+/fixtures/config/jwt/
 /fixtures/var/
 ###< symfony/framework-bundle ###
 

@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Curler7\UserBundle\Model\Group as BaseGroup;
+use Curler7\UserBundle\Model\AbstractGroup;
 use Ramsey\Uuid\Doctrine\UuidGenerator;
 use Ramsey\Uuid\UuidInterface;
 
@@ -23,7 +23,7 @@ use Ramsey\Uuid\UuidInterface;
  */
 #[ORM\Entity]
 #[ORM\Table(name: 'app_group')]
-class Group extends BaseGroup
+class Group extends AbstractGroup
 {
     #[ORM\Id]
     #[ORM\Column(type: 'uuid')]

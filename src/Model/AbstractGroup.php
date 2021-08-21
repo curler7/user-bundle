@@ -18,7 +18,7 @@ use Ramsey\Uuid\UuidInterface;
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
  */
-abstract class Group implements GroupInterface
+abstract class AbstractGroup implements GroupInterface
 {
     public function __construct(
         protected UuidInterface $id,
