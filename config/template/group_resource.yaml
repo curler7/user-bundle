@@ -1,4 +1,4 @@
-%curler7_user.model.group.class%:
+"%curler7_user.model.group.class%":
   shortName: group
   attributes:
     normalization_context:
