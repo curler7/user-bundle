@@ -1,0 +1,8 @@
+Curler7\UserBundle\Model\AbstractGroup:
+  attributes:
+    id:
+      groups: ['read']
+    name:
+      groups: ['read','write']
+    roles:
+      groups: ['read', 'write']

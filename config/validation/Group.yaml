@@ -1,0 +1,10 @@
+Curler7\UserBundle\Model\AbstractGroup:
+  properties:
+    name:
+      - NotBlank:
+          message: curler7_user.group.name.not_blank
+          groups: [ 'post', 'put' ]
+      - Length:
+          max: 180
+          maxMessage: curler7_user.group.name.length.max
+          groups: [ 'post', 'put' ]

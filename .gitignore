@@ -1,7 +1,6 @@
 /.idea/
 
 ###> symfony/framework-bundle ###
-/config/
 /var/
 /vendor/
 /fixtures/config/jwt/

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <parameters>
+        <parameter key="curler7_user.canonical_fields_updater.class">Curler7\UserBundle\Util\CanonicalFieldsUpdater</parameter>
+        <parameter key="curler7_user.canonicalizer.class">Curler7\UserBundle\Util\Canonicalizer</parameter>
+        <parameter key="curler7_user.password_updater.class">Curler7\UserBundle\Util\PasswordUpdater</parameter>
+    </parameters>
+
+    <services>
+        <service id="curler7_user.util.canonical_fields_updater" class="%curler7_user.canonical_fields_updater.class%" public="false">
+            <argument type="service" id="curler7_user.util.username_canonicalizer" />
+            <argument type="service" id="curler7_user.util.email_canonicalizer" />
+        </service>
+        <service id="Curler7\UserBundle\Util\CanonicalFieldsUpdaterInterface" alias="curler7_user.util.canonical_fields_updater" />
+
+        <service id="curler7_user.util.canonicalizer" class="%curler7_user.canonicalizer.class%" public="false" />
+        <service id="Curler7\UserBundle\Util\CanonicalizerInterface" alias="curler7_user.util.canonicalizer" />
+
+        <service id="curler7_user.util.password_updater" class="%curler7_user.password_updater.class%" public="false">
+            <argument type="service" id="security.user_password_hasher" />
+        </service>
+        <service id="Curler7\UserBundle\Util\PasswordUpdaterInterface" alias="curler7_user.util.password_updater" />
+    </services>
+</container>

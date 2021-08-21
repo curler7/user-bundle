@@ -1,0 +1,7 @@
+Curler7\UserBundle\Model\AbstractGroup:
+  constraints:
+    - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+        fields: name
+        errorPath: name
+        message: curler7_user.group.name.unique_entity
+        groups: [ 'post', 'put' ]
