@@ -25,7 +25,7 @@ class UserResourcePass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container): void
     {
-        if (!$container->getParameter('curler7_user.api_platform')) {
+        if (!$container->getParameter('curler7_user.api-platform')) {
             return;
         }
 

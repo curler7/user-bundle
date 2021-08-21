@@ -49,7 +49,7 @@ composer:
 # Run composer update
 .PHONY: composer-update
 composer-update:
-	make composer args="update"
+	make composer args=update
 
 # Run composer require with args. make composer-require bundle="..."
 .PHONY: composer-require
@@ -61,3 +61,8 @@ composer-require:
 console:
 	make up
 	${run} fixtures/bin/console ${args}
+
+# Run symfony console with args. make console args="..."
+.PHONY: console-cache-clear
+console-cache-clear:
+	make console args=cache:clear
