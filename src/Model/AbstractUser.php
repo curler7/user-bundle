@@ -23,7 +23,7 @@ abstract class AbstractUser implements UserInterface, GroupableInterface
 {
     use GroupsAwareTrait;
 
-    protected string $id;
+    protected UuidInterface $id;
 
     protected ?string $username = null;
 
@@ -47,7 +47,7 @@ abstract class AbstractUser implements UserInterface, GroupableInterface
 
     protected ?\DateTimeInterface $passwordRequestedAt = null;
 
-    public function getId(): string
+    public function getId(): UuidInterface
     {
         return $this->id;
     }

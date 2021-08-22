@@ -24,7 +24,7 @@ interface UserInterface extends PasswordAuthenticatedUserInterface
     public const ROLE_DEFAULT = 'ROLE_USER';
     public const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
 
-    public function getId(): string;
+    public function getId(): UuidInterface;
 
     public function addRole(string $role): static;
 
