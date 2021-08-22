@@ -23,7 +23,7 @@ abstract class AbstractUser implements UserInterface, GroupableInterface
 {
     use GroupsAwareTrait;
 
-    protected UuidInterface $id;
+    protected string $id;
 
     protected ?string $username = null;
 
@@ -41,15 +41,13 @@ abstract class AbstractUser implements UserInterface, GroupableInterface
 
     protected ?string $password = null;
 
-    protected ?string $salt = null;
-
     protected ?\DateTimeInterface $lastLogin = null;
 
     protected ?string $confirmationToken = null;
 
     protected ?\DateTimeInterface $passwordRequestedAt = null;
 
-    public function getId(): UuidInterface
+    public function getId(): string
     {
         return $this->id;
     }
@@ -87,18 +85,6 @@ abstract class AbstractUser implements UserInterface, GroupableInterface
         foreach ($roles as $role) {
             $this->addRole($role);
         }
-
-        return $this;
-    }
-
-    public function getSalt(): ?string
-    {
-        return $this->salt;
-    }
-
-    public function setSalt(?string $salt): static
-    {
-        $this->salt = $salt;
 
         return $this;
     }
