@@ -29,7 +29,7 @@ class ValidationPass implements CompilerPassInterface
             return;
         }
 
-        foreach (['User', 'Group'] as $value) {
+        foreach (['AbstractUser', 'AbstractGroup'] as $value) {
             $container->getDefinition('validator.builder')->addMethodCall('addYamlMapping', [
                 sprintf('%s/../../../config/storage_validation/%s.yaml', __DIR__, $value)
             ]);
