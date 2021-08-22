@@ -83,7 +83,7 @@
         "prepare-orm": [
             "./fixtures/bin/console doctrine:database:drop --force",
             "./fixtures/bin/console doctrine:database:create",
-            "./fixtures/bin/console doctrine:schema:update --force"
+            "./fixtures/bin/console doctrine:schema:create"
         ],
         "generate-jwt-key": "./fixtures/bin/console lexik:jwt:generate-key",
         "test": "./vendor/bin/simple-phpunit"
