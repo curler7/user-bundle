@@ -6,7 +6,7 @@ if [ "${1#-}" != "$1" ]; then
 	set -- php-fpm "$@"
 fi
 
-if [ "$1" = 'php-fpm' ] || [ "$1" = 'php' ] || [ "$1" = 'fixtures/bin/console' ]; then
+if [ "$1" = 'php-fpm' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 	PHP_INI_RECOMMENDED="$PHP_INI_DIR/php.ini-production"
 	if [ "$APP_ENV" != 'prod' ]; then
 		PHP_INI_RECOMMENDED="$PHP_INI_DIR/php.ini-development"
@@ -14,18 +14,17 @@ if [ "$1" = 'php-fpm' ] || [ "$1" = 'php' ] || [ "$1" = 'fixtures/bin/console' ]
 	ln -sf "$PHP_INI_RECOMMENDED" "$PHP_INI_DIR/php.ini"
 
 	mkdir -p fixtures/var/cache fixtures/var/log
+	setfacl -R -m u:www-data:rwX -m u:"$(whoami)":rwX fixtures/var
+	setfacl -dR -m u:www-data:rwX -m u:"$(whoami)":rwX fixtures/var
 
-	composer install --prefer-dist --no-progress --no-interaction
+	if [ "$APP_ENV" != 'prod' ]; then
+		composer install --prefer-dist --no-progress --no-interaction
+	fi
 
-	if grep -q ^DATABASE_URL= .env; then
-		if [ "$CREATION" = "1" ]; then
-			echo "To finish the installation please press Ctrl+C to stop Docker Compose and run: docker-compose up --build"
-			sleep infinity
-		fi
-
-		echo "Waiting for db to be ready..."
+	if grep -q DATABASE_URL= .env; then
+		echo "Waiting for database to be ready..."
 		ATTEMPTS_LEFT_TO_REACH_DATABASE=60
-		until [ $ATTEMPTS_LEFT_TO_REACH_DATABASE -eq 0 ] || DATABASE_ERROR=$(fixtures/bin/console dbal:run-sql "SELECT 1" 2>&1); do
+		until [ $ATTEMPTS_LEFT_TO_REACH_DATABASE -eq 0 ] || DATABASE_ERROR=$(php fixtures/bin/console dbal:run-sql -q "SELECT 1" 2>&1); do
 			if [ $? -eq 255 ]; then
 				# If the Doctrine command exits with 255, an unrecoverable error occurred
 				ATTEMPTS_LEFT_TO_REACH_DATABASE=0
@@ -33,7 +32,7 @@ if [ "$1" = 'php-fpm' ] || [ "$1" = 'php' ] || [ "$1" = 'fixtures/bin/console' ]
 			fi
 			sleep 1
 			ATTEMPTS_LEFT_TO_REACH_DATABASE=$((ATTEMPTS_LEFT_TO_REACH_DATABASE - 1))
-			echo "Still waiting for db to be ready... Or maybe the db is not reachable. $ATTEMPTS_LEFT_TO_REACH_DATABASE attempts left"
+			echo "Still waiting for database to be ready... Or maybe the database is not reachable. $ATTEMPTS_LEFT_TO_REACH_DATABASE attempts left."
 		done
 
 		if [ $ATTEMPTS_LEFT_TO_REACH_DATABASE -eq 0 ]; then
@@ -41,16 +40,13 @@ if [ "$1" = 'php-fpm' ] || [ "$1" = 'php' ] || [ "$1" = 'fixtures/bin/console' ]
 			echo "$DATABASE_ERROR"
 			exit 1
 		else
-			echo "The db is now ready and reachable"
+			echo "The database is now ready and reachable"
 		fi
 
 		if ls -A migrations/*.php >/dev/null 2>&1; then
-			fixturs/bin/console doctrine:migrations:migrate --no-interaction
+			php fixtures/bin/console doctrine:migrations:migrate --no-interaction
 		fi
 	fi
-
-	setfacl -R -m u:www-data:rwX -m u:"$(whoami)":rwX fixtures/var
-	setfacl -dR -m u:www-data:rwX -m u:"$(whoami)":rwX fixtures/var
 fi
 
 exec docker-php-entrypoint "$@"

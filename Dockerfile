@@ -29,12 +29,14 @@ RUN set -eux; \
 		$PHPIZE_DEPS \
 		icu-dev \
 		libzip-dev \
+		postgresql-dev \
 		zlib-dev \
 	; \
 	\
 	docker-php-ext-configure zip; \
 	docker-php-ext-install -j$(nproc) \
 		intl \
+		pdo_pgsql \
 		zip \
 	; \
 	pecl install \
@@ -56,43 +58,43 @@ RUN set -eux; \
 	\
 	apk del .build-deps
 
-COPY docker/php/docker-healthcheck.sh /usr/local/bin/docker-healthcheck
-RUN chmod +x /usr/local/bin/docker-healthcheck
+###> recipes ###
+###< recipes ###
 
-HEALTHCHECK --interval=10s --timeout=3s --retries=3 CMD ["docker-healthcheck"]
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 RUN ln -s $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
 COPY docker/php/conf.d/symfony.prod.ini $PHP_INI_DIR/conf.d/symfony.ini
 
 COPY docker/php/php-fpm.d/zz-docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
 
-COPY docker/php/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
-RUN chmod +x /usr/local/bin/docker-entrypoint
-
 VOLUME /var/run/php
-
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # https://getcomposer.org/doc/03-cli.md#composer-allow-superuser
 ENV COMPOSER_ALLOW_SUPERUSER=1
-
 ENV PATH="${PATH}:/root/.composer/vendor/bin"
 
 WORKDIR /srv/app
-
-###> recipes ###
-###< recipes ###
 
 COPY . .
 
 RUN set -eux; \
 	mkdir -p fixtures/var/cache fixtures/var/log; \
-	composer install --prefer-dist --no-dev --no-progress --no-scripts --no-interaction; \
 	composer dump-autoload --classmap-authoritative --no-dev; \
-	composer symfony:dump-env prod; \
+	composer dump-env prod; \
 	composer run-script --no-dev post-install-cmd; \
 	chmod +x fixtures/bin/console; sync
 VOLUME /srv/app/var
+
+COPY docker/php/docker-healthcheck.sh /usr/local/bin/docker-healthcheck
+RUN chmod +x /usr/local/bin/docker-healthcheck
+
+HEALTHCHECK --interval=10s --timeout=3s --retries=3 CMD ["docker-healthcheck"]
+
+COPY docker/php/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
+RUN chmod +x /usr/local/bin/docker-entrypoint
+
+ENV SYMFONY_PHPUNIT_VERSION=9
 
 ENTRYPOINT ["docker-entrypoint"]
 CMD ["php-fpm"]

@@ -22,7 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController
 {
     #[Route(path: '/', name: 'homepage')]
-    public function index()
+    public function index(): Response
     {
         return new Response('<html><body>Hello World</body></html>', 200);
     }

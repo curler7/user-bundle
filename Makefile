@@ -34,11 +34,11 @@ tests:
 	make up
 	 ${run} vendor/bin/simple-phpunit
 
-# Run single test: make test test="IndexTest.php"
+# Run single test: make test args="IndexTest.php"
 .PHONY: test
 test:
 	make up
-	${run} vendor/bin/simple-phpunit -c ./ ${test}
+	${run} vendor/bin/simple-phpunit -c ./ ${args}
 
 # Run composer with args. make composer args="..."
 .PHONY: composer
@@ -51,10 +51,10 @@ composer:
 composer-update:
 	make composer args=update
 
-# Run composer require with args. make composer-require bundle="..."
+# Run composer require with args. make composer-require args="..."
 .PHONY: composer-require
 composer-require:
-	make composer args="require ${bundle}"
+	make composer args="require ${args}"
 
 # Run symfony console with args. make console args="..."
 .PHONY: console

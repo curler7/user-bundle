@@ -51,7 +51,7 @@ class User extends AbstractUser
     #[ORM\ManyToMany(targetEntity: Group::class)]
     #[ORM\JoinTable(name: 'app_users_groups')]
     #[ORM\JoinColumn(name: 'user_id', referencedColumnName: 'id')]
-    #[ORM\JoinColumn(name: 'group_ud', referencedColumnName: 'id')]
+    #[ORM\JoinColumn(name: 'group_id', referencedColumnName: 'id')]
     protected Collection|array $groups;
 }
 ```

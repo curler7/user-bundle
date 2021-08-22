@@ -17,8 +17,6 @@
 
         <field name="enabled" column="enabled" type="boolean" />
 
-        <field name="salt" column="salt" type="string" nullable="true" />
-
         <field name="password" column="password" type="string" />
 
         <field name="lastLogin" column="last_login" type="datetime" nullable="true" />

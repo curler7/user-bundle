@@ -5,6 +5,8 @@ services:
     build:
       context: .
       target: symfony_php
+    depends_on:
+      - database
     volumes:
       - php_socket:/var/run/php
       - ./:/srv/app:rw,cached
@@ -15,8 +17,19 @@ services:
       retries: 3
       start_period: 30s
     environment:
-      DATABASE_URL: postgresql://${POSTGRES_USER:-symfony}:${POSTGRES_PASSWORD:-ChangeMe}@database:5432/${POSTGRES_DB:-app}?serverVersion=${POSTGRES_VERSION:-13}
       APP_ENV: dev
+
+  database:
+    image: postgres:13-alpine
+    environment:
+      - POSTGRES_DB=api
+      - POSTGRES_PASSWORD=!ChangeMe!
+      - POSTGRES_USER=api-platform
+    volumes:
+      - db_data:/var/lib/postgresql/data:rw
+      # you may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
+      # - ./api/docker/db/data:/var/lib/postgresql/data:rw
 
 volumes:
   php_socket:
+  db_data:
