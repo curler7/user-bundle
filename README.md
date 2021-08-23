@@ -4,15 +4,23 @@ Usage
 ### Composer
 ``` json
 # composer.json
-"repositories": [
-    {
-        "type": "vcs",
-        "url":  "git@github.com:curler7/user-bundle.git"
+{
+    "repositories": [
+        {
+            "type": "vcs",
+            "url":  "git@github.com:curler7/user-bundle.git"
+        }
+    ],
+    "config": {
+        "github-oauth": {
+            "github.com": "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"
+        }
+    
     }
-]
+}
 ```
 **Note:**
-> Need to add github token to repository, because it's private
+> Need to add GitHub token to config, because it's private
 
 ### Config
 ``` yaml
