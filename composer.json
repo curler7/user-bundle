@@ -48,6 +48,7 @@
         "api-platform/schema-generator": "^3.0",
         "curler7/api-test-bundle": "dev-master",
         "dama/doctrine-test-bundle": "^6.6",
+        "doctrine/doctrine-fixtures-bundle": "^3.4",
         "justinrainbow/json-schema": "^5.2",
         "lexik/jwt-authentication-bundle": "2.*",
         "matthiasnoback/symfony-dependency-injection-test": "4.*",

@@ -19,7 +19,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
  */
-interface UserInterface extends PasswordAuthenticatedUserInterface
+interface UserInterface extends PasswordAuthenticatedUserInterface, GroupableInterface
 {
     public const ROLE_DEFAULT = 'ROLE_USER';
     public const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';

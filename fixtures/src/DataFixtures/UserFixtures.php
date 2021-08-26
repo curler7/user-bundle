@@ -13,14 +13,16 @@ declare(strict_types=1);
 
 namespace App\DataFixtures;
 
-use App\Entity\User;
 use Curler7\UserBundle\Manager\UserManagerInterface;
+use Curler7\UserBundle\Model\GroupInterface;
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
  */
-class UserFixtures
+class UserFixtures extends Fixture implements DependentFixtureInterface
 {
     public function __construct(protected UserManagerInterface $userManager)
     {}
@@ -30,30 +32,45 @@ class UserFixtures
             'username' => 'Neo',
             'email' => 'neo@example.com',
             'password' => 'matrix',
+            'groups' => [0],
         ], [
             'username' => 'Morpheus',
             'email' => 'morpheus@example.com',
             'password' => 'search',
+            'groups' => [0, 1],
         ], [
             'username' => 'Trinity',
             'email' => 'trinity@example.com',
             'password' => 'whiterabbit',
+            'groups' => [0],
         ],
     ];
 
-    /** @throws \Exception */
     public function load(ObjectManager $manager): void
     {
-        foreach (static::DATA as $data) {
+        $last = array_key_last(static::DATA);
+
+        foreach (static::DATA as $key => $data) {
             ($user = $this->userManager->createUser())
                 ->setUsername($data['username'])
                 ->setEmail($data['email'])
                 ->setPlainPassword($data['password'])
             ;
 
-            $manager->persist($user);
-        }
+            foreach ($data['groups'] as $id) {
+                /** @var GroupInterface $group */
+                $group = $this->getReference(GroupFixtures::REFERENCE.$id);
+                $user->addGroup($group);
+            }
 
-        $manager->flush();
+            $this->userManager->updateUser($user, $last === $key);
+        }
+    }
+
+    public function getDependencies(): array
+    {
+        return [
+            GroupFixtures::class,
+        ];
     }
 }

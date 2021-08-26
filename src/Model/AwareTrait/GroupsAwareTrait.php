@@ -16,6 +16,7 @@ namespace Curler7\UserBundle\Model\AwareTrait;
 use Curler7\UserBundle\Model\GroupInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use JetBrains\PhpStorm\Pure;
 
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
@@ -25,6 +26,7 @@ trait GroupsAwareTrait
     /** @var GroupInterface[] */
     protected Collection|array $groups;
 
+    #[Pure]
     public function __construct()
     {
         $this->groups = new ArrayCollection();

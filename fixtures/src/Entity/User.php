@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use Curler7\UserBundle\Model\AwareTrait\GroupsAwareTrait;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Curler7\UserBundle\Model\AbstractUser;
