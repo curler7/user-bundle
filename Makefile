@@ -66,3 +66,10 @@ console:
 .PHONY: console-cache-clear
 console-cache-clear:
 	make console args=cache:clear
+
+# Run git push.
+.PHONY: git-push
+git-push:
+	git add -A
+	git commit -m "s"
+	git push origin master

@@ -46,24 +46,30 @@
     },
     "require-dev": {
         "api-platform/schema-generator": "^3.0",
+        "curler7/api-test-bundle": "dev-master",
+        "dama/doctrine-test-bundle": "^6.6",
+        "justinrainbow/json-schema": "^5.2",
+        "lexik/jwt-authentication-bundle": "2.*",
+        "matthiasnoback/symfony-dependency-injection-test": "4.*",
         "symfony/browser-kit": "5.3.*",
         "symfony/css-selector": "5.3.*",
         "symfony/debug-bundle": "5.3.*",
         "symfony/maker-bundle": "^1.21",
         "symfony/phpunit-bridge": "5.3.*",
         "symfony/stopwatch": "5.3.*",
-        "symfony/var-dumper": "5.3.*",
-        "symfony/web-profiler-bundle": "5.3.*",
-        "lexik/jwt-authentication-bundle": "2.*",
         "symfony/translation": "5.*",
-        "matthiasnoback/symfony-dependency-injection-test": "4.*"
+        "symfony/var-dumper": "5.3.*",
+        "symfony/web-profiler-bundle": "5.3.*"
     },
     "config": {
         "optimize-autoloader": true,
         "preferred-install": {
             "*": "dist"
         },
-        "sort-packages": true
+        "sort-packages": true,
+        "github-oauth": {
+            "github.com": "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"
+        }
     },
     "autoload": {
         "psr-4": {
@@ -84,7 +90,13 @@
         "prepare-orm": [
             "./fixtures/bin/console doctrine:database:drop --force",
             "./fixtures/bin/console doctrine:database:create",
-            "./fixtures/bin/console doctrine:schema:create"
+            "./fixtures/bin/console doctrine:schema:create",
+            "./fixtures/bin/console doctrine:database:drop --force --env=test",
+            "./fixtures/bin/console doctrine:database:create --env=test",
+            "./fixtures/bin/console doctrine:schema:create --env=test"
+        ],
+        "load-fixtures": [
+            "./fixtures/bin/console doctrine:fixtures:load --no-interaction"
         ],
         "generate-jwt-key": "./fixtures/bin/console lexik:jwt:generate-key",
         "test": "./vendor/bin/simple-phpunit"
@@ -98,5 +110,11 @@
             "require": "5.3.*",
             "docker": true
         }
-    }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url":  "git@github.com:curler7/api-test-bundle.git"
+        }
+    ]
 }
