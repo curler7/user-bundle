@@ -29,7 +29,7 @@ class PasswordUpdater implements PasswordUpdaterInterface
         if (!$user->getPlainPassword()) {
             return $this;
         }
-        
+
         $user->setPassword($this->passwordHasher->hashPassword(
             $user,
             $user->getPlainPassword()

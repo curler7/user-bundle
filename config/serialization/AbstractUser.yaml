@@ -1,22 +1,18 @@
 Curler7\UserBundle\Model\AbstractUser:
   attributes:
     id:
-      groups: ['read']
+      groups: ['user:read', 'user:post']
     username:
-      groups: ['read', 'write']
-    usernameCanonical:
-      groups: ['write']
+      groups: ['user']
     email:
-      groups: ['read', 'write']
-    emailCanonical:
-      groups: ['write']
+      groups: ['user']
     lastLogin:
-      groups: ['read']
+      groups: ['user:read']
     enabled:
-      groups: ['read']
+      groups: ['super_admin:user']
     roles:
-      groups: ['read', 'write']
+      groups: ['user:read', 'super_admin:user:write']
     plainPassword:
-      groups: ['write']
+      groups: ['user:write']
     groups:
-      groups: ['read', 'write']
+      groups: ['super_admin:user']
