@@ -33,9 +33,6 @@ class UserNormalizer implements ContextAwareDenormalizerInterface, DenormalizerA
         private string $resourceClass
     ) {}
 
-    /**
-     * @todo Read user entity from config
-     */
     public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
         return !($context[self::ALREADY_CALLED] ?? null) || $this->resourceClass === $type;
