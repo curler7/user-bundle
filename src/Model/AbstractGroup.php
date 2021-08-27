@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Curler7\UserBundle\Model;
 
+use Curler7\UserBundle\Model\AwareTrait\ResourceAwareTrait;
+use Curler7\UserBundle\Model\AwareTrait\RolesAwareTrait;
 use Ramsey\Uuid\UuidInterface;
 
 /**
@@ -20,24 +22,18 @@ use Ramsey\Uuid\UuidInterface;
  */
 abstract class AbstractGroup implements GroupInterface
 {
-    public function __construct(
-        protected UuidInterface $id,
-        protected string $name,
-        protected array $roles = []
-    ) {}
-
-    public function addRole(string $role): static
-    {
-        if (!$this->hasRole($role)) {
-            $this->roles[] = strtoupper($role);
-        }
-
-        return $this;
+    use ResourceAwareTrait,
+        RolesAwareTrait {
+        ResourceAwareTrait::__construct as protected __constructResource;
     }
 
-    public function getId(): UuidInterface
-    {
-        return $this->id;
+    public function __construct(
+        protected string $name,
+        array $roles = [UserInterface::ROLE_DEFAULT],
+        ?UuidInterface $id = null,
+    ) {
+        $this->roles = $roles;
+        $this->__constructResource($id);
     }
 
     public function getName(): string
@@ -45,36 +41,9 @@ abstract class AbstractGroup implements GroupInterface
         return $this->name;
     }
 
-    public function hasRole(string $role): bool
-    {
-        return \in_array(strtoupper($role), $this->roles, true);
-    }
-
-    public function getRoles(): array
-    {
-        return $this->roles;
-    }
-
-    public function removeRole(string $role): static
-    {
-        if (false !== $key = array_search(strtoupper($role), $this->roles, true)) {
-            unset($this->roles[$key]);
-            $this->roles = array_values($this->roles);
-        }
-
-        return $this;
-    }
-
     public function setName(string $name): static
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function setRoles(array $roles): static
-    {
-        $this->roles = $roles;
 
         return $this;
     }

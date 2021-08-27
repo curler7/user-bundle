@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\DataFixtures;
 
+use App\Entity\User;
 use Curler7\UserBundle\Manager\UserManagerInterface;
 use Curler7\UserBundle\Model\GroupInterface;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -33,16 +34,25 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             'email' => 'neo@example.com',
             'password' => 'matrix',
             'groups' => [0],
+            'roles' => [],
+            'enabled' => false,
+            'full_name' => 'Neo',
         ], [
             'username' => 'Morpheus',
             'email' => 'morpheus@example.com',
             'password' => 'search',
-            'groups' => [0, 1],
+            'groups' => [0],
+            'roles' => [],
+            'enabled' => true,
+            'full_name' => 'Morpheus',
         ], [
             'username' => 'Trinity',
             'email' => 'trinity@example.com',
             'password' => 'whiterabbit',
             'groups' => [0],
+            'roles' => [],
+            'enabled' => true,
+            'full_name' => 'Morpheus',
         ],
     ];
 
@@ -51,11 +61,16 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $last = array_key_last(static::DATA);
 
         foreach (static::DATA as $key => $data) {
-            ($user = $this->userManager->createUser())
-                ->setUsername($data['username'])
-                ->setEmail($data['email'])
-                ->setPlainPassword($data['password'])
-            ;
+            /** @var User $user */
+            $user = $this->userManager->createUser(
+                username: $data['username'],
+                email: $data['email'],
+                plainPassword: $data['password'],
+                roles: $data['roles'],
+                enabled: $data['enabled'],
+            );
+
+            $user->setFullName($data['full_name']);
 
             foreach ($data['groups'] as $id) {
                 /** @var GroupInterface $group */

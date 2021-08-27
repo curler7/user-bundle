@@ -32,13 +32,17 @@ remove:
 .PHONY: tests
 tests:
 	make up
+	${run} composer prepare-orm-test
+	${run} composer load-fixtures-test
 	 ${run} vendor/bin/simple-phpunit
 
 # Run single test: make test args="IndexTest.php"
 .PHONY: test
 test:
 	make up
-	${run} vendor/bin/simple-phpunit -c ./ ${args}
+	${run} composer prepare-orm-test
+	${run} composer load-fixtures-test
+	${run} vendor/bin/simple-phpunit --filter=${args}
 
 # Run composer with args. make composer args="..."
 .PHONY: composer

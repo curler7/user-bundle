@@ -1,4 +1,4 @@
-"%curler7_user.model.group.class%":
+App\Entity\Group:
   shortName: group
   attributes:
     normalization_context:

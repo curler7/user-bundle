@@ -14,13 +14,23 @@ declare(strict_types=1);
 namespace Curler7\UserBundle\Manager;
 
 use Curler7\UserBundle\Model\UserInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Ramsey\Uuid\UuidInterface;
 
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
  */
 interface UserManagerInterface
 {
-    public function createUser(): UserInterface;
+    public function createUser(
+        ?UuidInterface $id = null,
+        ?string $username = null,
+        ?string $email = null,
+        ?string $plainPassword = null,
+        array $roles = [UserInterface::ROLE_DEFAULT],
+        bool $enabled = false,
+        ?ArrayCollection $groups = null,
+    ): UserInterface;
 
     public function deleteUser(UserInterface $user): static;
 

@@ -1,4 +1,4 @@
-"%curler7_user.model.user.class%":
+App\Entity\User:
   shortName: user
   attributes:
     normalization_context:

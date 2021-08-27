@@ -12,6 +12,9 @@ framework:
     php_errors:
         log: true
 
+    uid:
+        default_uuid_version: 4
+
 when@test:
     framework:
         test: true

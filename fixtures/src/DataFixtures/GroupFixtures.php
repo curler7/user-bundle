@@ -43,7 +43,10 @@ class GroupFixtures extends Fixture
         $last = array_key_last(static::DATA);
 
         foreach (static::DATA as $key => $data) {
-            ($group = $this->groupManager->createGroup($data['name']))->setRoles($data['roles']);
+            $group = $this->groupManager->createGroup(
+                name: $data['name'],
+                roles: $data['roles']
+            );
 
             $this->addReference(self::REFERENCE.$key, $group);
 

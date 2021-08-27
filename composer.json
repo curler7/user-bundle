@@ -24,7 +24,6 @@
         "guzzlehttp/guzzle": "^7.0",
         "nelmio/cors-bundle": "^2.1",
         "phpdocumentor/reflection-docblock": "^5.2",
-        "ramsey/uuid-doctrine": "1.*",
         "symfony/asset": "5.3.*",
         "symfony/console": "5.3.*",
         "symfony/dotenv": "5.3.*",
@@ -41,8 +40,10 @@
         "symfony/security-bundle": "5.3.*",
         "symfony/serializer": "5.3.*",
         "symfony/twig-bundle": "5.3.*",
+        "symfony/uid": "5.3.*",
         "symfony/validator": "5.3.*",
-        "symfony/yaml": "5.3.*"
+        "symfony/yaml": "5.3.*",
+        "ramsey/uuid-doctrine": "^1.6"
     },
     "require-dev": {
         "api-platform/schema-generator": "^3.0",
@@ -91,13 +92,18 @@
         "prepare-orm": [
             "./fixtures/bin/console doctrine:database:drop --force",
             "./fixtures/bin/console doctrine:database:create",
-            "./fixtures/bin/console doctrine:schema:create",
+            "./fixtures/bin/console doctrine:schema:create"
+        ],
+        "prepare-orm-test": [
             "./fixtures/bin/console doctrine:database:drop --force --env=test",
             "./fixtures/bin/console doctrine:database:create --env=test",
             "./fixtures/bin/console doctrine:schema:create --env=test"
         ],
         "load-fixtures": [
             "./fixtures/bin/console doctrine:fixtures:load --no-interaction"
+        ],
+        "load-fixtures-test": [
+            "./fixtures/bin/console doctrine:fixtures:load --no-interaction --env=test"
         ],
         "generate-jwt-key": "./fixtures/bin/console lexik:jwt:generate-key",
         "test": "./vendor/bin/simple-phpunit"

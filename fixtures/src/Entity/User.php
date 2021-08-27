@@ -13,24 +13,37 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use Curler7\UserBundle\Model\AwareTrait\GroupsAwareTrait;
+use ApiPlatform\Core\Annotation\ApiProperty;
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Curler7\UserBundle\Model\AbstractUser;
-use Ramsey\Uuid\Doctrine\UuidGenerator;
 use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
  */
 #[ORM\Entity]
 #[ORM\Table(name: 'app_user')]
+#[ApiResource(
+    collectionOperations: [
+        'get',
+        'post' => ['validation_groups' => ['Default', 'post']]
+    ],
+    itemOperations: [
+        'get',
+        'put' => ['validation_groups' => ['Default', 'put']],
+        'delete' => ['validation_groups' => ['delete']]
+    ],
+    denormalizationContext: ['groups' => ['user:write']],
+    normalizationContext: ['groups' => ['user:read']],
+)]
 class User extends AbstractUser
 {
     #[ORM\Id]
     #[ORM\Column(type: 'uuid', unique: true)]
-    #[ORM\GeneratedValue(strategy: 'CUSTOM')]
-    #[ORM\CustomIdGenerator(class: UuidGenerator::class)]
+    #[ApiProperty(identifier: true)]
     protected UuidInterface $id;
 
     #[ORM\Column]
@@ -41,6 +54,9 @@ class User extends AbstractUser
     #[ORM\JoinColumn(name: 'user_id', referencedColumnName: 'id')]
     #[ORM\InverseJoinColumn(name: 'group_id', referencedColumnName: 'id')]
     protected Collection|array $groups;
+
+    #[Groups(['user:read', 'user:write'])]
+    protected ?string $username;
 
     public function getFullName(): ?string
     {

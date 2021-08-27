@@ -14,20 +14,24 @@ declare(strict_types=1);
 namespace Curler7\UserBundle\Tests\Api\Functional;
 
 use App\DataFixtures\UserFixtures;
-use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
-use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
+use Curler7\ApiTestBundle\Exception\ArrayHasMoreItemsException;
+use Curler7\ApiTestBundle\Exception\ArrayNotEmptyException;
 use Curler7\ApiTestBundle\Exception\ConstraintNotDefinedException;
-use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Curler7\ApiTestBundle\Exception\PropertyNotCheckedException;
-use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
  */
-class UserResourceCollectionGetTest extends AbstractUserResourceTest
+class UserResourceItemGetTest extends AbstractUserResourceTest
 {
     /**
+     * @throws ArrayHasMoreItemsException
+     * @throws ArrayNotEmptyException
      * @throws RedirectionExceptionInterface
      * @throws DecodingExceptionInterface
      * @throws ConstraintNotDefinedException
@@ -36,13 +40,21 @@ class UserResourceCollectionGetTest extends AbstractUserResourceTest
      * @throws TransportExceptionInterface
      * @throws ServerExceptionInterface
      */
-    public function testUserCollectionGet(): void
+    public function testUserItemGet(): void
     {
         $client = static::createClient();
 
-        $this->checkCollectionGet(
+        $this->checkItemGet(
             client: $client,
-            totalItems: \count(UserFixtures::DATA),
+            criteria: [
+                'username' => UserFixtures::DATA[0]['username']
+            ],
+            contains: [
+                'fullName' => UserFixtures::DATA[0]['full_name'],
+                'username' => UserFixtures::DATA[0]['username'],
+                'email' => UserFixtures::DATA[0]['email'],
+                'enabled' => UserFixtures::DATA[0]['enabled'],
+            ],
             hasKey: [
                 'id',
                 'fullName',
@@ -59,8 +71,6 @@ class UserResourceCollectionGetTest extends AbstractUserResourceTest
                 'roles',
                 'groups',
             ],
-            hydraMember: \count(UserFixtures::DATA),
-            hydraView: false,
         );
     }
 }

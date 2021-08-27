@@ -27,9 +27,9 @@ trait GroupsAwareTrait
     protected Collection|array $groups;
 
     #[Pure]
-    public function __construct()
+    public function __construct(?ArrayCollection $groups = null)
     {
-        $this->groups = new ArrayCollection();
+        $this->groups = $groups ?? new ArrayCollection();
     }
 
     public function getGroups(bool $asArray = true): Collection|array
@@ -39,12 +39,7 @@ trait GroupsAwareTrait
 
     public function getGroupNames(): array
     {
-        $names = [];
-        foreach ($this->getGroups() as $group) {
-            $names[] = $group->getName();
-        }
-
-        return $names;
+        return array_map(fn(GroupInterface $group) => $group->getName(), $this->getGroups());
     }
 
     public function hasGroup(string|GroupInterface $group): bool

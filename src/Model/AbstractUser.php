@@ -14,6 +14,9 @@ declare(strict_types=1);
 namespace Curler7\UserBundle\Model;
 
 use Curler7\UserBundle\Model\AwareTrait\GroupsAwareTrait;
+use Curler7\UserBundle\Model\AwareTrait\ResourceAwareTrait;
+use Curler7\UserBundle\Model\AwareTrait\RolesAwareTrait;
+use Doctrine\Common\Collections\ArrayCollection;
 use Ramsey\Uuid\UuidInterface;
 
 /**
@@ -21,23 +24,16 @@ use Ramsey\Uuid\UuidInterface;
  */
 abstract class AbstractUser implements UserInterface
 {
-    use GroupsAwareTrait;
-
-    protected UuidInterface $id;
-
-    protected ?string $username = null;
+    use ResourceAwareTrait,
+        RolesAwareTrait,
+        GroupsAwareTrait {
+        ResourceAwareTrait::__construct as protected __constructResource;
+        GroupsAwareTrait::__construct as protected __constructGroups;
+    }
 
     protected ?string $usernameCanonical = null;
 
-    protected ?string $email = null;
-
     protected ?string $emailCanonical = null;
-
-    protected bool $enabled = false;
-
-    protected array $roles = ['ROLE_USER'];
-
-    protected ?string $plainPassword = null;
 
     protected ?string $password = null;
 
@@ -47,46 +43,22 @@ abstract class AbstractUser implements UserInterface
 
     protected ?\DateTimeInterface $passwordRequestedAt = null;
 
-    public function getId(): UuidInterface
+    protected ?string $plainPassword = null;
+
+    public function __construct(
+        ?UuidInterface $id = null,
+        protected ?string $username = null,
+        protected ?string $email = null,
+        ?string $plainPassword = null,
+        array $roles = [UserInterface::ROLE_DEFAULT],
+        protected bool $enabled = false,
+        ?ArrayCollection $groups = null,
+    )
     {
-        return $this->id;
-    }
-
-    public function addRole(string $role): static
-    {
-        $role = strtoupper($role);
-
-        if (!$this->hasRole($role)) {
-            $this->roles[] = $role;
-        }
-
-        return $this;
-    }
-
-    public function hasRole(string $role): bool
-    {
-        return \in_array(strtoupper($role), $this->roles, true);
-    }
-
-    public function removeRole(string $role): static
-    {
-        if (false !== $key = array_search(strtoupper($role), $this->roles, true)) {
-            unset($this->roles[$key]);
-            $this->roles = array_values($this->roles);
-        }
-
-        return $this;
-    }
-
-    public function setRoles(?array $roles): static
-    {
-        $this->roles = [];
-
-        foreach ($roles as $role) {
-            $this->addRole($role);
-        }
-
-        return $this;
+        $this->plainPassword = $plainPassword;
+        $this->roles = $roles;
+        $this->__constructResource($id);
+        $this->__constructGroups($groups);
     }
 
     public function eraseCredentials(): static
@@ -156,18 +128,7 @@ abstract class AbstractUser implements UserInterface
         return $this;
     }
 
-    public function getRoles(): array
-    {
-        $roles = $this->roles;
 
-        foreach ($this->getGroups() as $group) {
-            $roles = array_merge($roles, $group->getRoles());
-        }
-
-        $roles[] = static::ROLE_DEFAULT;
-
-        return array_unique($roles);
-    }
 
     public function getPlainPassword(): ?string
     {
