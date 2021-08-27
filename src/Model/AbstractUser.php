@@ -194,4 +194,7 @@ abstract class AbstractUser implements UserInterface
     {
         return $this->username;
     }
+
+    public function getSalt()
+    {}
 }
