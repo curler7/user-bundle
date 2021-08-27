@@ -15,11 +15,12 @@ namespace Curler7\UserBundle\Model;
 
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface as BaseUserInterface;
 
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
  */
-interface UserInterface extends PasswordAuthenticatedUserInterface, GroupableInterface
+interface UserInterface extends PasswordAuthenticatedUserInterface, GroupableInterface, BaseUserInterface
 {
     public const ROLE_DEFAULT = 'ROLE_USER';
     public const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';

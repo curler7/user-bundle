@@ -29,7 +29,8 @@ class UserNormalizer implements ContextAwareDenormalizerInterface, DenormalizerA
     private const ALREADY_CALLED = 'USER_NORMALIZER';
 
     public function __construct(
-        private CanonicalFieldsUpdaterInterface $canonicalFieldsUpdater
+        private CanonicalFieldsUpdaterInterface $canonicalFieldsUpdater,
+        private string $resourceClass
     ) {}
 
     /**
@@ -37,7 +38,7 @@ class UserNormalizer implements ContextAwareDenormalizerInterface, DenormalizerA
      */
     public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return !($context[self::ALREADY_CALLED] ?? null) || 'App\Entity\User' === $type;
+        return !($context[self::ALREADY_CALLED] ?? null) || $this->resourceClass === $type;
     }
 
     public function denormalize($data, $type, $format = null, array $context = []): UserInterface

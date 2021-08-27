@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Curler7\UserBundle;
 
 use Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass;
-use Curler7\UserBundle\Bridge\ApiPlatform\UserResourcePass;
 use Curler7\UserBundle\DependencyInjection\Compiler\ValidationPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
@@ -28,7 +27,6 @@ class Curler7UserBundle extends Bundle
     {
         parent::build($container);
         $container->addCompilerPass(new ValidationPass());
-        $container->addCompilerPass(new UserResourcePass());
         $this->addRegisterMappingPass($container);
     }
 

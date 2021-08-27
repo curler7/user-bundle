@@ -26,19 +26,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
  */
 #[ORM\Entity]
 #[ORM\Table(name: 'app_user')]
-#[ApiResource(
-    collectionOperations: [
-        'get',
-        'post' => ['validation_groups' => ['Default', 'post']]
-    ],
-    itemOperations: [
-        'get',
-        'put' => ['validation_groups' => ['Default', 'put']],
-        'delete' => ['validation_groups' => ['delete']]
-    ],
-    denormalizationContext: ['groups' => ['user:write']],
-    normalizationContext: ['groups' => ['user:read']],
-)]
 class User extends AbstractUser
 {
     #[ORM\Id]
@@ -47,6 +34,7 @@ class User extends AbstractUser
     protected UuidInterface $id;
 
     #[ORM\Column]
+    #[Groups(['read'])]
     protected ?string $fullName = null;
 
     #[ORM\ManyToMany(targetEntity: Group::class)]
@@ -54,9 +42,6 @@ class User extends AbstractUser
     #[ORM\JoinColumn(name: 'user_id', referencedColumnName: 'id')]
     #[ORM\InverseJoinColumn(name: 'group_id', referencedColumnName: 'id')]
     protected Collection|array $groups;
-
-    #[Groups(['user:read', 'user:write'])]
-    protected ?string $username;
 
     public function getFullName(): ?string
     {

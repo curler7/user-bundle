@@ -11,21 +11,21 @@
 
 declare(strict_types=1);
 
-namespace Curler7\UserBundle\Tests\Api\Functional;
+namespace Curler7\UserBundle\Tests\Api\Functional\Group;
 
-use App\DataFixtures\UserFixtures;
-use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
-use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
+use App\DataFixtures\GroupFixtures;
 use Curler7\ApiTestBundle\Exception\ConstraintNotDefinedException;
-use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Curler7\ApiTestBundle\Exception\PropertyNotCheckedException;
-use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
  */
-class UserResourceCollectionGetTest extends AbstractUserResourceTest
+class GroupResourceCollectionGetTest extends AbstractGroupResourceTest
 {
     /**
      * @throws RedirectionExceptionInterface
@@ -36,30 +36,19 @@ class UserResourceCollectionGetTest extends AbstractUserResourceTest
      * @throws TransportExceptionInterface
      * @throws ServerExceptionInterface
      */
-    public function testUserCollectionGet(): void
+    public function testGroupCollectionGet(): void
     {
         $client = static::createClient();
 
         $this->checkCollectionGet(
             client: $client,
-            totalItems: \count(UserFixtures::DATA),
+            totalItems: \count(GroupFixtures::DATA),
             hasKey: [
                 'id',
-                'fullName',
-                'usernameCanonical',
-                'emailCanonical',
-                'password',
-                'lastLogin',
-                'confirmationToken',
-                'passwordRequestedAt',
-                'plainPassword',
-                'username',
-                'email',
-                'enabled',
+                'name',
                 'roles',
-                'groups',
             ],
-            hydraMember: \count(UserFixtures::DATA),
+            hydraMember: \count(GroupFixtures::DATA),
             hydraView: false,
         );
     }

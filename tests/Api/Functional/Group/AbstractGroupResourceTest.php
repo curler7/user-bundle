@@ -11,17 +11,17 @@
 
 declare(strict_types=1);
 
-namespace Curler7\UserBundle\Tests\Api\Functional;
+namespace Curler7\UserBundle\Tests\Api\Functional\Group;
 
-use App\Entity\User;
+use App\Entity\Group;
 use Curler7\ApiTestBundle\Tester\AbstractApiTestCase;
 
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
  */
-abstract class AbstractUserResourceTest extends AbstractApiTestCase
+abstract class AbstractGroupResourceTest extends AbstractApiTestCase
 {
-    CONST NAME = 'User';
-    const URI = '/users';
-    const CLASSNAME = User::class;
+    CONST NAME = 'Group';
+    const URI = '/groups';
+    const CLASSNAME = Group::class;
 }

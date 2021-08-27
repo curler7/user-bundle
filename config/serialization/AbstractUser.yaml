@@ -3,11 +3,11 @@ Curler7\UserBundle\Model\AbstractUser:
     id:
       groups: ['read']
     username:
-      groups: ['read','write']
+      groups: ['read', 'write']
     usernameCanonical:
       groups: ['write']
     email:
-      groups: ['read','write']
+      groups: ['read', 'write']
     emailCanonical:
       groups: ['write']
     lastLogin:

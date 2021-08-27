@@ -1,17 +1,16 @@
-App\Entity\User:
-  shortName: user
+"%curler7_user.model.user.class%":
   attributes:
     normalization_context:
-      groups: [ 'read' ]
+      groups: ['read']
     denormalization_context:
-      groups: [ 'write' ]
+      groups: ['write']
   collectionOperations:
     get: ~
     post:
-      validation_groups: [ 'post' ]
+      validation_groups: ['post']
   itemOperations:
     get: ~
     put:
-      validation_groups: [ 'put' ]
+      validation_groups: ['put']
     delete:
-      validation_groups: [ 'delete' ]
+      validation_groups: ['delete']

@@ -1,4 +1,0 @@
-App\Entity\User:
-  attributes:
-    fullName:
-      groups: ['read', 'write']

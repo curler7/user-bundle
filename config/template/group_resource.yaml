@@ -1,5 +1,4 @@
-App\Entity\Group:
-  shortName: group
+"%curler7_user.model.group.class%":
   attributes:
     normalization_context:
       groups: [ 'read' ]
