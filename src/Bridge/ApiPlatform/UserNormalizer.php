@@ -35,7 +35,7 @@ class UserNormalizer implements ContextAwareDenormalizerInterface, DenormalizerA
 
     public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return !($context[self::ALREADY_CALLED] ?? null) || $this->resourceClass === $type;
+        return !($context[self::ALREADY_CALLED] ?? null) && $this->resourceClass === $type;
     }
 
     public function denormalize($data, $type, $format = null, array $context = []): UserInterface
