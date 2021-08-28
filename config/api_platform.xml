@@ -10,7 +10,6 @@
     <services>
         <service id="curler7_user.user_denormalizer"
                  class="%curler7_user.user_denormalizer.class%"
-                 decorates="api_platform.jsonld.normalizer.item"
                  public="false"
         >
             <argument type="service" id="curler7_user.util.canonical_fields_updater"/>
