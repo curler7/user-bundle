@@ -13,6 +13,7 @@
                  decorates="api_platform.jsonld.normalizer.item"
                  public="false"
         >
+            <argument type="service" id="api_platform.jsonld.normalizer.item"/>
             <argument type="service" id="curler7_user.util.canonical_fields_updater"/>
             <argument type="service" id="curler7_user.util.password_updater" />
             <argument>%curler7_user.model.user.class%</argument>
