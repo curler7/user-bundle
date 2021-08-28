@@ -15,7 +15,7 @@ namespace Curler7\UserBundle\Manager;
 
 use Curler7\UserBundle\Model\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\AbstractUid;
 
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
@@ -23,7 +23,7 @@ use Ramsey\Uuid\UuidInterface;
 interface UserManagerInterface
 {
     public function createUser(
-        ?UuidInterface $id = null,
+        ?AbstractUid $id = null,
         ?string $username = null,
         ?string $email = null,
         ?string $plainPassword = null,

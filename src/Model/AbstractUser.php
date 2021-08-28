@@ -17,7 +17,7 @@ use Curler7\UserBundle\Model\AwareTrait\GroupsAwareTrait;
 use Curler7\UserBundle\Model\AwareTrait\ResourceAwareTrait;
 use Curler7\UserBundle\Model\AwareTrait\RolesAwareTrait;
 use Doctrine\Common\Collections\ArrayCollection;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\AbstractUid;
 
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
@@ -46,7 +46,7 @@ abstract class AbstractUser implements UserInterface
     protected ?string $plainPassword = null;
 
     public function __construct(
-        ?UuidInterface $id = null,
+        ?AbstractUid $id = null,
         protected ?string $username = null,
         protected ?string $email = null,
         ?string $plainPassword = null,

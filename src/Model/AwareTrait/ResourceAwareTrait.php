@@ -4,22 +4,22 @@ declare(strict_types=1);
 
 namespace Curler7\UserBundle\Model\AwareTrait;
 
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\AbstractUid;
+use Symfony\Component\Uid\Uuid;
 
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
  */
 trait ResourceAwareTrait
 {
-    protected UuidInterface $id;
+    protected AbstractUid $id;
 
-    public function __construct(?UuidInterface $id = null)
+    public function __construct(?AbstractUid $id = null)
     {
-        $this->id = $id ?? Uuid::uuid4();
+        $this->id = $id ?? Uuid::v4();
     }
 
-    public function getId(): UuidInterface
+    public function getId(): AbstractUid
     {
         return $this->id;
     }

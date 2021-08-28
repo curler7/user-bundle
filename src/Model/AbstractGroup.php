@@ -15,7 +15,7 @@ namespace Curler7\UserBundle\Model;
 
 use Curler7\UserBundle\Model\AwareTrait\ResourceAwareTrait;
 use Curler7\UserBundle\Model\AwareTrait\RolesAwareTrait;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\AbstractUid;
 
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
@@ -30,7 +30,7 @@ abstract class AbstractGroup implements GroupInterface
     public function __construct(
         protected string $name,
         array $roles = [UserInterface::ROLE_DEFAULT],
-        ?UuidInterface $id = null,
+        ?AbstractUid $id = null,
     ) {
         $this->roles = $roles;
         $this->__constructResource($id);

@@ -13,7 +13,8 @@ declare(strict_types=1);
 
 namespace Curler7\UserBundle\Model;
 
-use Ramsey\Uuid\UuidInterface;
+
+use Symfony\Component\Uid\AbstractUid;
 
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
@@ -22,7 +23,7 @@ interface GroupInterface
 {
     public function addRole(string $role): static;
 
-    public function getId(): UuidInterface;
+    public function getId(): AbstractUid;
 
     public function getName(): string;
 

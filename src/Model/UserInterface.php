@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Curler7\UserBundle\Model;
 
-use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface as BaseUserInterface;
+use Symfony\Component\Uid\AbstractUid;
 
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
@@ -25,7 +25,7 @@ interface UserInterface extends PasswordAuthenticatedUserInterface, GroupableInt
     public const ROLE_DEFAULT = 'ROLE_USER';
     public const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
 
-    public function getId(): UuidInterface;
+    public function getId(): AbstractUid;
 
     public function addRole(string $role): static;
 

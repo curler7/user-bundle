@@ -17,7 +17,7 @@ use Curler7\UserBundle\Model\UserInterface;
 use Curler7\UserBundle\Util\CanonicalFieldsUpdaterInterface;
 use Curler7\UserBundle\Util\PasswordUpdaterInterface;
 use Doctrine\Common\Collections\ArrayCollection;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\AbstractUid;
 
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
@@ -30,7 +30,7 @@ abstract class AbstractUserManager implements UserManagerInterface
     ) {}
 
     public function createUser(
-        ?UuidInterface $id = null,
+        ?AbstractUid $id = null,
         ?string $username = null,
         ?string $email = null,
         ?string $plainPassword = null,

@@ -14,14 +14,14 @@ declare(strict_types=1);
 namespace Curler7\UserBundle\Manager;
 
 use Curler7\UserBundle\Model\GroupInterface;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\AbstractUid;
 
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
  */
 abstract class AbstractGroupManager implements GroupManagerInterface
 {
-    public function createGroup(string $name, array $roles = [], ?UuidInterface $id = null): GroupInterface
+    public function createGroup(string $name, array $roles = [], ?AbstractUid $id = null): GroupInterface
     {
         return new ($this->getClass())($name, $roles, $id);
     }
