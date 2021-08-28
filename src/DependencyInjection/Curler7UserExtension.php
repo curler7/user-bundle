@@ -95,6 +95,10 @@ class Curler7UserExtension extends Extension implements PrependExtensionInterfac
         $this->loadDbDriver($loader, $container, $config);
 
         $container->setParameter('curler7_user.storage', $config['db_driver']);
+
+        if ($config['api_platform']) {
+            $loader->load('api_platform.xml');
+        }
     }
 
     /**

@@ -14,6 +14,7 @@
                  public="false"
         >
             <argument type="service" id="curler7_user.util.canonical_fields_updater"/>
+            <argument type="service" id="curler7_user.util.password_updater" />
             <argument>%curler7_user.model.user.class%</argument>
         </service>
         <service id="Curler7\UserBundle\Bridge\ApiPlatform\UserNormalizer" alias="curler7_user.user_denormalizer" />
