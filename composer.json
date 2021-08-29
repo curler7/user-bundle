@@ -42,8 +42,7 @@
         "symfony/twig-bundle": "5.3.*",
         "symfony/uid": "5.3.*",
         "symfony/validator": "5.3.*",
-        "symfony/yaml": "5.3.*",
-        "ramsey/uuid-doctrine": "^1.6"
+        "symfony/yaml": "5.3.*"
     },
     "require-dev": {
         "api-platform/schema-generator": "^3.0",

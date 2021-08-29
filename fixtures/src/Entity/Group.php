@@ -16,7 +16,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use Doctrine\ORM\Mapping as ORM;
 use Curler7\UserBundle\Model\AbstractGroup;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\AbstractUid;
 
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
@@ -28,5 +28,5 @@ class Group extends AbstractGroup
     #[ORM\Id]
     #[ORM\Column(type: 'uuid', unique: true)]
     #[ApiProperty(identifier: true)]
-    protected UuidInterface $id;
+    protected AbstractUid $id;
 }

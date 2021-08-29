@@ -1,16 +1,11 @@
 "%curler7_user.model.user.class%":
-  attributes:
-    normalization_context:
-      groups: ['read']
-    denormalization_context:
-      groups: ['write']
   collectionOperations:
     get: ~
     post:
-      validation_groups: ['post']
+      validation_groups: ['Default', 'post']
   itemOperations:
     get: ~
     put:
-      validation_groups: ['put']
+      validation_groups: ['Default', 'put']
     delete:
       validation_groups: ['delete']

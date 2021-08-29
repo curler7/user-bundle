@@ -18,6 +18,7 @@ use Curler7\ApiTestBundle\Exception\ArrayHasMoreItemsException;
 use Curler7\ApiTestBundle\Exception\ArrayNotEmptyException;
 use Curler7\ApiTestBundle\Exception\ConstraintNotDefinedException;
 use Curler7\ApiTestBundle\Exception\PropertyNotCheckedException;
+use Curler7\ApiTestBundle\Exception\RequestUrlNotFoundException;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
@@ -29,46 +30,45 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
  */
 class UserResourceItemGetTest extends AbstractUserResourceTest
 {
+    protected const GLOBAL_CRITERIA = ['username' => UserFixtures::DATA[0]['username']];
+
     /**
      * @throws ArrayHasMoreItemsException
      * @throws ArrayNotEmptyException
-     * @throws RedirectionExceptionInterface
-     * @throws DecodingExceptionInterface
-     * @throws ConstraintNotDefinedException
      * @throws ClientExceptionInterface
+     * @throws ConstraintNotDefinedException
+     * @throws DecodingExceptionInterface
      * @throws PropertyNotCheckedException
-     * @throws TransportExceptionInterface
+     * @throws RedirectionExceptionInterface
      * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     * @throws RequestUrlNotFoundException
      */
     public function testUserItemGet(): void
     {
-        $client = static::createClient();
-
         $this->checkItemGet(
-            client: $client,
-            criteria: [
-                'username' => UserFixtures::DATA[0]['username']
-            ],
+            client: $this->createClientWithCredentials(),
             contains: [
                 'fullName' => UserFixtures::DATA[0]['full_name'],
                 'username' => UserFixtures::DATA[0]['username'],
                 'email' => UserFixtures::DATA[0]['email'],
-                'enabled' => UserFixtures::DATA[0]['enabled'],
             ],
             hasKey: [
                 'id',
                 'fullName',
+                'lastLogin',
+                'username',
+                'email',
+                'roles',
+            ],
+            notHasKey: [
                 'usernameCanonical',
                 'emailCanonical',
                 'password',
-                'lastLogin',
                 'confirmationToken',
                 'passwordRequestedAt',
                 'plainPassword',
-                'username',
-                'email',
                 'enabled',
-                'roles',
                 'groups',
             ],
         );

@@ -38,10 +38,8 @@ class UserResourceCollectionGetTest extends AbstractUserResourceTest
      */
     public function testUserCollectionGet(): void
     {
-        $client = static::createClient();
-
         $this->checkCollectionGet(
-            client: $client,
+            client: $this->createClientWithCredentials(),
             totalItems: \count(UserFixtures::DATA),
             hasKey: [
                 'fullName',
@@ -49,9 +47,7 @@ class UserResourceCollectionGetTest extends AbstractUserResourceTest
                 'username',
                 'email',
                 'lastLogin',
-                'enabled',
                 'roles',
-                'groups',
             ],
             notHasKey: [
                 'usernameCanonical',
@@ -60,6 +56,8 @@ class UserResourceCollectionGetTest extends AbstractUserResourceTest
                 'confirmationToken',
                 'passwordRequestedAt',
                 'plainPassword',
+                'groups',
+                'enabled',
             ],
             hydraMember: \count(UserFixtures::DATA),
             hydraView: false,

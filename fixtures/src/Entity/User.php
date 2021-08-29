@@ -18,8 +18,8 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Curler7\UserBundle\Model\AbstractUser;
-use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Uid\AbstractUid;
 
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
@@ -31,10 +31,10 @@ class User extends AbstractUser
     #[ORM\Id]
     #[ORM\Column(type: 'uuid', unique: true)]
     #[ApiProperty(identifier: true)]
-    protected UuidInterface $id;
+    protected AbstractUid $id;
 
     #[ORM\Column]
-    #[Groups(['read'])]
+    #[Groups(['user'])]
     protected ?string $fullName = null;
 
     #[ORM\ManyToMany(targetEntity: Group::class)]
