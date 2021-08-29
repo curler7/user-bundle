@@ -44,7 +44,49 @@ class UserResourceItemGetTest extends AbstractUserResourceTest
      * @throws TransportExceptionInterface
      * @throws RequestUrlNotFoundException
      */
-    public function testUserItemGet(): void
+    public function testUserItemGetNoAuth(): void
+    {
+        $this->checkItemGet(
+            client: static::createClient(),
+            contains: [
+                'fullName' => UserFixtures::DATA[0]['full_name'],
+                'username' => UserFixtures::DATA[0]['username'],
+                'email' => UserFixtures::DATA[0]['email'],
+            ],
+            hasKey: [
+                'id',
+                'fullName',
+                'username',
+                'email',
+            ],
+            notHasKey: [
+                'usernameCanonical',
+                'emailCanonical',
+                'password',
+                'confirmationToken',
+                'passwordRequestedAt',
+                'plainPassword',
+                'enabled',
+                'groups',
+                'roles',
+                'lastLogin',
+            ],
+        );
+    }
+
+    /**
+     * @throws ArrayHasMoreItemsException
+     * @throws ArrayNotEmptyException
+     * @throws ClientExceptionInterface
+     * @throws ConstraintNotDefinedException
+     * @throws DecodingExceptionInterface
+     * @throws PropertyNotCheckedException
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     * @throws RequestUrlNotFoundException
+     */
+    public function testUserItemGetUserAuth(): void
     {
         $this->checkItemGet(
             client: $this->createClientWithCredentials(),
@@ -70,6 +112,48 @@ class UserResourceItemGetTest extends AbstractUserResourceTest
                 'plainPassword',
                 'enabled',
                 'groups',
+            ],
+        );
+    }
+
+    /**
+     * @throws ArrayHasMoreItemsException
+     * @throws ArrayNotEmptyException
+     * @throws ClientExceptionInterface
+     * @throws ConstraintNotDefinedException
+     * @throws DecodingExceptionInterface
+     * @throws PropertyNotCheckedException
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     * @throws RequestUrlNotFoundException
+     */
+    public function testUserItemGetSuperAdminAuth(): void
+    {
+        $this->checkItemGet(
+            client: $this->createClientWithCredentials(user: 'admin'),
+            contains: [
+                'fullName' => UserFixtures::DATA[0]['full_name'],
+                'username' => UserFixtures::DATA[0]['username'],
+                'email' => UserFixtures::DATA[0]['email'],
+            ],
+            hasKey: [
+                'id',
+                'fullName',
+                'lastLogin',
+                'username',
+                'email',
+                'roles',
+                'enabled',
+                'groups',
+            ],
+            notHasKey: [
+                'usernameCanonical',
+                'emailCanonical',
+                'password',
+                'confirmationToken',
+                'passwordRequestedAt',
+                'plainPassword',
             ],
         );
     }

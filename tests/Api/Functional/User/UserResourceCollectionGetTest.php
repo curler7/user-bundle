@@ -36,7 +36,44 @@ class UserResourceCollectionGetTest extends AbstractUserResourceTest
      * @throws TransportExceptionInterface
      * @throws ServerExceptionInterface
      */
-    public function testUserCollectionGet(): void
+    public function testUserCollectionGetNoAuth(): void
+    {
+        $this->checkCollectionGet(
+            client: static::createClient(),
+            totalItems: \count(UserFixtures::DATA),
+            hasKey: [
+                'fullName',
+                'id',
+                'username',
+                'email',
+            ],
+            notHasKey: [
+                'usernameCanonical',
+                'emailCanonical',
+                'password',
+                'confirmationToken',
+                'passwordRequestedAt',
+                'plainPassword',
+                'groups',
+                'enabled',
+                'lastLogin',
+                'roles',
+            ],
+            hydraMember: \count(UserFixtures::DATA),
+            hydraView: false,
+        );
+    }
+
+    /**
+     * @throws RedirectionExceptionInterface
+     * @throws DecodingExceptionInterface
+     * @throws ConstraintNotDefinedException
+     * @throws ClientExceptionInterface
+     * @throws PropertyNotCheckedException
+     * @throws TransportExceptionInterface
+     * @throws ServerExceptionInterface
+     */
+    public function testUserCollectionGetUserAuth(): void
     {
         $this->checkCollectionGet(
             client: $this->createClientWithCredentials(),
@@ -58,6 +95,43 @@ class UserResourceCollectionGetTest extends AbstractUserResourceTest
                 'plainPassword',
                 'groups',
                 'enabled',
+            ],
+            hydraMember: \count(UserFixtures::DATA),
+            hydraView: false,
+        );
+    }
+
+    /**
+     * @throws RedirectionExceptionInterface
+     * @throws DecodingExceptionInterface
+     * @throws ConstraintNotDefinedException
+     * @throws ClientExceptionInterface
+     * @throws PropertyNotCheckedException
+     * @throws TransportExceptionInterface
+     * @throws ServerExceptionInterface
+     */
+    public function testUserCollectionGetSuperAdminAuth(): void
+    {
+        $this->checkCollectionGet(
+            client: $this->createClientWithCredentials(user: 'admin'),
+            totalItems: \count(UserFixtures::DATA),
+            hasKey: [
+                'fullName',
+                'id',
+                'username',
+                'email',
+                'lastLogin',
+                'roles',
+                'enabled',
+                'groups',
+            ],
+            notHasKey: [
+                'usernameCanonical',
+                'emailCanonical',
+                'password',
+                'confirmationToken',
+                'passwordRequestedAt',
+                'plainPassword',
             ],
             hydraMember: \count(UserFixtures::DATA),
             hydraView: false,

@@ -7,11 +7,11 @@ Curler7\UserBundle\Model\AbstractUser:
     email:
       groups: ['user']
     lastLogin:
-      groups: ['user:read']
+      groups: ['user:user:read']
     enabled:
       groups: ['super_admin:user']
     roles:
-      groups: ['user:read', 'super_admin:user:write']
+      groups: ['user:user:read', 'super_admin:user:write']
     plainPassword:
       groups: ['user:write']
     groups:

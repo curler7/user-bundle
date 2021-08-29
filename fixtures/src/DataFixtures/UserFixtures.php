@@ -16,6 +16,7 @@ namespace App\DataFixtures;
 use App\Entity\User;
 use Curler7\UserBundle\Manager\UserManagerInterface;
 use Curler7\UserBundle\Model\GroupInterface;
+use Curler7\UserBundle\Model\UserInterface;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -38,6 +39,14 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             'enabled' => false,
             'full_name' => 'User',
         ],[
+            'username' => 'admin',
+            'email' => 'admin@example.com',
+            'password' => 'pass',
+            'groups' => [0],
+            'roles' => [UserInterface::ROLE_SUPER_ADMIN],
+            'enabled' => false,
+            'full_name' => 'Admin',
+        ], [
             'username' => 'Neo',
             'email' => 'neo@example.com',
             'password' => 'matrix',

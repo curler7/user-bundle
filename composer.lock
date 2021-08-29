@@ -8500,12 +8500,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:curler7/api-test-bundle.git",
-                "reference": "2fc85c6e07b22fec5fc1f58640477e6183eace0e"
+                "reference": "6ab3d05f99a70fbf142c2d3bed3ee8c235d00722"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/curler7/api-test-bundle/zipball/2fc85c6e07b22fec5fc1f58640477e6183eace0e",
-                "reference": "2fc85c6e07b22fec5fc1f58640477e6183eace0e",
+                "url": "https://api.github.com/repos/curler7/api-test-bundle/zipball/6ab3d05f99a70fbf142c2d3bed3ee8c235d00722",
+                "reference": "6ab3d05f99a70fbf142c2d3bed3ee8c235d00722",
                 "shasum": ""
             },
             "require": {
@@ -8582,7 +8582,7 @@
                 "source": "https://github.com/curler7/api-test-bundle/tree/master",
                 "issues": "https://github.com/curler7/api-test-bundle/issues"
             },
-            "time": "2021-08-29T02:48:36+00:00"
+            "time": "2021-08-29T14:35:37+00:00"
         },
         {
             "name": "dama/doctrine-test-bundle",
