@@ -11,8 +11,9 @@
         <service id="curler7_user.user_normalizer"
                  class="%curler7_user.user_normalizer.class%"
                  decorates="api_platform.jsonld.normalizer.item"
+                 autoconfigure="false"
         >
-            <argument type="service" id="curler7_user.user_normalizer.inner" />
+            <argument type="service" id=".inner" />
             <argument type="service" id="curler7_user.util.canonical_fields_updater" />
             <argument type="service" id="curler7_user.util.password_updater" />
             <argument>%curler7_user.model.user.class%</argument>
