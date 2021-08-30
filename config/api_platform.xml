@@ -12,7 +12,7 @@
                  class="%curler7_user.user_denormalizer.class%"
                  decorates="api_platform.jsonld.normalizer.item"
                  public="false"
-                 decoration-priority="1"
+                 decoration-priority="-1"
         >
             <argument type="service" id=".inner" />
             <argument type="service" id="curler7_user.util.canonical_fields_updater" />
