@@ -15,14 +15,8 @@ use Symfony\Component\Security\Core\Security;
  */
 final class GroupsContextBuilder implements SerializerContextBuilderInterface
 {
-    private SerializerContextBuilderInterface $decorated;
-    private Security $security;
-
-    public function __construct(SerializerContextBuilderInterface $decorated, Security $security)
-    {
-        $this->decorated = $decorated;
-        $this->security = $security;
-    }
+    public function __construct(private SerializerContextBuilderInterface $decorated, private Security $security)
+    {}
 
     /** @throws \ReflectionException */
     public function createFromRequest(Request $request, bool $normalization, ?array $extractedAttributes = null): array

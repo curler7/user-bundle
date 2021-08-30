@@ -13,12 +13,8 @@ use JetBrains\PhpStorm\Pure;
  */
 class AutoGroupResourceMetadataFactory implements ResourceMetadataFactoryInterface
 {
-    protected ResourceMetadataFactoryInterface $decorated;
-
-    public function __construct(ResourceMetadataFactoryInterface $decorated)
-    {
-        $this->decorated = $decorated;
-    }
+    public function __construct(protected ResourceMetadataFactoryInterface $decorated)
+    {}
 
     public function create(string $resourceClass): ResourceMetadata
     {
