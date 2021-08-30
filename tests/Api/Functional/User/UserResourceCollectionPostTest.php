@@ -44,14 +44,14 @@ class UserResourceCollectionPostTest extends AbstractUserResourceTest
         $this->checkCollectionPost(
             client: static::createClient(),
             json: [
+                'fullName' => 'new',
                 'username' => 'new',
                 'email' => 'new@example.com',
-                'password' => 'pass',
+                'plainPassword' => 'pass',
             ],
             contains: [
                 'username' => 'new',
                 'email' => 'new@example.com',
-                'password' => 'pass',
             ],
             hasKey: [
                 'fullName',

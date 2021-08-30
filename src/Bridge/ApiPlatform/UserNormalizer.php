@@ -17,16 +17,13 @@ use Curler7\UserBundle\Model\UserInterface;
 use Curler7\UserBundle\Util\CanonicalFieldsUpdaterInterface;
 use Curler7\UserBundle\Util\PasswordUpdaterInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareDenormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
-use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
-use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Symfony\Component\Serializer\SerializerAwareInterface;
-use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
  */
-final class UserNormalizer implements ContextAwareDenormalizerInterface
+final class UserNormalizer implements ContextAwareDenormalizerInterface, DenormalizerAwareInterface
 {
     use DenormalizerAwareTrait;
 
@@ -40,22 +37,20 @@ final class UserNormalizer implements ContextAwareDenormalizerInterface
 
     public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        if (isset($context[self::ALREADY_CALLED])) {
-            return false;
-        }
-
-        return $data instanceof UserInterface;
+        return $this->resourceClass === $type && !($context[self::ALREADY_CALLED] ?? null);
     }
 
     public function denormalize($data, $type, $format = null, array $context = []): UserInterface
     {
+        $context[self::ALREADY_CALLED] = true;
+
         /** @var UserInterface $user */
         $user = $this->denormalizer->denormalize($data, $type, $format, $context);
-        
-        if ($data['username'] ?? null && $data['username'] !== $context['previous_data']) {
+
+        if ($data['username'] ?? null && $context['previous_data'] ?? null !== $data['username']) {
             $user->setUsernameCanonical($this->canonicalFieldsUpdater->canonicalizeUsername($data['username']));
         }
-        if ($data['email'] ?? null && $data['email'] !== $context['previous_data']) {
+        if ($data['email'] ?? null && $context['previous_data'] ?? null !== $data['email']) {
             $user->setEmailCanonical($this->canonicalFieldsUpdater->canonicalizeEmail($data['email']));
         }
         if ($data['plainPassword'] ?? null) {
