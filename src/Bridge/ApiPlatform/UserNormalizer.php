@@ -26,46 +26,39 @@ use Symfony\Component\Serializer\SerializerInterface;
  */
 final class UserNormalizer implements NormalizerInterface, DenormalizerInterface, SerializerAwareInterface
 {
-    public function __construct(
-        private DenormalizerInterface $decorated,
-        private CanonicalFieldsUpdaterInterface $canonicalFieldsUpdater,
-        private PasswordUpdaterInterface $passwordUpdater,
-        private string $resourceClass
-    ) {}
+    private $decorated;
 
-    public function supportsNormalization($data, $format = null): bool
+    public function __construct(
+        NormalizerInterface $decorated,
+        CanonicalFieldsUpdaterInterface $canonicalFieldsUpdater,
+        PasswordUpdaterInterface $passwordUpdater
+    )
+    {
+        if (!$decorated instanceof DenormalizerInterface) {
+            throw new \InvalidArgumentException(sprintf('The decorated normalizer must implement the %s.', DenormalizerInterface::class));
+        }
+
+        $this->decorated = $decorated;
+    }
+
+    public function supportsNormalization($data, $format = null)
     {
         return $this->decorated->supportsNormalization($data, $format);
     }
 
-    public function normalize($object, $format = null, array $context = []): float|int|bool|\ArrayObject|array|string|null
+    public function normalize($object, $format = null, array $context = [])
     {
         return $this->decorated->normalize($object, $format, $context);
     }
 
-    public function supportsDenormalization($data, $type, $format = null): bool
+    public function supportsDenormalization($data, $type, $format = null)
     {
         return $this->decorated->supportsDenormalization($data, $type, $format);
     }
 
-    public function denormalize($data, $type, $format = null, array $context = []): UserInterface
+    public function denormalize($data, $class, $format = null, array $context = [])
     {
-        /** @var UserInterface $user */
-        $user = $this->decorated->denormalize($data, $type, $format, $context);
-
-        if ($this->resourceClass === $type) {
-            if ($data['username'] ?? null && $data['username'] !== $context['previous_data']) {
-                $user->setUsernameCanonical($this->canonicalFieldsUpdater->canonicalizeUsername($data['username']));
-            }
-            if ($data['email'] ?? null && $data['email'] !== $context['previous_data']) {
-                $user->setEmailCanonical($this->canonicalFieldsUpdater->canonicalizeEmail($data['email']));
-            }
-            if ($data['plainPassword'] ?? null) {
-                $this->passwordUpdater->hashPassword($user);
-            }
-        }
-
-        return $user;
+        return $this->decorated->denormalize($data, $class, $format, $context);
     }
 
     public function setSerializer(SerializerInterface $serializer)
