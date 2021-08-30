@@ -42,7 +42,7 @@ class UserNormalizer implements ContextAwareDenormalizerInterface, SerializerAwa
         return $this->decorated->supportsDenormalization($data, $type, $format);
     }
 
-    public function denormalize($data, $type, $format = null, array $context = []): UserInterface
+    public function denormalize($data, $type, $format = null, array $context = []): mixed
     {
         /** @var UserInterface $user */
         $user = $this->denormalizer->denormalize($data, $type, $format, $context);
