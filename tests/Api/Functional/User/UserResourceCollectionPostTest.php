@@ -47,7 +47,7 @@ class UserResourceCollectionPostTest extends AbstractUserResourceTest
                 'fullName' => 'new',
                 'username' => 'new',
                 'email' => 'new@example.com',
-                'plainPassword' => 'pass',
+                'password' => 'pass',
             ],
             contains: [
                 'username' => 'new',

@@ -81,20 +81,32 @@ class Curler7UserExtension extends Extension implements PrependExtensionInterfac
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../../config'));
 
+        // Normalizer
+        $container->setParameter('curler7_user.user_normalizer.class', $config['service']['user_normalizer']);
+        // Command
+        $container->setParameter('curler7_user.command.create_user.class', $config['service']['command_create_user']);
+        // Doctrine
         $container->setParameter('curler7_user.model.user.class', $config['user_class']);
         $container->setParameter('curler7_user.model.group.class', $config['group_class']);
         $container->setParameter('curler7_user.model_manager_name', $config['model_manager_name']);
-        $container->setParameter('curler7_user.api_platform', $config['api_platform']);
+        $container->setParameter('curler7_user.group_manager.class', $config['service']['group_manager']);
+        $container->setParameter('curler7_user.user_manager.class', $config['service']['user_manager']);
+        $container->setParameter('curler7_user.object_manager.class', $config['service']['object_manager']);
+        $container->setParameter('curler7_user.storage', $config['db_driver']);
+        // Utils
+        $container->setParameter('curler7_user.canonical_fields_updater.class', $config['service']['canonical_fields_updater']);
+        $container->setParameter('curler7_user.canonicalizer.class', $config['service']['canonicalizer']);
+        $container->setParameter('curler7_user.password_updater.class', $config['service']['password_updater']);
 
         $container->setAlias('curler7_user.util.email_canonicalizer', $config['service']['email_canonicalizer']);
         $container->setAlias('curler7_user.util.username_canonicalizer', $config['service']['username_canonicalizer']);
+        // Api platform
+        $container->setParameter('curler7_user.api_platform', $config['api_platform']);
 
         $loader->load('util.xml');
         $loader->load('command.xml');
 
         $this->loadDbDriver($loader, $container, $config);
-
-        $container->setParameter('curler7_user.storage', $config['db_driver']);
 
         if ($config['api_platform']) {
             $loader->load('api_platform.xml');

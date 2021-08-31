@@ -13,6 +13,7 @@ Curler7\UserBundle\Model\AbstractUser:
     roles:
       groups: ['user:user:read', 'super_admin:user:write']
     plainPassword:
+      serialized_name: 'password'
       groups: ['user:write']
     groups:
       groups: ['super_admin:user']

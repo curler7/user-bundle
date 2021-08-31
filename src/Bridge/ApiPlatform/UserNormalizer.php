@@ -37,7 +37,7 @@ final class UserNormalizer implements ContextAwareDenormalizerInterface, Denorma
 
     public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $this->resourceClass === $type && !($context[self::ALREADY_CALLED] ?? null);
+        return $this->resourceClass === $type && !isset($context[self::ALREADY_CALLED]);
     }
 
     public function denormalize($data, $type, $format = null, array $context = []): UserInterface
@@ -47,13 +47,13 @@ final class UserNormalizer implements ContextAwareDenormalizerInterface, Denorma
         /** @var UserInterface $user */
         $user = $this->denormalizer->denormalize($data, $type, $format, $context);
 
-        if ($data['username'] ?? null && $context['previous_data'] ?? null !== $data['username']) {
+        if (($data['username'] ?? null) !== ($context['previous_data'] ?? null)) {
             $user->setUsernameCanonical($this->canonicalFieldsUpdater->canonicalizeUsername($data['username']));
         }
-        if ($data['email'] ?? null && $context['previous_data'] ?? null !== $data['email']) {
+        if (($data['email'] ?? null) !== ($context['previous_data'] ?? null)) {
             $user->setEmailCanonical($this->canonicalFieldsUpdater->canonicalizeEmail($data['email']));
         }
-        if ($data['plainPassword'] ?? null) {
+        if (isset($data['password'])) {
             $this->passwordUpdater->hashPassword($user);
         }
 

@@ -1,8 +1,8 @@
 Curler7\UserBundle\Model\AbstractGroup:
   attributes:
     id:
-      groups: ['read']
+      groups: ['group:read', 'group:post']
     name:
-      groups: ['read','write']
+      groups: ['group']
     roles:
-      groups: ['read', 'write']
+      groups: ['group']
