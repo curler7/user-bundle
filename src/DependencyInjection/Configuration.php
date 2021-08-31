@@ -13,13 +13,17 @@ declare(strict_types=1);
 
 namespace Curler7\UserBundle\DependencyInjection;
 
-use Curler7\UserBundle\Bridge\ApiPlatform\UserNormalizer;
-use Curler7\UserBundle\Bridge\ORM\GroupManager;
-use Curler7\UserBundle\Bridge\ORM\UserManager;
+use App\OpenApi\JwtDecorator;
+use Curler7\UserBundle\ApiPlatform\AutoGroupResourceMetadataFactory;
 use Curler7\UserBundle\Command\CreateUserCommand;
+use Curler7\UserBundle\Manager\GroupManager;
+use Curler7\UserBundle\Manager\UserManager;
+use Curler7\UserBundle\Serializer\GroupsContextBuilder;
+use Curler7\UserBundle\Serializer\UserNormalizer;
 use Curler7\UserBundle\Util\CanonicalFieldsUpdater;
 use Curler7\UserBundle\Util\Canonicalizer;
 use Curler7\UserBundle\Util\PasswordUpdater;
+use Curler7\UserBundle\Validator\LastSuperAdminUser;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
@@ -50,6 +54,7 @@ class Configuration implements ConfigurationInterface
             ->end();
 
         $this->addServiceSection($rootNode);
+        $this->addJwtDecoratorSection($rootNode);
 
         return $treeBuilder;
     }
@@ -63,6 +68,9 @@ class Configuration implements ConfigurationInterface
                     ->addDefaultsIfNotSet()
                         ->children()
                             ->scalarNode('user_normalizer')->defaultValue(UserNormalizer::class)->end()
+                            ->scalarNode('auto_group_resource_metadata_factory')->defaultValue(AutoGroupResourceMetadataFactory::class)->end()
+                            ->scalarNode('groups_context_builder')->defaultValue(GroupsContextBuilder::class)->end()
+                            ->scalarNode('jwt_decorator')->defaultValue(JwtDecorator::class)->end()
                             ->scalarNode('command_create_user')->defaultValue(CreateUserCommand::class)->end()
                             ->scalarNode('group_manager')->defaultValue(GroupManager::class)->end()
                             ->scalarNode('user_manager')->defaultValue(UserManager::class)->end()
@@ -72,6 +80,25 @@ class Configuration implements ConfigurationInterface
                             ->scalarNode('password_updater')->defaultValue(PasswordUpdater::class)->end()
                             ->scalarNode('email_canonicalizer')->defaultValue('curler7_user.util.canonicalizer')->end()
                             ->scalarNode('username_canonicalizer')->defaultValue('curler7_user.util.canonicalizer')->end()
+                            ->scalarNode('validator_last_super_admin_user')->defaultValue(LastSuperAdminUser::class)->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
+    }
+
+    private function addJwtDecoratorSection(ArrayNodeDefinition $node): void
+    {
+        $node
+            ->addDefaultsIfNotSet()
+            ->children()
+                ->arrayNode('jwt_decorator')
+                    ->addDefaultsIfNotSet()
+                        ->children()
+                            ->scalarNode('user')->defaultValue('user')->end()
+                            ->scalarNode('password')->defaultValue('pass')->end()
+                            ->scalarNode('path')->defaultValue('/api/login_check')->end()
                         ->end()
                     ->end()
                 ->end()

@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiProperty;
 use Doctrine\ORM\Mapping as ORM;
 use Curler7\UserBundle\Model\AbstractGroup;
 use Symfony\Component\Uid\AbstractUid;
@@ -27,6 +26,5 @@ class Group extends AbstractGroup
 {
     #[ORM\Id]
     #[ORM\Column(type: 'uuid', unique: true)]
-    #[ApiProperty(identifier: true)]
     protected AbstractUid $id;
 }

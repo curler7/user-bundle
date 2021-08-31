@@ -3,15 +3,18 @@ Curler7\UserBundle\Model\AbstractUser:
     username:
       - NotBlank:
           message: curler7_user.user.username.not_blank
-          groups: [ 'post', 'put' ]
+          groups: ['post', 'put']
       - Length:
           max: 180
           maxMessage: curler7_user.user.username.length.max
-          groups: [ 'post', 'put' ]
+          groups: ['post', 'put']
         
     email:
       - NotBlank:
           message: curler7_user.user.email.not_blank
-          groups: [ 'post', 'put' ]
+          groups: ['post', 'put']
       - Email:
           message: curler7_user.user.email.email
+    enabled:
+      - Curler7\UserBundle\Validator\LastSuperAdminUser:
+          groups: ['put', 'delete']

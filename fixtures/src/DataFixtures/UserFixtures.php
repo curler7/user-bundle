@@ -36,7 +36,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             'password' => 'pass',
             'groups' => [0],
             'roles' => [],
-            'enabled' => false,
+            'enabled' => true,
             'full_name' => 'User',
         ],[
             'username' => 'admin',
@@ -44,7 +44,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             'password' => 'pass',
             'groups' => [0],
             'roles' => [UserInterface::ROLE_SUPER_ADMIN],
-            'enabled' => false,
+            'enabled' => true,
             'full_name' => 'Admin',
         ], [
             'username' => 'Neo',

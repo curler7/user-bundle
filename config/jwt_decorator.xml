@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="curler7_user.jwt_decorator"
+                 class="%curler7_user.jwt_decorator.class%"
+                 decorates="api_platform.openapi.factory"
+        >
+            <argument type="service" id=".inner" />
+            <argument>%curler7_user.jwt_decorator.user%</argument>
+            <argument>%curler7_user.jwt_decorator.password%</argument>
+            <argument>%curler7_user.jwt_decorator.path%</argument>
+        </service>
+    </services>
+</container>

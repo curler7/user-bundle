@@ -99,6 +99,13 @@ class Curler7UserExtension extends Extension implements PrependExtensionInterfac
         $container->setParameter('curler7_user.api_platform', $config['api_platform']);
         // Normalizer
         $container->setParameter('curler7_user.user_normalizer.class', $config['service']['user_normalizer']);
+        $container->setParameter('curler7_user.auto_group_resource_metadata_factory.class', $config['service']['auto_group_resource_metadata_factory']);
+        $container->setParameter('curler7_user.groups_context_builder.class', $config['service']['groups_context_builder']);
+        $container->setParameter('curler7_user.jwt_decorator.class', $config['service']['jwt_decorator']);
+
+        $container->setParameter('curler7_user.jwt_decorator.user', $config['jwt_decorator']['user']);
+        $container->setParameter('curler7_user.jwt_decorator.password', $config['jwt_decorator']['password']);
+        $container->setParameter('curler7_user.jwt_decorator.path', $config['jwt_decorator']['path']);
         // Command
         $container->setParameter('curler7_user.command.create_user.class', $config['service']['command_create_user']);
         // Doctrine
@@ -110,19 +117,27 @@ class Curler7UserExtension extends Extension implements PrependExtensionInterfac
         $container->setParameter('curler7_user.canonical_fields_updater.class', $config['service']['canonical_fields_updater']);
         $container->setParameter('curler7_user.canonicalizer.class', $config['service']['canonicalizer']);
         $container->setParameter('curler7_user.password_updater.class', $config['service']['password_updater']);
+        // Validator
+        $container->setParameter('curler7_user.validator.last_super_admin_user.class', $config['service']['validator_last_super_admin_user']);
 
         $container->setAlias('curler7_user.util.email_canonicalizer', $config['service']['email_canonicalizer']);
         $container->setAlias('curler7_user.util.username_canonicalizer', $config['service']['username_canonicalizer']);
 
-
-        $loader->load('util.xml');
-        $loader->load('command.xml');
+        foreach ([
+            'util',
+            'command',
+            'api_platform',
+            'auto_group_resource_metadata_factory',
+            'groups_context_builder',
+            'jwt_decorator',
+            // 'validator',
+        ] as $file) {
+            if ($config['service'][$file] ?? true) {
+                $loader->load($file.'.xml');
+            }
+        }
 
         $this->loadDbDriver($loader, $container, $config);
-
-        if ($config['api_platform']) {
-            $loader->load('api_platform.xml');
-        }
     }
 
     /**

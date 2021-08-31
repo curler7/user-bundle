@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Serializer;
+namespace Curler7\UserBundle\Serializer;
 
 use ApiPlatform\Core\Serializer\SerializerContextBuilderInterface;
 use Curler7\UserBundle\Model\UserInterface;

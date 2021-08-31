@@ -31,10 +31,12 @@ RUN set -eux; \
 		libzip-dev \
 		postgresql-dev \
 		zlib-dev \
+		libxslt-dev \
 	; \
 	\
 	docker-php-ext-configure zip; \
 	docker-php-ext-install -j$(nproc) \
+		xsl \
 		intl \
 		pdo_pgsql \
 		zip \

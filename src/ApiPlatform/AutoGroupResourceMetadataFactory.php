@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\ApiPlatform;
+namespace Curler7\UserBundle\ApiPlatform;
 
 use ApiPlatform\Core\Metadata\Resource\Factory\ResourceMetadataFactoryInterface;
 use ApiPlatform\Core\Metadata\Resource\ResourceMetadata;

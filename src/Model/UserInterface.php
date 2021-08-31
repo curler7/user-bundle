@@ -25,6 +25,8 @@ interface UserInterface extends PasswordAuthenticatedUserInterface, GroupableInt
     public const ROLE_DEFAULT = 'ROLE_USER';
     public const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
 
+    public const IDENTIFIERS = ['username'];
+
     public function getId(): AbstractUid;
 
     public function addRole(string $role): static;

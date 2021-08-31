@@ -1,4 +1,7 @@
 "%curler7_user.model.user.class%":
+  properties:
+    id:
+      identifier: true
   collectionOperations:
     get: ~
     post:

@@ -1,4 +1,4 @@
-doyo_user:
+curler7_user:
   username:
     already_used: 'The username is already used.'
     blank: 'Please enter a username.'

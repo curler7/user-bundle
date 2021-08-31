@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiProperty;
-use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Curler7\UserBundle\Model\AbstractUser;
@@ -30,7 +28,6 @@ class User extends AbstractUser
 {
     #[ORM\Id]
     #[ORM\Column(type: 'uuid', unique: true)]
-    #[ApiProperty(identifier: true)]
     protected AbstractUid $id;
 
     #[ORM\Column]

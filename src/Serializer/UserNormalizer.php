@@ -11,29 +11,57 @@
 
 declare(strict_types=1);
 
-namespace Curler7\UserBundle\Bridge\ApiPlatform;
+namespace Curler7\UserBundle\Serializer;
 
 use Curler7\UserBundle\Model\UserInterface;
 use Curler7\UserBundle\Util\CanonicalFieldsUpdaterInterface;
 use Curler7\UserBundle\Util\PasswordUpdaterInterface;
+use Symfony\Component\Notifier\Notification\Notification;
+use Symfony\Component\Notifier\NotifierInterface;
+use Symfony\Component\Notifier\Recipient\Recipient;
+use Symfony\Component\Security\Http\LoginLink\LoginLinkHandlerInterface;
+use Symfony\Component\Security\Http\LoginLink\LoginLinkNotification;
 use Symfony\Component\Serializer\Normalizer\ContextAwareDenormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
  */
-final class UserNormalizer implements ContextAwareDenormalizerInterface, DenormalizerAwareInterface
+final class UserNormalizer implements
+    NormalizerAwareInterface,
+    ContextAwareNormalizerInterface,
+    DenormalizerAwareInterface,
+    ContextAwareDenormalizerInterface
 {
-    use DenormalizerAwareTrait;
+    use DenormalizerAwareTrait,
+        NormalizerAwareTrait;
 
     private const ALREADY_CALLED = 'ALREADY_CALLED';
 
     public function __construct(
         private CanonicalFieldsUpdaterInterface $canonicalFieldsUpdater,
         private PasswordUpdaterInterface $passwordUpdater,
-        private string $resourceClass
+        private string $resourceClass,
+        private NotifierInterface $notifier,
+        private LoginLinkHandlerInterface $loginLinkHandler,
     ) {}
+
+    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    {
+        return $this->resourceClass === $data && !isset($context[self::ALREADY_CALLED]);
+    }
+
+    public function normalize($object, string $format = null, array $context = [])
+    {
+        $context[self::ALREADY_CALLED] = true;
+
+        /** @var UserInterface $user */
+        $user = $this->normalizer->normalize($object, $format, $context);
+    }
 
     public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
@@ -55,6 +83,13 @@ final class UserNormalizer implements ContextAwareDenormalizerInterface, Denorma
         }
         if (isset($data['password'])) {
             $this->passwordUpdater->hashPassword($user);
+        }
+
+        if ('post' === ($context['collection_operation_name'] ?? null)) {
+            $this->notifier->send(
+                new LoginLinkNotification($this->loginLinkHandler->createLoginLink($user), 'Register'),
+                new Recipient($data['email'])
+            );
         }
 
         return $user;

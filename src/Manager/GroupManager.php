@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Curler7\UserBundle\Bridge\ORM;
+namespace Curler7\UserBundle\Manager;
 
 use Curler7\UserBundle\Manager\AbstractGroupManager;
 use Curler7\UserBundle\Model\GroupInterface;

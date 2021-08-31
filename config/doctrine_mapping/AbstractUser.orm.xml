@@ -5,7 +5,11 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                                       http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <mapped-superclass name="Curler7\UserBundle\Model\AbstractUser">
+    <mapped-superclass
+            name="Curler7\UserBundle\Model\AbstractUser"
+            table="app_user"
+            repository-class="Curler7\UserBundle\Repository\UserRepository"
+    >
 
         <field name="username" column="username" type="string" length="180" />
 

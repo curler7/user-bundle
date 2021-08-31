@@ -46,12 +46,12 @@ class UserResourceCollectionPostTest extends AbstractUserResourceTest
             json: [
                 'fullName' => 'new',
                 'username' => 'new',
-                'email' => 'new@example.com',
+                'email' => 'gunnar.s.gs@gmail.com',
                 'password' => 'pass',
             ],
             contains: [
                 'username' => 'new',
-                'email' => 'new@example.com',
+                'email' => 'gunnar.s.gs@gmail.com',
             ],
             hasKey: [
                 'fullName',
