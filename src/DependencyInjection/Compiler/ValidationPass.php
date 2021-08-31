@@ -23,16 +23,14 @@ class ValidationPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container): void
     {
-        if (!$container->hasParameter('curler7_user.storage') ||
-            'custom' === $container->getParameter('curler7_user.storage'))
-        {
-            return;
-        }
-
-        foreach (['AbstractUser', 'AbstractGroup'] as $value) {
-            $container->getDefinition('validator.builder')->addMethodCall('addYamlMapping', [
-                sprintf('%s/../../../config/storage_validation/%s.yaml', __DIR__, $value)
-            ]);
+        if ($container->hasParameter('curler7_user.storage') &&
+            'custom' !== $container->getParameter('curler7_user.storage')
+        ) {
+            foreach (['AbstractUser', 'AbstractGroup'] as $value) {
+                $container->getDefinition('validator.builder')->addMethodCall('addYamlMapping', [
+                    sprintf('%s/../../../config/storage_validation/%s.yaml', __DIR__, $value)
+                ]);
+            }
         }
     }
 }

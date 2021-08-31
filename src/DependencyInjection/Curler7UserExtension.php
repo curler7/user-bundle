@@ -50,6 +50,13 @@ class Curler7UserExtension extends Extension implements PrependExtensionInterfac
 
     public function prepend(ContainerBuilder $container): void
     {
+        /*
+        $config = (new Processor())->processConfiguration(
+            new Configuration(),
+            $container->getParameterBag()->resolveValue($container->getExtensionConfig($this->getAlias()))
+        );
+        */
+
         $container->prependExtensionConfig('api_platform', [
             'mapping' => [
                 'paths' => [
@@ -66,6 +73,13 @@ class Curler7UserExtension extends Extension implements PrependExtensionInterfac
                     ],
                 ],
             ],
+            'validation' => [
+                'mapping' => [
+                    'paths' => [
+                        __DIR__ . '/../../config/validation',
+                    ],
+                ],
+            ],
         ]);
     }
 
@@ -74,21 +88,20 @@ class Curler7UserExtension extends Extension implements PrependExtensionInterfac
      */
     public function load(array $configs, ContainerBuilder $container): void
     {
-        $processor = new Processor();
-        $configuration = new Configuration();
-
-        $config = $processor->processConfiguration($configuration, $configs);
+        $config = (new Processor())->processConfiguration(new Configuration(), $configs);
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../../config'));
 
+        // Config
+        $container->setParameter('curler7_user.model.user.class', $config['user_class']);
+        $container->setParameter('curler7_user.model.group.class', $config['group_class']);
+        $container->setParameter('curler7_user.model_manager_name', $config['model_manager_name']);
+        $container->setParameter('curler7_user.api_platform', $config['api_platform']);
         // Normalizer
         $container->setParameter('curler7_user.user_normalizer.class', $config['service']['user_normalizer']);
         // Command
         $container->setParameter('curler7_user.command.create_user.class', $config['service']['command_create_user']);
         // Doctrine
-        $container->setParameter('curler7_user.model.user.class', $config['user_class']);
-        $container->setParameter('curler7_user.model.group.class', $config['group_class']);
-        $container->setParameter('curler7_user.model_manager_name', $config['model_manager_name']);
         $container->setParameter('curler7_user.group_manager.class', $config['service']['group_manager']);
         $container->setParameter('curler7_user.user_manager.class', $config['service']['user_manager']);
         $container->setParameter('curler7_user.object_manager.class', $config['service']['object_manager']);
@@ -100,8 +113,7 @@ class Curler7UserExtension extends Extension implements PrependExtensionInterfac
 
         $container->setAlias('curler7_user.util.email_canonicalizer', $config['service']['email_canonicalizer']);
         $container->setAlias('curler7_user.util.username_canonicalizer', $config['service']['username_canonicalizer']);
-        // Api platform
-        $container->setParameter('curler7_user.api_platform', $config['api_platform']);
+
 
         $loader->load('util.xml');
         $loader->load('command.xml');
@@ -119,7 +131,7 @@ class Curler7UserExtension extends Extension implements PrependExtensionInterfac
     private function loadDbDriver(XmlFileLoader $loader, ContainerBuilder $container, $config)
     {
         if ('custom' !== $config['db_driver']) {
-            if (self::DOCTRINE_DRIVERS[$config['db_driver']] ?? null) {
+            if (isset(self::DOCTRINE_DRIVERS[$config['db_driver']])) {
                 $loader->load('doctrine.xml');
                 $container->setAlias('curler7_user.doctrine_registry', new Alias(self::DOCTRINE_DRIVERS[$config['db_driver']]['registry'], false));
             } else {
@@ -128,7 +140,7 @@ class Curler7UserExtension extends Extension implements PrependExtensionInterfac
             $container->setParameter($this->getAlias().'.backend_type_'.$config['db_driver'], true);
         }
 
-        if (self::DOCTRINE_DRIVERS[$config['db_driver']] ?? null) {
+        if (isset(self::DOCTRINE_DRIVERS[$config['db_driver']])) {
             $definition = $container->getDefinition('curler7_user.object_manager');
             $definition->setFactory([new Reference('curler7_user.doctrine_registry'), 'getManager']);
         }
