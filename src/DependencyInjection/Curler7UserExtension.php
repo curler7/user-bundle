@@ -102,6 +102,8 @@ class Curler7UserExtension extends Extension implements PrependExtensionInterfac
         $container->setParameter('curler7_user.auto_group_resource_metadata_factory.class', $config['service']['auto_group_resource_metadata_factory']);
         $container->setParameter('curler7_user.groups_context_builder.class', $config['service']['groups_context_builder']);
         $container->setParameter('curler7_user.jwt_decorator.class', $config['service']['jwt_decorator']);
+        $container->setParameter('curler7_user.subscriber.jwt_subscriber.class', $config['service']['subscriber_jwt_subscriber']);
+        $container->setParameter('curler7_user.security.authentication_success_handler.class', $config['service']['security_authentication_success_handler']);
 
         $container->setParameter('curler7_user.jwt_decorator.user', $config['jwt_decorator']['user']);
         $container->setParameter('curler7_user.jwt_decorator.password', $config['jwt_decorator']['password']);
@@ -130,6 +132,8 @@ class Curler7UserExtension extends Extension implements PrependExtensionInterfac
             'auto_group_resource_metadata_factory',
             'groups_context_builder',
             'jwt_decorator',
+            'subscriber',
+            'authentication_success_handler',
             // 'validator',
         ] as $file) {
             if ($config['service'][$file] ?? true) {

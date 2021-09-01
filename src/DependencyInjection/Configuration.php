@@ -13,11 +13,13 @@ declare(strict_types=1);
 
 namespace Curler7\UserBundle\DependencyInjection;
 
+use Curler7\UserBundle\EventSubscriber\JWTSubscriber;
 use App\OpenApi\JwtDecorator;
 use Curler7\UserBundle\ApiPlatform\AutoGroupResourceMetadataFactory;
 use Curler7\UserBundle\Command\CreateUserCommand;
 use Curler7\UserBundle\Manager\GroupManager;
 use Curler7\UserBundle\Manager\UserManager;
+use Curler7\UserBundle\Security\Authentication\AuthenticationSuccessHandler;
 use Curler7\UserBundle\Serializer\GroupsContextBuilder;
 use Curler7\UserBundle\Serializer\UserNormalizer;
 use Curler7\UserBundle\Util\CanonicalFieldsUpdater;
@@ -81,6 +83,8 @@ class Configuration implements ConfigurationInterface
                             ->scalarNode('email_canonicalizer')->defaultValue('curler7_user.util.canonicalizer')->end()
                             ->scalarNode('username_canonicalizer')->defaultValue('curler7_user.util.canonicalizer')->end()
                             ->scalarNode('validator_last_super_admin_user')->defaultValue(LastSuperAdminUser::class)->end()
+                            ->scalarNode('subscriber_jwt_subscriber')->defaultValue(JWTSubscriber::class)->end()
+                            ->scalarNode('security_authentication_success_handler')->defaultValue(AuthenticationSuccessHandler::class)->end()
                         ->end()
                     ->end()
                 ->end()
