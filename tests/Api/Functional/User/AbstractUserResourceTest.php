@@ -21,7 +21,7 @@ use Curler7\ApiTestBundle\Tester\AbstractApiTestCase;
  */
 abstract class AbstractUserResourceTest extends AbstractApiTestCase
 {
-    CONST NAME = 'User';
-    const URI = '/users';
-    const CLASSNAME = User::class;
+    protected const NAME = 'User';
+    protected const URI = '/users';
+    protected const CLASSNAME = User::class;
 }

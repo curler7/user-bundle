@@ -134,6 +134,7 @@ class Curler7UserExtension extends Extension implements PrependExtensionInterfac
             'jwt_decorator',
             'subscriber',
             'authentication_success_handler',
+            'controller',
             // 'validator',
         ] as $file) {
             if ($config['service'][$file] ?? true) {

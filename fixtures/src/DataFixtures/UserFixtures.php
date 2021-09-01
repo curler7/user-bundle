@@ -32,7 +32,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
     const DATA = [
         [
             'username' => 'user',
-            'email' => 'user@example.com',
+            'email' => 'gunnar.s.gs@gmail.com',
             'password' => 'pass',
             'groups' => [0],
             'roles' => [],

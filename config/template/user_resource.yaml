@@ -6,9 +6,18 @@
     get: ~
     post:
       validation_groups: ['Default', 'post']
+    register:
+      method: POST
+      path: /users/register
+      validation_groups: ['Default', 'register']
+    login_link:
+      method: POST
+      path: /users/login-link
+      validation_groups: ['Default', 'login_link']
+      controller: curler7_user.controller.login_link
   itemOperations:
     get: ~
     put:
       validation_groups: ['Default', 'put']
     delete:
-      validation_groups: ['delete']
+      validation_groups: ['Default', 'delete']

@@ -4,17 +4,17 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="curler7_user.user_normalizer"
-                 class="%curler7_user.user_normalizer.class%"
-        >
-            <argument type="service" id="curler7_user.util.canonical_fields_updater" />
-            <argument type="service" id="curler7_user.util.password_updater" />
+        <service id="curler7_user.controller.login_link" class="Curler7\UserBundle\Controller\LoginLinkController">
             <argument>%curler7_user.model.user.class%</argument>
             <argument type="service" id="notifier" />
             <argument type="service" id="security.authenticator.login_link_handler.api" />
             <argument type="service" id="translator.default" />
-            <tag name="serializer.normalizer" />
+            <argument type="service" id="doctrine.orm.default_entity_manager" />
+            <tag name="controller.service_arguments"/>
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
         </service>
-        <service id="Curler7\UserBundle\Bridge\ApiPlatform\UserNormalizer" alias="curler7_user.user_normalizer" />
+        <service id="Curler7\UserBundle\Controller\LoginLinkController" alias="curler7_user.controller.login_link" />
     </services>
 </container>

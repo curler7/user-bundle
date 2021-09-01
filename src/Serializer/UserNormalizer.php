@@ -16,17 +16,20 @@ namespace Curler7\UserBundle\Serializer;
 use Curler7\UserBundle\Model\UserInterface;
 use Curler7\UserBundle\Util\CanonicalFieldsUpdaterInterface;
 use Curler7\UserBundle\Util\PasswordUpdaterInterface;
-use Symfony\Component\Notifier\Notification\Notification;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Component\Notifier\NotifierInterface;
 use Symfony\Component\Notifier\Recipient\Recipient;
 use Symfony\Component\Security\Http\LoginLink\LoginLinkHandlerInterface;
 use Symfony\Component\Security\Http\LoginLink\LoginLinkNotification;
+use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareDenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
@@ -48,6 +51,7 @@ final class UserNormalizer implements
         private string $resourceClass,
         private NotifierInterface $notifier,
         private LoginLinkHandlerInterface $loginLinkHandler,
+        private TranslatorInterface $translator,
     ) {}
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
@@ -85,9 +89,10 @@ final class UserNormalizer implements
             $this->passwordUpdater->hashPassword($user);
         }
 
-        if ('post' === ($context['collection_operation_name'] ?? null)) {
+        if ('register' === ($context['collection_operation_name'] ?? null)) {
+            $user->setEnabled(false);
             $this->notifier->send(
-                new LoginLinkNotification($this->loginLinkHandler->createLoginLink($user), 'Register'),
+                new LoginLinkNotification($this->loginLinkHandler->createLoginLink($user), $this->translator->trans('user.register.notification.subject')),
                 new Recipient($data['email'])
             );
         }

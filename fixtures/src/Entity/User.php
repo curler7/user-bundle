@@ -30,8 +30,8 @@ class User extends AbstractUser
     #[ORM\Column(type: 'uuid', unique: true)]
     protected AbstractUid $id;
 
-    #[ORM\Column]
-    #[Groups(['user'])]
+    #[ORM\Column(nullable: true)]
+    #[Groups(['user:post', 'user:put', 'user:get'])]
     protected ?string $fullName = null;
 
     #[ORM\ManyToMany(targetEntity: Group::class)]

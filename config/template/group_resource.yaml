@@ -11,4 +11,4 @@
     put:
       validation_groups: ['Default', 'put']
     delete:
-      validation_groups: ['delete']
+      validation_groups: ['Default', 'delete']
