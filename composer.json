@@ -91,10 +91,6 @@
         }
     },
     "scripts": {
-        "auto-scripts": {
-            "cache:clear": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd"
-        },
         "prepare-orm": [
             "./fixtures/bin/console doctrine:database:drop --force",
             "./fixtures/bin/console doctrine:database:create",

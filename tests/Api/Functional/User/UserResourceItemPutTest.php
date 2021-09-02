@@ -19,6 +19,7 @@ use Curler7\ApiTestBundle\Exception\ArrayNotEmptyException;
 use Curler7\ApiTestBundle\Exception\ConstraintNotDefinedException;
 use Curler7\ApiTestBundle\Exception\PropertyCheckedToManyCanNullKeyException;
 use Curler7\ApiTestBundle\Exception\PropertyNotCheckedException;
+use Curler7\ApiTestBundle\Exception\RequestMethodNotFoundException;
 use Curler7\ApiTestBundle\Exception\RequestUrlNotFoundException;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
@@ -32,6 +33,30 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 class UserResourceItemPutTest extends AbstractUserResourceTest
 {
     protected const GLOBAL_CRITERIA = ['username' => UserFixtures::DATA[0]['username']];
+    protected const GLOBAL_METHOD = self::METHOD_PUT;
+
+    /**
+     * @throws ConstraintNotDefinedException
+     * @throws TransportExceptionInterface
+     * @throws RequestMethodNotFoundException
+     */
+    public function testUserItemPutAuthNoop(): void
+    {
+        $this->check401(static::createClient());
+    }
+
+    /**
+     * @throws ConstraintNotDefinedException
+     * @throws TransportExceptionInterface
+     * @throws RequestMethodNotFoundException
+     */
+    public function testUserItemPutAuthUserOther(): void
+    {
+        $this->check403(
+            $this->createClientWithCredentials(),
+            ['username' => UserFixtures::DATA[1]['username']]
+        );
+    }
 
     /**
      * @throws ArrayHasMoreItemsException
@@ -46,7 +71,7 @@ class UserResourceItemPutTest extends AbstractUserResourceTest
      * @throws ServerExceptionInterface
      * @throws PropertyCheckedToManyCanNullKeyException
      */
-    public function testUserItemPutUserAuth(): void
+    public function testUserItemPutAuthUserSelf(): void
     {
         $this->checkItemPut(
             client: $this->createClientWithCredentials(),
@@ -73,6 +98,66 @@ class UserResourceItemPutTest extends AbstractUserResourceTest
                 'plainPassword',
                 'enabled',
                 'groups',
+            ],
+        );
+    }
+
+    /**
+     * @throws ArrayHasMoreItemsException
+     * @throws RequestUrlNotFoundException
+     * @throws ArrayNotEmptyException
+     * @throws RedirectionExceptionInterface
+     * @throws ConstraintNotDefinedException
+     * @throws DecodingExceptionInterface
+     * @throws ClientExceptionInterface
+     * @throws PropertyNotCheckedException
+     * @throws TransportExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws PropertyCheckedToManyCanNullKeyException
+     */
+    public function testUserItemPutAuthSuperAdmin(): void
+    {
+        $this->checkItemPut(
+            client: $this->createClientWithCredentials(user: 'admin'),
+            json: [
+                'email' => 'new@example.com',
+            ],
+            contains: [
+                'username' => UserFixtures::DATA[0]['username'],
+                'email' => 'new@example.com',
+            ],
+            hasKey: [
+                'id',
+                'fullName',
+                'lastLogin',
+                'username',
+                'email',
+                'roles',
+                'enabled',
+                'groups',
+            ],
+            notHasKey: [
+                'usernameCanonical',
+                'emailCanonical',
+                'password',
+                'loginLinkRequestedAt',
+                'plainPassword',
+            ],
+        );
+    }
+
+    /**
+     * @throws ConstraintNotDefinedException
+     * @throws RequestMethodNotFoundException
+     * @throws TransportExceptionInterface
+     */
+    public function testUserItemPutAuthSuperAdminValidatorLastSuperAdmin(): void
+    {
+        $this->check422(
+            client: $this->createClientWithCredentials(user: 'admin'),
+            description: 'enabled: curler7_user.user.enabled.last_super_admin',
+            criteria: [
+                'username' => UserFixtures::DATA[1]['username']
             ],
         );
     }

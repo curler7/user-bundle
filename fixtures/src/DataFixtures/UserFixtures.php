@@ -60,7 +60,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             'password' => 'search',
             'groups' => [0],
             'roles' => [],
-            'enabled' => true,
+            'enabled' => false,
             'full_name' => 'Morpheus',
         ], [
             'username' => 'Trinity',
@@ -68,7 +68,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             'password' => 'whiterabbit',
             'groups' => [0],
             'roles' => [],
-            'enabled' => true,
+            'enabled' => false,
             'full_name' => 'Morpheus',
         ],
     ];

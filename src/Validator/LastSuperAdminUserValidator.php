@@ -13,9 +13,8 @@ declare(strict_types=1);
 
 namespace Curler7\UserBundle\Validator;
 
-use Curler7\UserBundle\Repository\UserRepository;
-use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\NoResultException;
+use App\Entity\User;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -25,19 +24,15 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
  */
 class LastSuperAdminUserValidator extends ConstraintValidator
 {
-    public function __construct(protected ?UserRepository $userRepository = null) {}
+    public function __construct(protected EntityManagerInterface $entityManager) {}
 
-    /**
-     * @throws NonUniqueResultException
-     * @throws NoResultException
-     */
     public function validate($value, Constraint $constraint): void
     {
         if (!$constraint instanceof LastSuperAdminUser) {
             throw new UnexpectedTypeException($constraint, LastSuperAdminUser::class);
         }
 
-        if (!$value && 1 === $this->userRepository?->countSuperAdminEnabled()) {
+        if (1 === $this->entityManager->getRepository(User::class)->countSuperAdminEnabled()) {
             $this->context->buildViolation($constraint->message)->addViolation();
         }
     }

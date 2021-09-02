@@ -53,8 +53,11 @@ class UserRepository extends EntityRepository implements UserLoaderInterface
         return $qb
             ->select('count(o.id)')
             ->leftJoin('o.groups', 'g')
-            ->andWhere($qb->expr()->in(UserInterface::ROLE_SUPER_ADMIN, 'o.roles'))
-            ->andWhere($qb->expr()->in(UserInterface::ROLE_SUPER_ADMIN, 'o.roles'))
+            ->where($qb->expr()->orX(
+                $qb->expr()->like('o.roles', ':roles'),
+                $qb->expr()->like('g.roles', ':roles')
+            ))
+            ->setParameter('roles', '%"'.UserInterface::ROLE_SUPER_ADMIN.'"%')
             ->andWhere($qb->expr()->eq('o.enabled', ':enabled'))
             ->setParameter('enabled', true)
             ->getQuery()

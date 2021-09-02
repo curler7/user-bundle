@@ -4,6 +4,7 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
+
         <service id="curler7_user.subscriber.jwt_subscriber"
                  class="%curler7_user.subscriber.jwt_subscriber.class%"
         >
@@ -11,5 +12,14 @@
             <tag name="kernel.event_subscriber" />
         </service>
         <service id="Curler7\UserBundle\EventSubscriber\JWTSubscriber" alias="curler7_user.subscriber.jwt_subscriber" />
+
+        <service id="curler7_user.subscriber.validate_before_delete"
+                 class="Curler7\UserBundle\EventSubscriber\ValidateBeforeDeleteSubscriber"
+        >
+            <argument type="service" id="api_platform.validator" />
+            <tag name="kernel.event_subscriber" />
+        </service>
+        <service id="Curler7\UserBundle\EventSubscriber\ValidateBeforeDeleteSubscriber" alias="curler7_user.subscriber.validate_before_delete" />
+
     </services>
 </container>

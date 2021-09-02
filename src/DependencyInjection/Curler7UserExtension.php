@@ -137,7 +137,8 @@ class Curler7UserExtension extends Extension implements PrependExtensionInterfac
             'subscriber',
             'authentication_success_handler',
             'controller',
-            // 'validator',
+            'voter',
+            'validator',
         ] as $file) {
             if ($config['service'][$file] ?? true) {
                 $loader->load($file.'.xml');

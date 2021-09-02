@@ -6,6 +6,7 @@
     get: ~
     post:
       validation_groups: ['Default', 'post']
+      security_post_denormalize: 'is_granted("POST", object)'
     register:
       method: POST
       path: /users/register
@@ -16,8 +17,11 @@
       validation_groups: ['Default', 'login_link']
       controller: curler7_user.controller.login_link
   itemOperations:
-    get: ~
+    get:
+      security: 'is_granted("GET", object)'
     put:
       validation_groups: ['Default', 'put']
+      security: 'is_granted("PUT", object)'
     delete:
       validation_groups: ['Default', 'delete']
+      security: 'is_granted("DELETE", object)'

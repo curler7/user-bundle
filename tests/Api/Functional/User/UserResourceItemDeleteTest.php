@@ -15,6 +15,7 @@ namespace Curler7\UserBundle\Tests\Api\Functional\User;
 
 use App\DataFixtures\UserFixtures;
 use Curler7\ApiTestBundle\Exception\ConstraintNotDefinedException;
+use Curler7\ApiTestBundle\Exception\RequestMethodNotFoundException;
 use Curler7\ApiTestBundle\Exception\RequestUrlNotFoundException;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
@@ -24,14 +25,61 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 class UserResourceItemDeleteTest extends AbstractUserResourceTest
 {
     protected const GLOBAL_CRITERIA = ['username' => UserFixtures::DATA[0]['username']];
+    protected const GLOBAL_METHOD = self::METHOD_DELETE;
+
+    /**
+     * @throws ConstraintNotDefinedException
+     * @throws TransportExceptionInterface
+     * @throws RequestMethodNotFoundException
+     */
+    public function testUserItemDeleteAuthNoop(): void
+    {
+        $this->check401(static::createClient());
+    }
+
+    /**
+     * @throws ConstraintNotDefinedException
+     * @throws RequestMethodNotFoundException
+     * @throws TransportExceptionInterface
+     */
+    public function testUserItemDeleteAuthUserOther(): void
+    {
+        $this->check403(
+            $this->createClientWithCredentials(),
+            ['username' => UserFixtures::DATA[1]['username']],
+        );
+    }
+
+    /**
+     * @throws TransportExceptionInterface
+     * @throws ConstraintNotDefinedException
+     * @throws RequestUrlNotFoundException
+     */
+    public function testUserItemDeleteAuthUserSelf(): void
+    {
+        $this->checkItemDelete($this->createClientWithCredentials());
+    }
 
     /**
      * @throws ConstraintNotDefinedException
      * @throws TransportExceptionInterface
      * @throws RequestUrlNotFoundException
      */
-    public function testUserItemDeleteWithAdminAuth(): void
+    public function testUserItemDeleteAuthSuperAdmin(): void
     {
-        $this->checkItemDelete(client: $this->createClientWithCredentials(user: 'admin'));
+        $this->checkItemDelete($this->createClientWithCredentials(user: 'admin'));
+    }
+
+    /**
+     * @throws ConstraintNotDefinedException
+     * @throws TransportExceptionInterface
+     * @throws RequestUrlNotFoundException
+     */
+    public function testUserItemDeleteAuthSuperAdminValidatorLastSuperAdmin(): void
+    {
+        $this->checkItemDelete(
+            $this->createClientWithCredentials(user: 'admin'),
+            ['username' => UserFixtures::DATA[1]['username']],
+        );
     }
 }

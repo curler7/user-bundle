@@ -11,8 +11,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class JWTSubscriber implements EventSubscriberInterface
 {
-    public function __construct(protected UserManagerInterface $userManager)
-    {}
+    public function __construct(protected UserManagerInterface $userManager) {}
 
     #[ArrayShape([
         'lexik_jwt_authenticationlexik_jwt_authentication.on_jwt_created' => "string",

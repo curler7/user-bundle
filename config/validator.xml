@@ -4,12 +4,14 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
+
         <service id="curler7_user.validator.last_super_admin_user"
-                 class="%curler7_user.validator.last_super_admin_user.class%"
+                 class="Curler7\UserBundle\Validator\LastSuperAdminUserValidator"
         >
-            <argument type="service" id="Curler7\UserBundle\Repository\UserRepository" />
+            <argument type="service" id="doctrine.orm.default_entity_manager" />
             <tag name="validator.constraint_validator" />
         </service>
         <service id="Curler7\UserBundle\Validator\LastSuperAdminUser" alias="curler7_user.validator.last_super_admin_user" />
+
     </services>
 </container>

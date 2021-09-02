@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Curler7\UserBundle\DependencyInjection;
 
 use Curler7\UserBundle\EventSubscriber\JWTSubscriber;
-use App\OpenApi\JwtDecorator;
+use Curler7\UserBundle\OpenApi\JwtDecorator;
 use Curler7\UserBundle\ApiPlatform\AutoGroupResourceMetadataFactory;
 use Curler7\UserBundle\Command\CreateUserCommand;
 use Curler7\UserBundle\Manager\GroupManager;

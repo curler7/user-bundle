@@ -38,7 +38,7 @@ class UserResourceCollectionGetTest extends AbstractUserResourceTest
      * @throws ServerExceptionInterface
      * @throws PropertyCheckedToManyCanNullKeyException
      */
-    public function testUserCollectionGetNoAuth(): void
+    public function testUserCollectionGetAuthNoop(): void
     {
         $this->checkCollectionGet(
             client: static::createClient(),
@@ -76,7 +76,7 @@ class UserResourceCollectionGetTest extends AbstractUserResourceTest
      * @throws ServerExceptionInterface
      * @throws PropertyCheckedToManyCanNullKeyException
      */
-    public function testUserCollectionGetUserAuth(): void
+    public function testUserCollectionGetAuthUser(): void
     {
         $this->checkCollectionGet(
             client: $this->createClientWithCredentials(),

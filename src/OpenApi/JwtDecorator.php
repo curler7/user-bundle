@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\OpenApi;
+namespace Curler7\UserBundle\OpenApi;
 
 use ApiPlatform\Core\OpenApi\Factory\OpenApiFactoryInterface;
 use ApiPlatform\Core\OpenApi\OpenApi;
