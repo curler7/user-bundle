@@ -65,11 +65,7 @@ interface UserInterface extends PasswordAuthenticatedUserInterface, GroupableInt
 
     public function setLastLogin(?\DateTimeInterface $lastLogin);
 
-    public function getConfirmationToken(): ?string;
+    public function getLoginLinkRequestedAt(): ?\DateTimeInterface;
 
-    public function setConfirmationToken(?string $confirmationToken): static;
-
-    public function getPasswordRequestedAt(): ?\DateTimeInterface;
-
-    public function setPasswordRequestedAt(?\DateTimeInterface $passwordRequestedAt): static;
+    public function setLoginLinkRequestedAt(?\DateTimeInterface $passwordRequestedAt): static;
 }

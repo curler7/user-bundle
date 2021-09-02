@@ -64,15 +64,15 @@ class AutoGroupResourceMetadataFactory implements ResourceMetadataFactoryInterfa
         /*
         * {class}
         * {class}:{read/write}
-        * {class}:{item/collection}:{read/write}
-        * {class}:{get/post/put/delete/patch}
+        * {class}:{get/post/put/delete/patch/...}
+        * {class}:{get/post/put/delete/patch/...}:{read/write}
         */
 
         return [
             $shortName,
             sprintf('%s:%s', $shortName, $normalization ? 'read' : 'write'),
-            sprintf('%s:%s:%s', $shortName, $isItem ? 'item' : 'collection', $normalization ? 'read' : 'write'),
             sprintf('%s:%s', $shortName, $operationName),
+            sprintf('%s:%s:%s', $shortName, $operationName, $normalization ? 'read' : 'write'),
         ];
     }
 }

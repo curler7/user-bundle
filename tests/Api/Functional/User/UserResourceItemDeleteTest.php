@@ -15,8 +15,8 @@ namespace Curler7\UserBundle\Tests\Api\Functional\User;
 
 use App\DataFixtures\UserFixtures;
 use Curler7\ApiTestBundle\Exception\ConstraintNotDefinedException;
-use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Curler7\ApiTestBundle\Exception\RequestUrlNotFoundException;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>

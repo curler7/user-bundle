@@ -119,6 +119,8 @@ class Curler7UserExtension extends Extension implements PrependExtensionInterfac
         $container->setParameter('curler7_user.canonical_fields_updater.class', $config['service']['canonical_fields_updater']);
         $container->setParameter('curler7_user.canonicalizer.class', $config['service']['canonicalizer']);
         $container->setParameter('curler7_user.password_updater.class', $config['service']['password_updater']);
+        $container->setParameter('curler7_user.user_registration.class', $config['service']['user_registration']);
+        $container->setParameter('curler7_user.user_spy.class', $config['service']['user_spy']);
         // Validator
         $container->setParameter('curler7_user.validator.last_super_admin_user.class', $config['service']['validator_last_super_admin_user']);
 

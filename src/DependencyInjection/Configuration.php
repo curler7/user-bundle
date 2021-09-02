@@ -25,6 +25,8 @@ use Curler7\UserBundle\Serializer\UserNormalizer;
 use Curler7\UserBundle\Util\CanonicalFieldsUpdater;
 use Curler7\UserBundle\Util\Canonicalizer;
 use Curler7\UserBundle\Util\PasswordUpdater;
+use Curler7\UserBundle\Util\UserRegistration;
+use Curler7\UserBundle\Util\UserSpy;
 use Curler7\UserBundle\Validator\LastSuperAdminUser;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
@@ -85,6 +87,8 @@ class Configuration implements ConfigurationInterface
                             ->scalarNode('validator_last_super_admin_user')->defaultValue(LastSuperAdminUser::class)->end()
                             ->scalarNode('subscriber_jwt_subscriber')->defaultValue(JWTSubscriber::class)->end()
                             ->scalarNode('security_authentication_success_handler')->defaultValue(AuthenticationSuccessHandler::class)->end()
+                            ->scalarNode('user_registration')->defaultValue(UserRegistration::class)->end()
+                            ->scalarNode('user_spy')->defaultValue(UserSpy::class)->end()
                         ->end()
                     ->end()
                 ->end()

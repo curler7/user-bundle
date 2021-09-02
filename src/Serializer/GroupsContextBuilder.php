@@ -44,8 +44,8 @@ final class GroupsContextBuilder implements SerializerContextBuilderInterface
         /*
          * {role}:{class}
          * {role}:{class}:{read/write}
-         * {role}:{class}:{item/collection}:{read/write}
-         * {role}:{class}:{get/post/put/delete/patch}
+         * {role}:{class}:{get/post/put/delete/patch/...}
+         * {role}:{class}:{get/post/put/delete/patch/...}:{read/write}
          */
         foreach ([
             'super_admin' => UserInterface::ROLE_SUPER_ADMIN,
@@ -56,27 +56,27 @@ final class GroupsContextBuilder implements SerializerContextBuilderInterface
                     sprintf(
                         '%s:%s',
                         $key,
-                        $shortName
+                        $shortName,
                     ),
                     sprintf(
                         '%s:%s:%s',
                         $key,
                         $shortName,
-                        $normalization ? 'read' : 'write'
+                        $normalization ? 'read' : 'write',
+                    ),
+                    sprintf(
+                        '%s:%s:%s',
+                        $key,
+                        $shortName,
+                        $context[$context['operation_type'] . '_operation_name'],
                     ),
                     sprintf(
                         '%s:%s:%s:%s',
                         $key,
                         $shortName,
-                        $context['operation_type'],
-                        $normalization ? 'read' : 'write'
+                        $context[$context['operation_type'] . '_operation_name'],
+                        $normalization ? 'read' : 'write',
                     ),
-                    sprintf(
-                        '%s:%s:%s',
-                        $key,
-                        $shortName,
-                        $context[$context['operation_type'] . '_operation_name']
-                    )
                 ]);
             }
         }

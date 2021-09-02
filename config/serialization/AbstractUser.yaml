@@ -1,7 +1,7 @@
 Curler7\UserBundle\Model\AbstractUser:
   attributes:
     id:
-      groups: ['user:read', 'user:post']
+      groups: ['user:read', 'user:post:write']
     username:
       groups: ['user:post', 'user:put', 'user:register', 'user:get']
     email:
@@ -11,9 +11,9 @@ Curler7\UserBundle\Model\AbstractUser:
     enabled:
       groups: ['super_admin:user']
     roles:
-      groups: ['user:user:read', 'super_admin:user:write']
+      groups: ['user:user:read', 'super_admin:user']
     plainPassword:
       serialized_name: 'password'
-      groups: ['user:post', 'user:put', 'user:register']
+      groups: ['user:post:write', 'user:put:write', 'user:register:write']
     groups:
       groups: ['super_admin:user']

@@ -10,6 +10,8 @@
             <argument type="service" id="security.authenticator.login_link_handler.api" />
             <argument type="service" id="translator.default" />
             <argument type="service" id="doctrine.orm.default_entity_manager" />
+            <argument type="service" id="serializer.normalizer.object" />
+            <argument type="service" id="debug.validator" />
             <tag name="controller.service_arguments"/>
             <call method="setContainer">
                 <argument type="service" id="service_container" />

@@ -39,9 +39,7 @@ abstract class AbstractUser implements UserInterface
 
     protected ?\DateTimeInterface $lastLogin = null;
 
-    protected ?string $confirmationToken = null;
-
-    protected ?\DateTimeInterface $passwordRequestedAt = null;
+    protected ?\DateTimeInterface $loginLinkRequestedAt = null;
 
     protected ?string $plainPassword = null;
 
@@ -128,8 +126,6 @@ abstract class AbstractUser implements UserInterface
         return $this;
     }
 
-
-
     public function getPlainPassword(): ?string
     {
         return $this->plainPassword;
@@ -166,24 +162,12 @@ abstract class AbstractUser implements UserInterface
         return $this;
     }
 
-    public function getConfirmationToken(): ?string
-    {
-        return $this->confirmationToken;
-    }
-
-    public function setConfirmationToken(?string $confirmationToken): static
-    {
-        $this->confirmationToken = $confirmationToken;
-
-        return $this;
-    }
-
-    public function getPasswordRequestedAt(): ?\DateTimeInterface
+    public function getLoginLinkRequestedAt(): ?\DateTimeInterface
     {
         return $this->passwordRequestedAt;
     }
 
-    public function setPasswordRequestedAt(?\DateTimeInterface $passwordRequestedAt): static
+    public function setLoginLinkRequestedAt(?\DateTimeInterface $passwordRequestedAt): static
     {
         $this->passwordRequestedAt = $passwordRequestedAt;
 

@@ -21,8 +21,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
  */
 class PasswordUpdater implements PasswordUpdaterInterface
 {
-    public function __construct(private UserPasswordHasherInterface $passwordHasher)
-    {}
+    public function __construct(protected UserPasswordHasherInterface $passwordHasher) {}
 
     public function hashPassword(UserInterface $user): static
     {
@@ -30,10 +29,7 @@ class PasswordUpdater implements PasswordUpdaterInterface
             return $this;
         }
 
-        $user->setPassword($this->passwordHasher->hashPassword(
-            $user,
-            $user->getPlainPassword()
-        ));
+        $user->setPassword($this->passwordHasher->hashPassword($user, $user->getPlainPassword()));
         $user->eraseCredentials();
 
         return $this;

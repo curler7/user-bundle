@@ -22,6 +22,8 @@ use Symfony\Component\Notifier\NotifierInterface;
 use Symfony\Component\Notifier\Recipient\Recipient;
 use Symfony\Component\Security\Http\LoginLink\LoginLinkHandlerInterface;
 use Symfony\Component\Security\Http\LoginLink\LoginLinkNotification;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -35,10 +37,19 @@ class LoginLinkController extends AbstractController
         private LoginLinkHandlerInterface $loginLinkHandler,
         private TranslatorInterface $translator,
         private EntityManagerInterface $entityManager,
+        private ObjectNormalizer $objectNormalizer,
+        private ValidatorInterface $validator,
     ) {}
 
+    /**
+     * @throws \Symfony\Component\Serializer\Exception\ExceptionInterface
+     */
     public function __invoke(Request $request): JsonResponse
     {
+        /** @var UserInterface $user */
+        // $user =  $this->objectNormalizer->denormalize($request->toArray(), $this->resourceClass);
+        // $error = $this->validator->validate($user, null, 'login_link');
+
         /** @var UserInterface $user */
         if (!$user = $this->entityManager->getRepository($this->resourceClass)->findOneBy(['email' => $request->toArray()['email'] ?? null])) {
             return new JsonResponse(['response.entity_not_found.email'], 404);

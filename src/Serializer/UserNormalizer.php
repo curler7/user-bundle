@@ -16,20 +16,14 @@ namespace Curler7\UserBundle\Serializer;
 use Curler7\UserBundle\Model\UserInterface;
 use Curler7\UserBundle\Util\CanonicalFieldsUpdaterInterface;
 use Curler7\UserBundle\Util\PasswordUpdaterInterface;
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\EntityNotFoundException;
-use Symfony\Component\Notifier\NotifierInterface;
-use Symfony\Component\Notifier\Recipient\Recipient;
-use Symfony\Component\Security\Http\LoginLink\LoginLinkHandlerInterface;
-use Symfony\Component\Security\Http\LoginLink\LoginLinkNotification;
-use Symfony\Component\Serializer\Exception\ExceptionInterface;
+use Curler7\UserBundle\Util\UserRegistrationInterface;
+use Curler7\UserBundle\Util\UserSpyInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareDenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
@@ -47,11 +41,10 @@ final class UserNormalizer implements
 
     public function __construct(
         private CanonicalFieldsUpdaterInterface $canonicalFieldsUpdater,
-        private PasswordUpdaterInterface $passwordUpdater,
-        private string $resourceClass,
-        private NotifierInterface $notifier,
-        private LoginLinkHandlerInterface $loginLinkHandler,
-        private TranslatorInterface $translator,
+        private PasswordUpdaterInterface        $passwordUpdater,
+        private UserRegistrationInterface       $userRegistration,
+        private UserSpyInterface                $userSpy,
+        private string                          $resourceClass,
     ) {}
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
@@ -88,14 +81,11 @@ final class UserNormalizer implements
         if (isset($data['password'])) {
             $this->passwordUpdater->hashPassword($user);
         }
-
         if ('register' === ($context['collection_operation_name'] ?? null)) {
-            $user->setEnabled(false);
-            $this->notifier->send(
-                new LoginLinkNotification($this->loginLinkHandler->createLoginLink($user), $this->translator->trans('user.register.notification.subject')),
-                new Recipient($data['email'])
-            );
+            $this->userRegistration->register($user);
         }
+
+        $this->userSpy->spy($user, $data, $context);
 
         return $user;
     }

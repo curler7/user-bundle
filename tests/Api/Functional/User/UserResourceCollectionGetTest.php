@@ -14,13 +14,14 @@ declare(strict_types=1);
 namespace Curler7\UserBundle\Tests\Api\Functional\User;
 
 use App\DataFixtures\UserFixtures;
-use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
-use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
 use Curler7\ApiTestBundle\Exception\ConstraintNotDefinedException;
-use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
+use Curler7\ApiTestBundle\Exception\PropertyCheckedToManyCanNullKeyException;
 use Curler7\ApiTestBundle\Exception\PropertyNotCheckedException;
-use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
@@ -35,6 +36,7 @@ class UserResourceCollectionGetTest extends AbstractUserResourceTest
      * @throws PropertyNotCheckedException
      * @throws TransportExceptionInterface
      * @throws ServerExceptionInterface
+     * @throws PropertyCheckedToManyCanNullKeyException
      */
     public function testUserCollectionGetNoAuth(): void
     {
@@ -52,7 +54,7 @@ class UserResourceCollectionGetTest extends AbstractUserResourceTest
                 'emailCanonical',
                 'password',
                 'confirmationToken',
-                'passwordRequestedAt',
+                'loginLinkRequestedAt',
                 'plainPassword',
                 'groups',
                 'enabled',
@@ -72,6 +74,7 @@ class UserResourceCollectionGetTest extends AbstractUserResourceTest
      * @throws PropertyNotCheckedException
      * @throws TransportExceptionInterface
      * @throws ServerExceptionInterface
+     * @throws PropertyCheckedToManyCanNullKeyException
      */
     public function testUserCollectionGetUserAuth(): void
     {
@@ -90,8 +93,7 @@ class UserResourceCollectionGetTest extends AbstractUserResourceTest
                 'usernameCanonical',
                 'emailCanonical',
                 'password',
-                'confirmationToken',
-                'passwordRequestedAt',
+                'loginLinkRequestedAt',
                 'plainPassword',
                 'groups',
                 'enabled',
@@ -109,6 +111,7 @@ class UserResourceCollectionGetTest extends AbstractUserResourceTest
      * @throws PropertyNotCheckedException
      * @throws TransportExceptionInterface
      * @throws ServerExceptionInterface
+     * @throws PropertyCheckedToManyCanNullKeyException
      */
     public function testUserCollectionGetSuperAdminAuth(): void
     {
@@ -129,8 +132,7 @@ class UserResourceCollectionGetTest extends AbstractUserResourceTest
                 'usernameCanonical',
                 'emailCanonical',
                 'password',
-                'confirmationToken',
-                'passwordRequestedAt',
+                'loginLinkRequestedAt',
                 'plainPassword',
             ],
             hydraMember: \count(UserFixtures::DATA),

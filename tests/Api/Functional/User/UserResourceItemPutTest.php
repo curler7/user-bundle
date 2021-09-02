@@ -15,15 +15,16 @@ namespace Curler7\UserBundle\Tests\Api\Functional\User;
 
 use App\DataFixtures\UserFixtures;
 use Curler7\ApiTestBundle\Exception\ArrayHasMoreItemsException;
-use Curler7\ApiTestBundle\Exception\RequestUrlNotFoundException;
 use Curler7\ApiTestBundle\Exception\ArrayNotEmptyException;
-use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Curler7\ApiTestBundle\Exception\ConstraintNotDefinedException;
-use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
-use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
+use Curler7\ApiTestBundle\Exception\PropertyCheckedToManyCanNullKeyException;
 use Curler7\ApiTestBundle\Exception\PropertyNotCheckedException;
-use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
+use Curler7\ApiTestBundle\Exception\RequestUrlNotFoundException;
+use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
@@ -43,6 +44,7 @@ class UserResourceItemPutTest extends AbstractUserResourceTest
      * @throws PropertyNotCheckedException
      * @throws TransportExceptionInterface
      * @throws ServerExceptionInterface
+     * @throws PropertyCheckedToManyCanNullKeyException
      */
     public function testUserItemPutUserAuth(): void
     {
@@ -67,8 +69,7 @@ class UserResourceItemPutTest extends AbstractUserResourceTest
                 'usernameCanonical',
                 'emailCanonical',
                 'password',
-                'confirmationToken',
-                'passwordRequestedAt',
+                'loginLinkRequestedAt',
                 'plainPassword',
                 'enabled',
                 'groups',

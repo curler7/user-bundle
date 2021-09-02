@@ -17,6 +17,7 @@ use App\DataFixtures\UserFixtures;
 use Curler7\ApiTestBundle\Exception\ArrayHasMoreItemsException;
 use Curler7\ApiTestBundle\Exception\ArrayNotEmptyException;
 use Curler7\ApiTestBundle\Exception\ConstraintNotDefinedException;
+use Curler7\ApiTestBundle\Exception\PropertyCheckedToManyCanNullKeyException;
 use Curler7\ApiTestBundle\Exception\PropertyNotCheckedException;
 use Curler7\ApiTestBundle\Exception\RequestUrlNotFoundException;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
@@ -43,6 +44,7 @@ class UserResourceItemGetTest extends AbstractUserResourceTest
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      * @throws RequestUrlNotFoundException
+     * @throws PropertyCheckedToManyCanNullKeyException
      */
     public function testUserItemGetNoAuth(): void
     {
@@ -63,8 +65,7 @@ class UserResourceItemGetTest extends AbstractUserResourceTest
                 'usernameCanonical',
                 'emailCanonical',
                 'password',
-                'confirmationToken',
-                'passwordRequestedAt',
+                'loginLinkRequestedAt',
                 'plainPassword',
                 'enabled',
                 'groups',
@@ -85,6 +86,7 @@ class UserResourceItemGetTest extends AbstractUserResourceTest
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      * @throws RequestUrlNotFoundException
+     * @throws PropertyCheckedToManyCanNullKeyException
      */
     public function testUserItemGetUserAuth(): void
     {
@@ -107,8 +109,7 @@ class UserResourceItemGetTest extends AbstractUserResourceTest
                 'usernameCanonical',
                 'emailCanonical',
                 'password',
-                'confirmationToken',
-                'passwordRequestedAt',
+                'loginLinkRequestedAt',
                 'plainPassword',
                 'enabled',
                 'groups',
@@ -127,6 +128,7 @@ class UserResourceItemGetTest extends AbstractUserResourceTest
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      * @throws RequestUrlNotFoundException
+     * @throws PropertyCheckedToManyCanNullKeyException
      */
     public function testUserItemGetSuperAdminAuth(): void
     {
@@ -151,8 +153,7 @@ class UserResourceItemGetTest extends AbstractUserResourceTest
                 'usernameCanonical',
                 'emailCanonical',
                 'password',
-                'confirmationToken',
-                'passwordRequestedAt',
+                'loginLinkRequestedAt',
                 'plainPassword',
             ],
         );

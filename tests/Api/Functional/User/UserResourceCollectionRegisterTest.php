@@ -16,6 +16,7 @@ namespace Curler7\UserBundle\Tests\Api\Functional\User;
 use Curler7\ApiTestBundle\Exception\ArrayHasMoreItemsException;
 use Curler7\ApiTestBundle\Exception\ArrayNotEmptyException;
 use Curler7\ApiTestBundle\Exception\ConstraintNotDefinedException;
+use Curler7\ApiTestBundle\Exception\PropertyCheckedToManyCanNullKeyException;
 use Curler7\ApiTestBundle\Exception\PropertyNotCheckedException;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
@@ -40,6 +41,7 @@ class UserResourceCollectionRegisterTest extends AbstractUserResourceTest
      * @throws PropertyNotCheckedException
      * @throws TransportExceptionInterface
      * @throws ServerExceptionInterface
+     * @throws PropertyCheckedToManyCanNullKeyException
      */
     public function testUserCollectionRegister(): void
     {
@@ -47,12 +49,12 @@ class UserResourceCollectionRegisterTest extends AbstractUserResourceTest
             client: static::createClient(),
             json: [
                 'username' => 'new',
-                'email' => 'gunnar.s.gs@gmail.com',
+                'email' => 'corona@smart-media.design',
                 'password' => 'pass',
             ],
             contains: [
                 'username' => 'new',
-                'email' => 'gunnar.s.gs@gmail.com',
+                'email' => 'corona@smart-media.design',
             ],
             hasKey: [
                 'id',
@@ -64,8 +66,7 @@ class UserResourceCollectionRegisterTest extends AbstractUserResourceTest
                 'usernameCanonical',
                 'emailCanonical',
                 'password',
-                'confirmationToken',
-                'passwordRequestedAt',
+                'loginLinkRequestedAt',
                 'plainPassword',
                 'groups',
                 'enabled',

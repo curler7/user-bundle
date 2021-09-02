@@ -4,9 +4,9 @@ Curler7\UserBundle\Model\AbstractUser:
         fields: usernameCanonical
         errorPath: username
         message: curler7_user.user.username.unique_entity
-        groups: [ 'post', 'put' ]
+        groups: ['post', 'put', 'register']
     - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
         fields: emailCanonical
         errorPath: email
         message: curler7_user.user.email.unique_entoty
-        groups: [ 'post', 'put' ]
+        groups: ['post', 'put', 'register']
