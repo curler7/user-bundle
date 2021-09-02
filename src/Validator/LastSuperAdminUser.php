@@ -23,4 +23,9 @@ use Symfony\Component\Validator\Constraint;
 class LastSuperAdminUser extends Constraint
 {
     public string $message = 'curler7_user.user.enabled.last_super_admin';
+
+    public function getTargets(): string
+    {
+        return self::CLASS_CONSTRAINT;
+    }
 }

@@ -1,4 +1,7 @@
 Curler7\UserBundle\Model\AbstractUser:
+  constraints:
+    - Curler7\UserBundle\Validator\LastSuperAdminUser:
+        groups: ['put', 'delete']
   properties:
     username:
       - NotBlank:
@@ -20,7 +23,3 @@ Curler7\UserBundle\Model\AbstractUser:
           max: 180
           maxMessage: curler7_user.user.email.length.max
           groups: ['post', 'put', 'register', 'login_link']
-
-    enabled:
-      - Curler7\UserBundle\Validator\LastSuperAdminUser:
-          groups: ['put', 'delete']

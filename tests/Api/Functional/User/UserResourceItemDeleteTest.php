@@ -14,9 +14,18 @@ declare(strict_types=1);
 namespace Curler7\UserBundle\Tests\Api\Functional\User;
 
 use App\DataFixtures\UserFixtures;
+use Curler7\ApiTestBundle\Exception\ArrayHasMoreItemsException;
+use Curler7\ApiTestBundle\Exception\ArrayNotEmptyException;
 use Curler7\ApiTestBundle\Exception\ConstraintNotDefinedException;
+use Curler7\ApiTestBundle\Exception\PropertyCheckedToManyCanNullKeyException;
+use Curler7\ApiTestBundle\Exception\PropertyNotCheckedException;
 use Curler7\ApiTestBundle\Exception\RequestMethodNotFoundException;
 use Curler7\ApiTestBundle\Exception\RequestUrlNotFoundException;
+use Curler7\UserBundle\Model\UserInterface;
+use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 /**
@@ -42,11 +51,38 @@ class UserResourceItemDeleteTest extends AbstractUserResourceTest
      * @throws RequestMethodNotFoundException
      * @throws TransportExceptionInterface
      */
-    public function testUserItemDeleteAuthUserOther(): void
+    public function testUserItemDeleteAuthUserOtherUser(): void
+    {
+        $this->check403(
+            $this->createClientWithCredentials(),
+            ['username' => UserFixtures::DATA[2]['username']],
+        );
+    }
+
+    /**
+     * @throws ConstraintNotDefinedException
+     * @throws RequestMethodNotFoundException
+     * @throws TransportExceptionInterface
+     */
+    public function testUserItemDeleteAuthUserOtherAdmin(): void
     {
         $this->check403(
             $this->createClientWithCredentials(),
             ['username' => UserFixtures::DATA[1]['username']],
+        );
+    }
+
+    /**
+     * @throws ConstraintNotDefinedException
+     * @throws RequestMethodNotFoundException
+     * @throws TransportExceptionInterface
+     */
+    public function testUserItemDeleteAuthSuperAdminValidatorLastSuperAdmin(): void
+    {
+        $this->check422(
+            client: $this->createClientWithCredentials(user: 'admin'),
+            description: 'enabled: curler7_user.user.enabled.last_super_admin',
+            criteria: ['username' => UserFixtures::DATA[1]['username']],
         );
     }
 
@@ -62,10 +98,28 @@ class UserResourceItemDeleteTest extends AbstractUserResourceTest
 
     /**
      * @throws ConstraintNotDefinedException
+     * @throws RequestUrlNotFoundException
+     * @throws TransportExceptionInterface
+     */
+    public function testUserItemDeleteAuthSuperAdminSelf(): void
+    {
+        static::update(
+            ['username' => UserFixtures::DATA[3]['username']],
+            fn(UserInterface $user) => $user->setEnabled(true),
+        );
+
+        $this->checkItemDelete(
+            client: $this->createClientWithCredentials(user: 'admin'),
+            criteria: ['username' => UserFixtures::DATA[1]['username']],
+        );
+    }
+
+    /**
+     * @throws ConstraintNotDefinedException
      * @throws TransportExceptionInterface
      * @throws RequestUrlNotFoundException
      */
-    public function testUserItemDeleteAuthSuperAdmin(): void
+    public function testUserItemDeleteAuthSuperAdminOtherUser(): void
     {
         $this->checkItemDelete($this->createClientWithCredentials(user: 'admin'));
     }
@@ -75,11 +129,11 @@ class UserResourceItemDeleteTest extends AbstractUserResourceTest
      * @throws TransportExceptionInterface
      * @throws RequestUrlNotFoundException
      */
-    public function testUserItemDeleteAuthSuperAdminValidatorLastSuperAdmin(): void
+    public function testUserItemDeleteAuthSuperAdminOtherAdmin(): void
     {
         $this->checkItemDelete(
-            $this->createClientWithCredentials(user: 'admin'),
-            ['username' => UserFixtures::DATA[1]['username']],
+            client: $this->createClientWithCredentials(user: 'admin'),
+            criteria: ['username' => UserFixtures::DATA[3]['username']],
         );
     }
 }

@@ -59,7 +59,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             'email' => 'morpheus@example.com',
             'password' => 'search',
             'groups' => [0],
-            'roles' => [],
+            'roles' => [UserInterface::ROLE_SUPER_ADMIN],
             'enabled' => false,
             'full_name' => 'Morpheus',
         ], [

@@ -18,6 +18,7 @@ use Curler7\ApiTestBundle\Exception\ArrayNotEmptyException;
 use Curler7\ApiTestBundle\Exception\ConstraintNotDefinedException;
 use Curler7\ApiTestBundle\Exception\PropertyCheckedToManyCanNullKeyException;
 use Curler7\ApiTestBundle\Exception\PropertyNotCheckedException;
+use Curler7\ApiTestBundle\Exception\RequestMethodNotFoundException;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
@@ -29,6 +30,28 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
  */
 class UserResourceCollectionPostTest extends AbstractUserResourceTest
 {
+    protected const GLOBAL_METHOD = self::METHOD_POST;
+
+    /**
+     * @throws ConstraintNotDefinedException
+     * @throws TransportExceptionInterface
+     * @throws RequestMethodNotFoundException
+     */
+    public function testUserCollectionPostAuthNoop(): void
+    {
+        $this->check401(static::createClient());
+    }
+
+    /**
+     * @throws ConstraintNotDefinedException
+     * @throws TransportExceptionInterface
+     * @throws RequestMethodNotFoundException
+     */
+    public function testUserCollectionPostAuthUser(): void
+    {
+        $this->check403($this->createClientWithCredentials());
+    }
+
     /**
      * @throws ArrayHasMoreItemsException
      * @throws ArrayNotEmptyException
@@ -41,10 +64,10 @@ class UserResourceCollectionPostTest extends AbstractUserResourceTest
      * @throws ServerExceptionInterface
      * @throws PropertyCheckedToManyCanNullKeyException
      */
-    public function testUserCollectionPost(): void
+    public function testUserCollectionPostAuthSuperAdmin(): void
     {
         $this->checkCollectionPost(
-            client: static::createClient(),
+            client: $this->createClientWithCredentials(user: 'admin'),
             json: [
                 'fullName' => 'new',
                 'username' => 'new',
@@ -60,16 +83,16 @@ class UserResourceCollectionPostTest extends AbstractUserResourceTest
                 'id',
                 'username',
                 'email',
+                'groups',
+                'enabled',
+                'lastLogin',
+                'roles',
             ],
             notHasKey: [
                 'usernameCanonical',
                 'emailCanonical',
                 'loginLinkRequestedAt',
                 'plainPassword',
-                'groups',
-                'enabled',
-                'lastLogin',
-                'roles',
                 'password',
             ],
         );

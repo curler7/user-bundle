@@ -18,6 +18,7 @@ use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
+use Symfony\Component\Uid\AbstractUid;
 
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
@@ -46,7 +47,7 @@ class UserRepository extends EntityRepository implements UserLoaderInterface
      * @throws NonUniqueResultException
      * @throws NoResultException
      */
-    public function countSuperAdminEnabled(): int
+    public function countSuperAdminEnabled(AbstractUid $id): int
     {
         $qb = $this->createQueryBuilder('o');
 
@@ -60,6 +61,8 @@ class UserRepository extends EntityRepository implements UserLoaderInterface
             ->setParameter('roles', '%"'.UserInterface::ROLE_SUPER_ADMIN.'"%')
             ->andWhere($qb->expr()->eq('o.enabled', ':enabled'))
             ->setParameter('enabled', true)
+            ->andWhere($qb->expr()->neq('o.id', ':id'))
+            ->setParameter('id', $id)
             ->getQuery()
             ->getSingleScalarResult();
     }

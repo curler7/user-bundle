@@ -50,11 +50,43 @@ class UserResourceItemPutTest extends AbstractUserResourceTest
      * @throws TransportExceptionInterface
      * @throws RequestMethodNotFoundException
      */
-    public function testUserItemPutAuthUserOther(): void
+    public function testUserItemPutAuthUserOtherUser(): void
+    {
+        $this->check403(
+            $this->createClientWithCredentials(),
+            ['username' => UserFixtures::DATA[2]['username']]
+        );
+    }
+
+    /**
+     * @throws ConstraintNotDefinedException
+     * @throws TransportExceptionInterface
+     * @throws RequestMethodNotFoundException
+     */
+    public function testUserItemPutAuthUserOtherAdmin(): void
     {
         $this->check403(
             $this->createClientWithCredentials(),
             ['username' => UserFixtures::DATA[1]['username']]
+        );
+    }
+
+    /**
+     * @throws ConstraintNotDefinedException
+     * @throws RequestMethodNotFoundException
+     * @throws TransportExceptionInterface
+     */
+    public function testUserItemPutAuthSuperAdminValidatorLastSuperAdmin(): void
+    {
+        $this->check422(
+            client: $this->createClientWithCredentials(user: 'admin'),
+            description: 'enabled: curler7_user.user.enabled.last_super_admin',
+            criteria: [
+                'username' => UserFixtures::DATA[1]['username'],
+            ],
+            json: [
+                'enabled' => false,
+            ],
         );
     }
 
@@ -115,7 +147,54 @@ class UserResourceItemPutTest extends AbstractUserResourceTest
      * @throws ServerExceptionInterface
      * @throws PropertyCheckedToManyCanNullKeyException
      */
-    public function testUserItemPutAuthSuperAdmin(): void
+    public function testUserItemPutAuthSuperAdminOtherSelf(): void
+    {
+        $this->checkItemPut(
+            client: $this->createClientWithCredentials(user: 'admin'),
+            json: [
+                'email' => 'new@example.com',
+            ],
+            contains: [
+                'username' => UserFixtures::DATA[1]['username'],
+                'email' => 'new@example.com',
+            ],
+            criteria: [
+                'username' => UserFixtures::DATA[1]['username']
+            ],
+            hasKey: [
+                'id',
+                'fullName',
+                'lastLogin',
+                'username',
+                'email',
+                'roles',
+                'enabled',
+                'groups',
+            ],
+            notHasKey: [
+                'usernameCanonical',
+                'emailCanonical',
+                'password',
+                'loginLinkRequestedAt',
+                'plainPassword',
+            ],
+        );
+    }
+
+    /**
+     * @throws ArrayHasMoreItemsException
+     * @throws RequestUrlNotFoundException
+     * @throws ArrayNotEmptyException
+     * @throws RedirectionExceptionInterface
+     * @throws ConstraintNotDefinedException
+     * @throws DecodingExceptionInterface
+     * @throws ClientExceptionInterface
+     * @throws PropertyNotCheckedException
+     * @throws TransportExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws PropertyCheckedToManyCanNullKeyException
+     */
+    public function testUserItemPutAuthSuperAdminOtherUser(): void
     {
         $this->checkItemPut(
             client: $this->createClientWithCredentials(user: 'admin'),
@@ -147,17 +226,48 @@ class UserResourceItemPutTest extends AbstractUserResourceTest
     }
 
     /**
+     * @throws ArrayHasMoreItemsException
+     * @throws RequestUrlNotFoundException
+     * @throws ArrayNotEmptyException
+     * @throws RedirectionExceptionInterface
      * @throws ConstraintNotDefinedException
-     * @throws RequestMethodNotFoundException
+     * @throws DecodingExceptionInterface
+     * @throws ClientExceptionInterface
+     * @throws PropertyNotCheckedException
      * @throws TransportExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws PropertyCheckedToManyCanNullKeyException
      */
-    public function testUserItemPutAuthSuperAdminValidatorLastSuperAdmin(): void
+    public function testUserItemPutAuthSuperAdminOtherAdmin(): void
     {
-        $this->check422(
+        $this->checkItemPut(
             client: $this->createClientWithCredentials(user: 'admin'),
-            description: 'enabled: curler7_user.user.enabled.last_super_admin',
+            json: [
+                'email' => 'new@example.com',
+            ],
+            contains: [
+                'username' => UserFixtures::DATA[3]['username'],
+                'email' => 'new@example.com',
+            ],
             criteria: [
-                'username' => UserFixtures::DATA[1]['username']
+                'username' => UserFixtures::DATA[3]['username']
+            ],
+            hasKey: [
+                'id',
+                'fullName',
+                'lastLogin',
+                'username',
+                'email',
+                'roles',
+                'enabled',
+                'groups',
+            ],
+            notHasKey: [
+                'usernameCanonical',
+                'emailCanonical',
+                'password',
+                'loginLinkRequestedAt',
+                'plainPassword',
             ],
         );
     }

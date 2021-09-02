@@ -9056,12 +9056,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:curler7/api-test-bundle.git",
-                "reference": "432146ab9d2b68dcc8b2be7431473ae696592711"
+                "reference": "3d5cf9d52abd5e66263b71932b639a934da45be2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/curler7/api-test-bundle/zipball/432146ab9d2b68dcc8b2be7431473ae696592711",
-                "reference": "432146ab9d2b68dcc8b2be7431473ae696592711",
+                "url": "https://api.github.com/repos/curler7/api-test-bundle/zipball/3d5cf9d52abd5e66263b71932b639a934da45be2",
+                "reference": "3d5cf9d52abd5e66263b71932b639a934da45be2",
                 "shasum": ""
             },
             "require": {
@@ -9074,18 +9074,35 @@
                 "symfony/symfony": "*"
             },
             "require-dev": {
-                "api-platform/api-pack": "1.*",
+                "api-platform/core": "^2.6",
+                "composer/package-versions-deprecated": "1.11.99.3",
                 "dama/doctrine-test-bundle": "^6.6",
+                "doctrine/annotations": "^1.0",
+                "doctrine/doctrine-bundle": "^2.4",
                 "doctrine/doctrine-fixtures-bundle": "^3.4",
+                "doctrine/doctrine-migrations-bundle": "^3.1",
+                "doctrine/orm": "^2.9",
                 "justinrainbow/json-schema": "^5.2",
                 "matthiasnoback/symfony-dependency-injection-test": "4.*",
+                "nelmio/cors-bundle": "^2.1",
+                "phpdocumentor/reflection-docblock": "^5.2",
                 "phpunit/phpunit": "9.*",
+                "symfony/asset": "^5.3",
                 "symfony/browser-kit": "5.3.*",
                 "symfony/css-selector": "5.3.*",
+                "symfony/expression-language": "^5.3",
                 "symfony/filesystem": "5.*",
                 "symfony/http-client": "5.3.*",
                 "symfony/phpunit-bridge": "^5.3",
-                "symfony/profiler-pack": "1.*"
+                "symfony/property-access": "^5.3",
+                "symfony/property-info": "^5.3",
+                "symfony/proxy-manager-bridge": "^5.3",
+                "symfony/security-bundle": "^5.3",
+                "symfony/serializer": "^5.3",
+                "symfony/stopwatch": "^5.3",
+                "symfony/twig-bundle": "^5.3",
+                "symfony/validator": "^5.3",
+                "symfony/web-profiler-bundle": "^5.3"
             },
             "default-branch": true,
             "type": "symfony-bundle",
@@ -9138,7 +9155,7 @@
                 "source": "https://github.com/curler7/api-test-bundle/tree/master",
                 "issues": "https://github.com/curler7/api-test-bundle/issues"
             },
-            "time": "2021-09-01T20:44:56+00:00"
+            "time": "2021-09-02T17:13:01+00:00"
         },
         {
             "name": "dama/doctrine-test-bundle",
