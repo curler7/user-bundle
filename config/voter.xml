@@ -4,11 +4,20 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
+
         <service id="curler7_user.voter.user_voter"
                  class="Curler7\UserBundle\Security\Voter\UserVoter"
         >
             <argument type="service" id="security.helper" />
             <tag name="security.voter" />
         </service>
+
+        <service id="curler7_user.voter.group_voter"
+                 class="Curler7\UserBundle\Security\Voter\GroupVoter"
+        >
+            <argument type="service" id="security.helper" />
+            <tag name="security.voter" />
+        </service>
+
     </services>
 </container>

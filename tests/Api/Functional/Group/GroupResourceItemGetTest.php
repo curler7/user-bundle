@@ -17,7 +17,10 @@ use App\DataFixtures\GroupFixtures;
 use Curler7\ApiTestBundle\Exception\ArrayHasMoreItemsException;
 use Curler7\ApiTestBundle\Exception\ArrayNotEmptyException;
 use Curler7\ApiTestBundle\Exception\ConstraintNotDefinedException;
+use Curler7\ApiTestBundle\Exception\PropertyCheckedToManyCanNullKeyException;
 use Curler7\ApiTestBundle\Exception\PropertyNotCheckedException;
+use Curler7\ApiTestBundle\Exception\RequestMethodNotFoundException;
+use Curler7\ApiTestBundle\Exception\RequestUrlNotFoundException;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
@@ -29,29 +32,48 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
  */
 class GroupResourceItemGetTest extends AbstractGroupResourceTest
 {
+    protected const GLOBAL_METHOD = self::METHOD_GET;
+    protected const GLOBAL_CRITERIA = ['name' => GroupFixtures::DATA[0]['name']];
+
+    /**
+     * @throws ConstraintNotDefinedException
+     * @throws TransportExceptionInterface
+     * @throws RequestMethodNotFoundException
+     */
+    public function testGroupItemGetAuthNoop(): void
+    {
+        $this->check401(self::createClient());
+    }
+
+    /**
+     * @throws ConstraintNotDefinedException
+     * @throws RequestMethodNotFoundException
+     * @throws TransportExceptionInterface
+     */
+    public function testGroupItemGetAuthUser(): void
+    {
+        $this->check403($this->createClientWithCredentials());
+    }
+
     /**
      * @throws ArrayHasMoreItemsException
      * @throws ArrayNotEmptyException
-     * @throws RedirectionExceptionInterface
-     * @throws DecodingExceptionInterface
-     * @throws ConstraintNotDefinedException
      * @throws ClientExceptionInterface
+     * @throws ConstraintNotDefinedException
+     * @throws DecodingExceptionInterface
      * @throws PropertyNotCheckedException
-     * @throws TransportExceptionInterface
+     * @throws RedirectionExceptionInterface
      * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     * @throws PropertyCheckedToManyCanNullKeyException
+     * @throws RequestUrlNotFoundException
      */
-    public function testGroupItemGet(): void
+    public function testGroupItemGetAuthSuperAdmin(): void
     {
-        $client = static::createClient();
-
         $this->checkItemGet(
-            client: $client,
-            criteria: [
-                'name' => GroupFixtures::DATA[0]['name']
-            ],
+            client: $this->createClientWithCredentials(user: 'admin'),
             contains: [
                 'name' => GroupFixtures::DATA[0]['name'],
-                'roles' => GroupFixtures::DATA[0]['roles'],
             ],
             hasKey: [
                 'id',

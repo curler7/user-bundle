@@ -15,7 +15,9 @@ namespace Curler7\UserBundle\Tests\Api\Functional\Group;
 
 use App\DataFixtures\GroupFixtures;
 use Curler7\ApiTestBundle\Exception\ConstraintNotDefinedException;
+use Curler7\ApiTestBundle\Exception\PropertyCheckedToManyCanNullKeyException;
 use Curler7\ApiTestBundle\Exception\PropertyNotCheckedException;
+use Curler7\ApiTestBundle\Exception\RequestMethodNotFoundException;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
@@ -27,28 +29,49 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
  */
 class GroupResourceCollectionGetTest extends AbstractGroupResourceTest
 {
-    /**
-     * @throws RedirectionExceptionInterface
-     * @throws DecodingExceptionInterface
-     * @throws ConstraintNotDefinedException
-     * @throws ClientExceptionInterface
-     * @throws PropertyNotCheckedException
-     * @throws TransportExceptionInterface
-     * @throws ServerExceptionInterface
-     */
-    public function testGroupCollectionGet(): void
-    {
-        $client = static::createClient();
+    protected const GLOBAL_METHOD = self::METHOD_GET;
 
+    /**
+     * @throws ConstraintNotDefinedException
+     * @throws TransportExceptionInterface
+     * @throws RequestMethodNotFoundException
+     */
+    public function testGroupCollectionGetAuthNoop(): void
+    {
+        $this->check401(self::createClient());
+    }
+
+    /**
+     * @throws ConstraintNotDefinedException
+     * @throws RequestMethodNotFoundException
+     * @throws TransportExceptionInterface
+     */
+    public function testGroupCollectionGetAuthUser(): void
+    {
+        $this->check403($this->createClientWithCredentials());
+    }
+
+    /**
+     * @throws ClientExceptionInterface
+     * @throws ConstraintNotDefinedException
+     * @throws DecodingExceptionInterface
+     * @throws PropertyNotCheckedException
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     * @throws PropertyCheckedToManyCanNullKeyException
+     */
+    public function testGroupCollectionGetAuthSuperAdmin(): void
+    {
         $this->checkCollectionGet(
-            client: $client,
-            totalItems: \count(GroupFixtures::DATA),
+            client: $this->createClientWithCredentials(user: 'admin'),
+            totalItems: 2,
             hasKey: [
                 'id',
                 'name',
                 'roles',
             ],
-            hydraMember: \count(GroupFixtures::DATA),
+            hydraMember: 2,
             hydraView: false,
         );
     }
