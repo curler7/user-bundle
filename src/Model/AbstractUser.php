@@ -49,8 +49,6 @@ abstract class AbstractUser implements UserInterface
 
     protected ?string $plainPassword = null;
 
-    protected ?\DateTimeInterface $passwordRequestedAt = null;
-
     public function __construct(?AbstractUid $id = null)
     {
         $this->__constructResource($id);
