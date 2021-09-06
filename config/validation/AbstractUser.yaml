@@ -28,3 +28,7 @@ Curler7\UserBundle\Model\AbstractUser:
       - NotBlank:
           message: curler7_user.user.password.not_blank
           groups: ['post', 'register']
+      - Length:
+          max: 180
+          maxMessage: curler7_user.user.password.length.max
+          groups: ['post', 'put', 'register']
