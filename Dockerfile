@@ -36,10 +36,10 @@ RUN set -eux; \
 	\
 	docker-php-ext-configure zip; \
 	docker-php-ext-install -j$(nproc) \
-		xsl \
 		intl \
 		pdo_pgsql \
 		zip \
+		xsl \
 	; \
 	pecl install \
 		apcu-${APCU_VERSION} \

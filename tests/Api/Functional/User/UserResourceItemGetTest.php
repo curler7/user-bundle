@@ -66,6 +66,7 @@ class UserResourceItemGetTest extends AbstractUserResourceTest
                 'fullName' => UserFixtures::DATA[0]['full_name'],
                 'username' => UserFixtures::DATA[0]['username'],
                 'email' => UserFixtures::DATA[0]['email'],
+                'lastLogin' => (new \DateTime())->format(DATE_W3C),
             ],
             hasKey: [
                 'id',

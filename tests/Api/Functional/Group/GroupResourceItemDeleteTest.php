@@ -14,8 +14,12 @@ declare(strict_types=1);
 namespace Curler7\UserBundle\Tests\Api\Functional\Group;
 
 use App\DataFixtures\GroupFixtures;
+use App\DataFixtures\UserFixtures;
+use App\Entity\User;
 use Curler7\ApiTestBundle\Exception\ConstraintNotDefinedException;
 use Curler7\ApiTestBundle\Exception\RequestMethodNotFoundException;
+use Curler7\ApiTestBundle\Exception\RequestUrlNotFoundException;
+use Curler7\UserBundle\Model\UserInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 /**
@@ -44,5 +48,37 @@ class GroupResourceItemDeleteTest extends AbstractGroupResourceTest
     public function testGroupItemDeleteAuthUser(): void
     {
         $this->check403($this->createClientWithCredentials());
+    }
+
+    /**
+     * @throws ConstraintNotDefinedException
+     * @throws RequestMethodNotFoundException
+     * @throws RequestUrlNotFoundException
+     * @throws TransportExceptionInterface
+     */
+    public function testGroupItemDeleteAuthSuperAdminForeignKeyWithUser(): void
+    {
+        $this->check500(client: $this->createClientWithCredentials(user: 'admin'));
+
+        $this->update(
+            ['username' => UserFixtures::DATA[0]['username']],
+            fn(UserInterface $user) => $user->removeGroup(static::findOneBy(static::GLOBAL_CRITERIA)),
+            User::class,
+        );
+
+        $this->checkItemDelete(client: $this->createClientWithCredentials(user: 'admin'));
+    }
+
+    /**
+     * @throws ConstraintNotDefinedException
+     * @throws RequestUrlNotFoundException
+     * @throws TransportExceptionInterface
+     */
+    public function testGroupItemDeleteAuthSuperAdmin(): void
+    {
+        $this->checkItemDelete(
+            client: $this->createClientWithCredentials(user: 'admin'),
+            criteria: ['name' => GroupFixtures::DATA[1]['name']],
+        );
     }
 }

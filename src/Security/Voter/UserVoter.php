@@ -39,6 +39,6 @@ class UserVoter extends AbstractVoter
 
     protected function checkDelete(UserInterface $user, UserInterface $subject): bool
     {
-        return $user === $subject || $this->security->isGranted(UserInterface::ROLE_SUPER_ADMIN);
+        return $this->security->isGranted(UserInterface::ROLE_SUPER_ADMIN);
     }
 }
