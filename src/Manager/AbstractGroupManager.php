@@ -23,7 +23,13 @@ abstract class AbstractGroupManager implements GroupManagerInterface
 {
     public function createGroup(string $name, array $roles = [], ?AbstractUid $id = null): GroupInterface
     {
-        return new ($this->getClass())($name, $roles, $id);
+        /** @var GroupInterface $group */
+        $class = $this->getClass();
+        $group = new $class($name, $id);
+
+        return $group
+            ->setRoles($roles)
+        ;
     }
 
     public function findGroupByName(string $name): ?GroupInterface

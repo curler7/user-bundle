@@ -29,10 +29,8 @@ abstract class AbstractGroup implements GroupInterface
 
     public function __construct(
         protected string $name,
-        array $roles = [UserInterface::ROLE_DEFAULT],
         ?AbstractUid $id = null,
     ) {
-        $this->roles = $roles;
         $this->__constructResource($id);
     }
 

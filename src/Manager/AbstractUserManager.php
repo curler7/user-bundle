@@ -40,7 +40,20 @@ abstract class AbstractUserManager implements UserManagerInterface
     ): UserInterface
     {
         $class = $this->getClass();
-        return new $class($id, $username, $email, $plainPassword, $roles, $enabled, $groups);
+        /** @var UserInterface $user */
+        $user = new $class($id);
+
+        foreach ($groups as $group) {
+            $user->addGroup($group);
+        }
+
+        return $user
+            ->setUsername($username)
+            ->setEmail($email)
+            ->setPlainPassword($plainPassword)
+            ->setRoles($roles)
+            ->setEnabled($enabled)
+        ;
     }
 
     public function findUserByEmail(string $email): ?UserInterface

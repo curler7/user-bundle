@@ -31,11 +31,17 @@ abstract class AbstractUser implements UserInterface
         GroupsAwareTrait::__construct as protected __constructGroups;
     }
 
+    protected ?string $username = null;
+
+    protected ?string $email = null;
+
     protected ?string $usernameCanonical = null;
 
     protected ?string $emailCanonical = null;
 
     protected ?string $password = null;
+
+    protected bool $enabled = false;
 
     protected ?\DateTimeInterface $lastLogin = null;
 
@@ -43,20 +49,12 @@ abstract class AbstractUser implements UserInterface
 
     protected ?string $plainPassword = null;
 
-    public function __construct(
-        ?AbstractUid $id = null,
-        protected ?string $username = null,
-        protected ?string $email = null,
-        ?string $plainPassword = null,
-        array $roles = [UserInterface::ROLE_DEFAULT],
-        protected bool $enabled = false,
-        ?ArrayCollection $groups = null,
-    )
+    protected ?\DateTimeInterface $passwordRequestedAt = null;
+
+    public function __construct(?AbstractUid $id = null)
     {
-        $this->plainPassword = $plainPassword;
-        $this->roles = $roles;
         $this->__constructResource($id);
-        $this->__constructGroups($groups);
+        $this->__constructGroups();
     }
 
     public function eraseCredentials(): static

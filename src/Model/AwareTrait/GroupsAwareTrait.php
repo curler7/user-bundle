@@ -27,9 +27,9 @@ trait GroupsAwareTrait
     protected Collection|array $groups;
 
     #[Pure]
-    public function __construct(?ArrayCollection $groups = null)
+    public function __construct()
     {
-        $this->groups = $groups ?? new ArrayCollection();
+        $this->groups = new ArrayCollection();
     }
 
     public function getGroups(bool $asArray = true): Collection|array
