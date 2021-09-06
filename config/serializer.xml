@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+
+        <service id="curler7_user.serializer.user_normalizer"
+                 class="%curler7_user.serializer.user_normalizer.class%"
+                 public="false"
+        >
+            <argument type="service" id="curler7_user.util.canonical_fields_updater" />
+            <argument type="service" id="curler7_user.util.password_updater" />
+            <argument type="service" id="curler7_user.util.user_registration" />
+            <argument type="service" id="curler7_user.util.user_spy" />
+            <argument>%curler7_user.model.user.class%</argument>
+            <tag name="serializer.normalizer" />
+        </service>
+        <service id="Curler7\UserBundle\Bridge\ApiPlatform\UserNormalizer" alias="curler7_user.serializer.user_normalizer" />
+
+    </services>
+</container>

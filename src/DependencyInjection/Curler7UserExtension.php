@@ -82,60 +82,52 @@ class Curler7UserExtension extends Extension implements PrependExtensionInterfac
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../../config'));
 
-        // Config
+        // Model
         $container->setParameter('curler7_user.model.user.class', $config['user_class']);
         $container->setParameter('curler7_user.model.group.class', $config['group_class']);
         $container->setParameter('curler7_user.model_manager_name', $config['model_manager_name']);
-        // Normalizer
-        $container->setParameter('curler7_user.user_normalizer.class', $config['service']['user_normalizer']);
-        $container->setParameter('curler7_user.auto_group_resource_metadata_factory.class', $config['service']['auto_group_resource_metadata_factory']);
-        $container->setParameter('curler7_user.groups_context_builder.class', $config['service']['groups_context_builder']);
-        $container->setParameter('curler7_user.jwt_decorator.class', $config['service']['jwt_decorator']);
-        $container->setParameter('curler7_user.subscriber.jwt_subscriber.class', $config['service']['subscriber_jwt_subscriber']);
+        $container->setParameter('curler7_user.model.storage', $config['db_driver']);
+        $container->setParameter('curler7_user.model.group_manager.class', $config['service']['group_manager']);
+        $container->setParameter('curler7_user.model.user_manager.class', $config['service']['user_manager']);
+        $container->setParameter('curler7_user.model.object_manager.class', $config['service']['object_manager']);
+        // Serializer
+        $container->setParameter('curler7_user.serializer.user_normalizer.class', $config['service']['user_normalizer']);
+        // Api platform
+        $container->setParameter('curler7_user.api_platform.auto_group_resource_metadata_factory.class', $config['service']['auto_group_resource_metadata_factory']);
+        // Security
+        $container->setParameter('curler7_user.security.groups_context_builder.class', $config['service']['groups_context_builder']);
         $container->setParameter('curler7_user.security.authentication_success_handler.class', $config['service']['security_authentication_success_handler']);
-        $container->setParameter('curler7_user.controller.login_link.class', $config['service']['login_link_controller']);
+        $container->setParameter('curler7_user.security.user_voter.class', $config['service']['user_voter']);
+        $container->setParameter('curler7_user.security.group_voter.class', $config['service']['group_voter']);
+        // Open api
+        $container->setParameter('curler7_user.open_api.jwt_decorator.class', $config['service']['jwt_decorator']);
+        $container->setParameter('curler7_user.open_api.jwt_decorator.user', $config['jwt_decorator']['user']);
+        $container->setParameter('curler7_user.open_api.jwt_decorator.password', $config['jwt_decorator']['password']);
+        $container->setParameter('curler7_user.open_api.jwt_decorator.path', $config['jwt_decorator']['path']);
+        // Subscriber
+        $container->setParameter('curler7_user.subscriber.jwt_subscriber.class', $config['service']['subscriber_jwt_subscriber']);
         $container->setParameter('curler7_user.subscriber.validate_before_delete.class', $config['service']['validate_before_delete_subscriber']);
-        $container->setParameter('curler7_user.voter.user_voter.class', $config['service']['user_voter']);
-        $container->setParameter('curler7_user.voter.group_voter.class', $config['service']['group_voter']);
-
-        $container->setParameter('curler7_user.jwt_decorator.user', $config['jwt_decorator']['user']);
-        $container->setParameter('curler7_user.jwt_decorator.password', $config['jwt_decorator']['password']);
-        $container->setParameter('curler7_user.jwt_decorator.path', $config['jwt_decorator']['path']);
+        // Controller
+        $container->setParameter('curler7_user.controller.login_link.class', $config['service']['login_link_controller']);
         // Command
         $container->setParameter('curler7_user.command.create_user.class', $config['service']['command_create_user']);
-        // Doctrine
-        $container->setParameter('curler7_user.group_manager.class', $config['service']['group_manager']);
-        $container->setParameter('curler7_user.user_manager.class', $config['service']['user_manager']);
-        $container->setParameter('curler7_user.object_manager.class', $config['service']['object_manager']);
-        $container->setParameter('curler7_user.storage', $config['db_driver']);
         // Utils
-        $container->setParameter('curler7_user.canonical_fields_updater.class', $config['service']['canonical_fields_updater']);
-        $container->setParameter('curler7_user.canonicalizer.class', $config['service']['canonicalizer']);
-        $container->setParameter('curler7_user.password_updater.class', $config['service']['password_updater']);
-        $container->setParameter('curler7_user.user_registration.class', $config['service']['user_registration']);
-        $container->setParameter('curler7_user.user_spy.class', $config['service']['user_spy']);
+        $container->setParameter('curler7_user.util.canonical_fields_updater.class', $config['service']['canonical_fields_updater']);
+        $container->setParameter('curler7_user.util.canonicalizer.class', $config['service']['canonicalizer']);
+        $container->setParameter('curler7_user.util.password_updater.class', $config['service']['password_updater']);
+        $container->setParameter('curler7_user.util.user_registration.class', $config['service']['user_registration']);
+        $container->setParameter('curler7_user.util.user_spy.class', $config['service']['user_spy']);
+        $container->setAlias('curler7_user.util.util.email_canonicalizer', $config['service']['email_canonicalizer']);
+        $container->setAlias('curler7_user.util.util.username_canonicalizer', $config['service']['username_canonicalizer']);
         // Validator
         $container->setParameter('curler7_user.validator.last_super_admin_user.class', $config['service']['validator_last_super_admin_user']);
 
-        $container->setAlias('curler7_user.util.email_canonicalizer', $config['service']['email_canonicalizer']);
-        $container->setAlias('curler7_user.util.username_canonicalizer', $config['service']['username_canonicalizer']);
-
         foreach ([
-            'util',
-            'command',
-            'api_platform',
-            'auto_group_resource_metadata_factory',
-            'groups_context_builder',
-            'jwt_decorator',
-            'subscriber',
-            'authentication_success_handler',
-            'controller',
-            'voter',
-            'validator',
-        ] as $file) {
-            if ($config['service'][$file] ?? true) {
-                $loader->load($file.'.xml');
-            }
+            'api_platform', 'command', 'controller',
+            'event_subscriber', 'model', 'open_api',
+            'security', 'serializer', 'util', 'validator',
+         ] as $file) {
+            $loader->load($file.'.xml');
         }
 
         $this->loadDbDriver($loader, $container, $config);

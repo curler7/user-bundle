@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+
+        <service id="curler7_user.security.authentication_success_handler"
+                 class="%curler7_user.security.authentication_success_handler.class%"
+                 public="false"
+        >
+        </service>
+        <service id="Curler7\UserBundle\Security\Authentication\AuthenticationSuccessHandler" alias="curler7_user.security.authentication_success_handler" />
+
+        <service id="curler7_user.security.groups_context_builder"
+                 class="%curler7_user.security.groups_context_builder.class%"
+                 decorates="api_platform.serializer.context_builder"
+                 public="false"
+        >
+            <argument type="service" id=".inner" />
+            <argument type="service" id="security.helper" />
+        </service>
+
+        <service id="curler7_user.security.user_voter"
+                 class="%curler7_user.voter.user_voter.class%"
+                 public="false"
+        >
+            <argument type="service" id="security.helper" />
+            <tag name="security.voter" />
+        </service>
+
+        <service id="curler7_user.security.group_voter"
+                 class="%curler7_user.voter.group_voter.class%"
+                 public="false"
+        >
+            <argument type="service" id="security.helper" />
+            <tag name="security.voter" />
+        </service>
+
+    </services>
+</container>

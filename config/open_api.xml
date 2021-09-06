@@ -4,15 +4,15 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-
-        <service id="curler7_user.auto_group_resource_metadata_factory"
-                 class="%curler7_user.auto_group_resource_metadata_factory.class%"
-                 decorates="api_platform.metadata.resource.metadata_factory"
-                 decoration-priority="-20"
+        <service id="curler7_user.open_api.jwt_decorator"
+                 class="%curler7_user.open_api.jwt_decorator.class%"
+                 decorates="api_platform.openapi.factory"
                  public="false"
         >
             <argument type="service" id=".inner" />
+            <argument>%curler7_user.open_api.jwt_decorator.user%</argument>
+            <argument>%curler7_user.open_api.jwt_decorator.password%</argument>
+            <argument>%curler7_user.open_api.jwt_decorator.path%</argument>
         </service>
-
     </services>
 </container>
