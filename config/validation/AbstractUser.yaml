@@ -8,7 +8,9 @@ Curler7\UserBundle\Model\AbstractUser:
           message: curler7_user.user.username.not_blank
           groups: ['post', 'put', 'register']
       - Length:
+          min: 3
           max: 180
+          minMessage: curler7_user.user.username.length.min
           maxMessage: curler7_user.user.username.length.max
           groups: ['post', 'put', 'register']
         
@@ -29,6 +31,8 @@ Curler7\UserBundle\Model\AbstractUser:
           message: curler7_user.user.password.not_blank
           groups: ['post', 'register']
       - Length:
+          min: 8
           max: 180
+          minMessage: curler7_user.user.password.length.min
           maxMessage: curler7_user.user.password.length.max
           groups: ['post', 'put', 'register']
