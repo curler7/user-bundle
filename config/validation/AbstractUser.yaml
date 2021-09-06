@@ -24,7 +24,7 @@ Curler7\UserBundle\Model\AbstractUser:
           maxMessage: curler7_user.user.email.length.max
           groups: ['post', 'put', 'register', 'login_link']
 
-    plainPassword:
+    password:
       - NotBlank:
-          message: curler7_user.user.plainPassword.not_blank
+          message: curler7_user.user.password.not_blank
           groups: ['post', 'register']
