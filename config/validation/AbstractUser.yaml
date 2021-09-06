@@ -1,4 +1,4 @@
-Curler7\UserBundle\Model\AbstractUser:
+"%curler7_user.model.user.class%":
   constraints:
     - Curler7\UserBundle\Validator\LastSuperAdminUser:
         groups: ['put', 'delete']
