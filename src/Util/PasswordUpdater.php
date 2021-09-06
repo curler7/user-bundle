@@ -30,7 +30,6 @@ class PasswordUpdater implements PasswordUpdaterInterface
         }
 
         $user->setPassword($this->passwordHasher->hashPassword($user, $user->getPlainPassword()));
-        $user->eraseCredentials();
 
         return $this;
     }
