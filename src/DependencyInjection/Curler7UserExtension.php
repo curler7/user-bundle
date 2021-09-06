@@ -57,6 +57,7 @@ class Curler7UserExtension extends Extension implements PrependExtensionInterfac
         );
         */
 
+        /*
         $container->prependExtensionConfig('api_platform', [
             'mapping' => [
                 'paths' => [
@@ -64,6 +65,7 @@ class Curler7UserExtension extends Extension implements PrependExtensionInterfac
                 ],
             ],
         ]);
+        */
 
         $container->prependExtensionConfig('framework', [
             'serializer' => [
