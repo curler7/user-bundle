@@ -27,4 +27,4 @@ Curler7\UserBundle\Model\AbstractUser:
     plainPassword:
       - NotBlank:
           message: curler7_user.user.plainPassword.not_blank
-          groups: ['put', 'register']
+          groups: ['post', 'register']
