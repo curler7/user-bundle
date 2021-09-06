@@ -7,6 +7,7 @@
         <service id="curler7_user.jwt_decorator"
                  class="%curler7_user.jwt_decorator.class%"
                  decorates="api_platform.openapi.factory"
+                 public="false"
         >
             <argument type="service" id=".inner" />
             <argument>%curler7_user.jwt_decorator.user%</argument>

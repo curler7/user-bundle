@@ -1,6 +1,7 @@
 "%curler7_user.model.group.class%":
   attributes:
     security: 'is_granted("ROLE_SUPER_ADMIN")'
+    order: ['name']
   properties:
     id:
       identifier: true

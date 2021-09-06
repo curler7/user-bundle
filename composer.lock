@@ -4322,16 +4322,16 @@
         },
         {
             "name": "symfony/flex",
-            "version": "v1.15.1",
+            "version": "v1.15.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/flex.git",
-                "reference": "c2605222ee4984899bdc93b3e56f502fc79bafc6"
+                "reference": "f16f10772422ace36dc76d5d5c7a682c8b925c0c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/flex/zipball/c2605222ee4984899bdc93b3e56f502fc79bafc6",
-                "reference": "c2605222ee4984899bdc93b3e56f502fc79bafc6",
+                "url": "https://api.github.com/repos/symfony/flex/zipball/f16f10772422ace36dc76d5d5c7a682c8b925c0c",
+                "reference": "f16f10772422ace36dc76d5d5c7a682c8b925c0c",
                 "shasum": ""
             },
             "require": {
@@ -4370,7 +4370,7 @@
             "description": "Composer plugin for Symfony",
             "support": {
                 "issues": "https://github.com/symfony/flex/issues",
-                "source": "https://github.com/symfony/flex/tree/v1.15.1"
+                "source": "https://github.com/symfony/flex/tree/v1.15.3"
             },
             "funding": [
                 {
@@ -4386,7 +4386,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-08-30T14:55:05+00:00"
+            "time": "2021-09-06T12:45:00+00:00"
         },
         {
             "name": "symfony/framework-bundle",
@@ -9056,12 +9056,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:curler7/api-test-bundle.git",
-                "reference": "3d5cf9d52abd5e66263b71932b639a934da45be2"
+                "reference": "4fab06317ee7c4392bec11d546f51913fca06860"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/curler7/api-test-bundle/zipball/3d5cf9d52abd5e66263b71932b639a934da45be2",
-                "reference": "3d5cf9d52abd5e66263b71932b639a934da45be2",
+                "url": "https://api.github.com/repos/curler7/api-test-bundle/zipball/4fab06317ee7c4392bec11d546f51913fca06860",
+                "reference": "4fab06317ee7c4392bec11d546f51913fca06860",
                 "shasum": ""
             },
             "require": {
@@ -9155,7 +9155,7 @@
                 "source": "https://github.com/curler7/api-test-bundle/tree/master",
                 "issues": "https://github.com/curler7/api-test-bundle/issues"
             },
-            "time": "2021-09-02T17:13:01+00:00"
+            "time": "2021-09-06T21:11:42+00:00"
         },
         {
             "name": "dama/doctrine-test-bundle",

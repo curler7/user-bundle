@@ -7,6 +7,7 @@
 
         <service id="curler7_user.subscriber.jwt_subscriber"
                  class="%curler7_user.subscriber.jwt_subscriber.class%"
+                 public="false"
         >
             <argument type="service" id="curler7_user.user_manager" />
             <tag name="kernel.event_subscriber" />
@@ -14,7 +15,8 @@
         <service id="Curler7\UserBundle\EventSubscriber\JWTSubscriber" alias="curler7_user.subscriber.jwt_subscriber" />
 
         <service id="curler7_user.subscriber.validate_before_delete"
-                 class="Curler7\UserBundle\EventSubscriber\ValidateBeforeDeleteSubscriber"
+                 class="%curler7_user.subscriber.validate_before_delete.class%"
+                 public="false"
         >
             <argument type="service" id="api_platform.validator" />
             <tag name="kernel.event_subscriber" />

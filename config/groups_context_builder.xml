@@ -7,6 +7,7 @@
         <service id="curler7_user.groups_context_builder"
                  class="%curler7_user.groups_context_builder.class%"
                  decorates="api_platform.serializer.context_builder"
+                 public="false"
         >
             <argument type="service" id=".inner" />
             <argument type="service" id="security.helper" />

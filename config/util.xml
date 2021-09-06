@@ -5,28 +5,44 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
 
-        <service id="curler7_user.util.canonical_fields_updater" class="%curler7_user.canonical_fields_updater.class%" public="false">
+        <service id="curler7_user.util.canonical_fields_updater"
+                 class="%curler7_user.canonical_fields_updater.class%"
+                 public="false"
+        >
             <argument type="service" id="curler7_user.util.username_canonicalizer" />
             <argument type="service" id="curler7_user.util.email_canonicalizer" />
         </service>
         <service id="Curler7\UserBundle\Util\CanonicalFieldsUpdaterInterface" alias="curler7_user.util.canonical_fields_updater" />
 
-        <service id="curler7_user.util.canonicalizer" class="%curler7_user.canonicalizer.class%" public="false" />
+        <service
+                id="curler7_user.util.canonicalizer"
+                class="%curler7_user.canonicalizer.class%"
+                public="false"
+        />
         <service id="Curler7\UserBundle\Util\CanonicalizerInterface" alias="curler7_user.util.canonicalizer" />
 
-        <service id="curler7_user.util.password_updater" class="%curler7_user.password_updater.class%" public="false">
+        <service id="curler7_user.util.password_updater"
+                 class="%curler7_user.password_updater.class%"
+                 public="false"
+        >
             <argument type="service" id="security.user_password_hasher" />
         </service>
         <service id="Curler7\UserBundle\Util\PasswordUpdaterInterface" alias="curler7_user.util.password_updater" />
 
-        <service id="curler7_user.util.user_registration" class="%curler7_user.user_registration.class%" public="false">
+        <service id="curler7_user.util.user_registration"
+                 class="%curler7_user.user_registration.class%"
+                 public="false"
+        >
             <argument type="service" id="notifier" />
             <argument type="service" id="security.authenticator.login_link_handler.api" />
             <argument type="service" id="translator.default" />
         </service>
         <service id="Curler7\UserBundle\Util\UserRegistrationInterface" alias="curler7_user.util.user_registration" />
 
-        <service id="curler7_user.util.user_spy" class="%curler7_user.user_spy.class%" public="false">
+        <service id="curler7_user.util.user_spy"
+                 class="%curler7_user.user_spy.class%"
+                 public="false"
+        >
             <argument type="service" id="event_dispatcher" />
         </service>
         <service id="Curler7\UserBundle\Util\UserSpyInterface" alias="curler7_user.util.user_spy" />

@@ -4,7 +4,10 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="curler7_user.controller.login_link" class="Curler7\UserBundle\Controller\LoginLinkController">
+        <service id="curler7_user.controller.login_link"
+                class="%curler7_user.controller.login_link.class%"
+                 public="false"
+        >
             <argument>%curler7_user.model.user.class%</argument>
             <argument type="service" id="notifier" />
             <argument type="service" id="security.authenticator.login_link_handler.api" />

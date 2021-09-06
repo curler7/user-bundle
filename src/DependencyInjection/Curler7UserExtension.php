@@ -50,39 +50,27 @@ class Curler7UserExtension extends Extension implements PrependExtensionInterfac
 
     public function prepend(ContainerBuilder $container): void
     {
-        /*
         $config = (new Processor())->processConfiguration(
             new Configuration(),
             $container->getParameterBag()->resolveValue($container->getExtensionConfig($this->getAlias()))
         );
-        */
 
-        /*
-        $container->prependExtensionConfig('api_platform', [
-            'mapping' => [
-                'paths' => [
-                    __DIR__ . '/../../config/template',
-                ],
-            ],
-        ]);
-        */
+        $paths = [];
+        !$config['config']['resource_user'] ?: $paths[] = __DIR__ . '/../../config/resource/user';
+        !$config['config']['resource_group'] ?: $paths[] = __DIR__ . '/../../config/resource/group';
+        $container->prependExtensionConfig('api_platform', ['mapping' => ['paths' => $paths]]);
 
-        $container->prependExtensionConfig('framework', [
-            'serializer' => [
-                'mapping' => [
-                    'paths' => [
-                        __DIR__ . '/../../config/serialization',
-                    ],
-                ],
-            ],
-            'validation' => [
-                'mapping' => [
-                    'paths' => [
-                        __DIR__ . '/../../config/validation',
-                    ],
-                ],
-            ],
-        ]);
+        $paths = [];
+        !$config['config']['serializer_user'] ?: $paths[] = __DIR__ . '/../../config/serializer/user';
+        !$config['config']['serializer_group'] ?: $paths[] = __DIR__ . '/../../config/serializer/group';
+        $container->prependExtensionConfig('framework', ['serializer' => ['mapping' => ['paths' => $paths]]]);
+
+        $paths = [];
+        !$config['config']['validation_user'] ?: $paths[] = __DIR__ . '/../../config/validation/user';
+        !$config['config']['validation_group'] ?: $paths[] = __DIR__ . '/../../config/validation/group';
+        !$config['config']['storage_validation_user'] ?: $paths[] = __DIR__ . '/../../config/storage_validation/user';
+        !$config['config']['storage_validation_group'] ?: $paths[] = __DIR__ . '/../../config/storage_validation/group';
+        $container->prependExtensionConfig('framework', ['validation' => ['mapping' => ['paths' => $paths]]]);
     }
 
     /**
@@ -98,7 +86,6 @@ class Curler7UserExtension extends Extension implements PrependExtensionInterfac
         $container->setParameter('curler7_user.model.user.class', $config['user_class']);
         $container->setParameter('curler7_user.model.group.class', $config['group_class']);
         $container->setParameter('curler7_user.model_manager_name', $config['model_manager_name']);
-        $container->setParameter('curler7_user.api_platform', $config['api_platform']);
         // Normalizer
         $container->setParameter('curler7_user.user_normalizer.class', $config['service']['user_normalizer']);
         $container->setParameter('curler7_user.auto_group_resource_metadata_factory.class', $config['service']['auto_group_resource_metadata_factory']);
@@ -106,6 +93,10 @@ class Curler7UserExtension extends Extension implements PrependExtensionInterfac
         $container->setParameter('curler7_user.jwt_decorator.class', $config['service']['jwt_decorator']);
         $container->setParameter('curler7_user.subscriber.jwt_subscriber.class', $config['service']['subscriber_jwt_subscriber']);
         $container->setParameter('curler7_user.security.authentication_success_handler.class', $config['service']['security_authentication_success_handler']);
+        $container->setParameter('curler7_user.controller.login_link.class', $config['service']['login_link_controller']);
+        $container->setParameter('curler7_user.subscriber.validate_before_delete.class', $config['service']['validate_before_delete_subscriber']);
+        $container->setParameter('curler7_user.voter.user_voter.class', $config['service']['user_voter']);
+        $container->setParameter('curler7_user.voter.group_voter.class', $config['service']['group_voter']);
 
         $container->setParameter('curler7_user.jwt_decorator.user', $config['jwt_decorator']['user']);
         $container->setParameter('curler7_user.jwt_decorator.password', $config['jwt_decorator']['password']);

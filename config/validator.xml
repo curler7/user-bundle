@@ -6,7 +6,8 @@
     <services>
 
         <service id="curler7_user.validator.last_super_admin_user"
-                 class="Curler7\UserBundle\Validator\LastSuperAdminUserValidator"
+                 class="%curler7_user.validator.last_super_admin_user.class%"
+                 public="false"
         >
             <argument type="service" id="doctrine.orm.default_entity_manager" />
             <argument type="service" id="request_stack" />

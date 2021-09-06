@@ -1,4 +1,6 @@
 "%curler7_user.model.user.class%":
+  attributes:
+    order: ['username']
   properties:
     id:
       identifier: true

@@ -6,14 +6,16 @@
     <services>
 
         <service id="curler7_user.voter.user_voter"
-                 class="Curler7\UserBundle\Security\Voter\UserVoter"
+                 class="%curler7_user.voter.user_voter.class%"
+                 public="false"
         >
             <argument type="service" id="security.helper" />
             <tag name="security.voter" />
         </service>
 
         <service id="curler7_user.voter.group_voter"
-                 class="Curler7\UserBundle\Security\Voter\GroupVoter"
+                 class="%curler7_user.voter.group_voter.class%"
+                 public="false"
         >
             <argument type="service" id="security.helper" />
             <tag name="security.voter" />

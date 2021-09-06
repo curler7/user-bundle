@@ -72,7 +72,7 @@ class UserResourceCollectionPostTest extends AbstractUserResourceTest
                 'fullName' => 'new',
                 'username' => 'new',
                 'email' => 'corona@smart-media.design',
-                'password' => 'pass',
+                'password' => 'password',
             ],
             contains: [
                 'username' => 'new',

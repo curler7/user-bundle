@@ -50,7 +50,7 @@ class UserResourceCollectionRegisterTest extends AbstractUserResourceTest
             json: [
                 'username' => 'new',
                 'email' => 'corona@smart-media.design',
-                'password' => 'pass',
+                'password' => 'password',
             ],
             contains: [
                 'username' => 'new',

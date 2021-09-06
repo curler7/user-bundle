@@ -104,8 +104,8 @@ class UserResourceItemDeleteTest extends AbstractUserResourceTest
     public function testUserItemDeleteAuthSuperAdminSelf(): void
     {
         static::update(
-            ['username' => UserFixtures::DATA[3]['username']],
             fn(UserInterface $user) => $user->setEnabled(true),
+            ['username' => UserFixtures::DATA[3]['username']],
         );
 
         $this->checkItemDelete(

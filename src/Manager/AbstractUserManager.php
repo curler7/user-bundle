@@ -36,14 +36,14 @@ abstract class AbstractUserManager implements UserManagerInterface
         ?string $plainPassword = null,
         array $roles = [UserInterface::ROLE_DEFAULT],
         bool $enabled = false,
-        ?ArrayCollection $groups = null,
+        ?array $groups = null,
     ): UserInterface
     {
         $class = $this->getClass();
         /** @var UserInterface $user */
         $user = new $class($id);
 
-        foreach ($groups as $group) {
+        foreach ($groups ?? [] as $group) {
             $user->addGroup($group);
         }
 

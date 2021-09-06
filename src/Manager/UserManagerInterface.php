@@ -29,7 +29,7 @@ interface UserManagerInterface
         ?string $plainPassword = null,
         array $roles = [UserInterface::ROLE_DEFAULT],
         bool $enabled = false,
-        ?ArrayCollection $groups = null,
+        ?array $groups = null,
     ): UserInterface;
 
     public function deleteUser(UserInterface $user): static;
