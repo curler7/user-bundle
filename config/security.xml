@@ -22,7 +22,7 @@
         </service>
 
         <service id="curler7_user.security.user_voter"
-                 class="%curler7_user.voter.user_voter.class%"
+                 class="%curler7_user.security.user_voter.class%"
                  public="false"
         >
             <argument type="service" id="security.helper" />
@@ -30,7 +30,7 @@
         </service>
 
         <service id="curler7_user.security.group_voter"
-                 class="%curler7_user.voter.group_voter.class%"
+                 class="%curler7_user.security.group_voter.class%"
                  public="false"
         >
             <argument type="service" id="security.helper" />

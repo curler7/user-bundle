@@ -1,3 +1,4 @@
 curler7_user:
-  user_class: App\Entity\User
-  group_class: App\Entity\Group
+  model:
+    user_class: App\Entity\User
+    group_class: App\Entity\Group

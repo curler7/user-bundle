@@ -9,10 +9,10 @@
                 class="%curler7_user.model.group_manager.class%"
                 public="false"
         >
-            <argument type="service" id="curler7_user.object_manager" />
+            <argument type="service" id="curler7_user.model.object_manager" />
             <argument>%curler7_user.model.group.class%</argument>
         </service>
-        <service id="Curler7\UserBundle\Manager\GroupManagerInterface" alias="curler7_user.group_manager" />
+        <service id="Curler7\UserBundle\Manager\GroupManagerInterface" alias="curler7_user.model.group_manager" />
 
         <service id="curler7_user.model.user_manager"
                 class="%curler7_user.model.user_manager.class%"
@@ -20,16 +20,16 @@
         >
             <argument type="service" id="curler7_user.util.password_updater" />
             <argument type="service" id="curler7_user.util.canonical_fields_updater" />
-            <argument type="service" id="curler7_user.object_manager" />
+            <argument type="service" id="curler7_user.model.object_manager" />
             <argument>%curler7_user.model.user.class%</argument>
         </service>
-        <service id="Curler7\UserBundle\Manager\UserManagerInterface" alias="curler7_user.user_manager" />
+        <service id="Curler7\UserBundle\Manager\UserManagerInterface" alias="curler7_user.model.user_manager" />
 
         <service id="curler7_user.model.object_manager"
                 class="%curler7_user.model.object_manager.class%"
                 public="false"
         >
-            <argument>%curler7_user.model_manager_name%</argument>
+            <argument>%curler7_user.model.model_manager_name%</argument>
         </service>
 
     </services>

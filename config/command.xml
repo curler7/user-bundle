@@ -9,7 +9,7 @@
                  class="%curler7_user.command.create_user.class%"
                  public="false"
         >
-            <argument type="service" id="curler7_user.user_manager" />
+            <argument type="service" id="curler7_user.model.user_manager" />
             <tag name="console.command"  command="curler7:user:create" />
         </service>
 

@@ -9,7 +9,7 @@
                  class="%curler7_user.subscriber.jwt_subscriber.class%"
                  public="false"
         >
-            <argument type="service" id="curler7_user.user_manager" />
+            <argument type="service" id="curler7_user.model.user_manager" />
             <tag name="kernel.event_subscriber" />
         </service>
         <service id="Curler7\UserBundle\EventSubscriber\JWTSubscriber" alias="curler7_user.subscriber.jwt_subscriber" />

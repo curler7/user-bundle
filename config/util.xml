@@ -6,7 +6,7 @@
     <services>
 
         <service id="curler7_user.util.canonical_fields_updater"
-                 class="%curler7_user.canonical_fields_updater.class%"
+                 class="%curler7_user.util.canonical_fields_updater.class%"
                  public="false"
         >
             <argument type="service" id="curler7_user.util.username_canonicalizer" />
@@ -16,13 +16,13 @@
 
         <service
                 id="curler7_user.util.canonicalizer"
-                class="%curler7_user.canonicalizer.class%"
+                class="%curler7_user.util.canonicalizer.class%"
                 public="false"
         />
         <service id="Curler7\UserBundle\Util\CanonicalizerInterface" alias="curler7_user.util.canonicalizer" />
 
         <service id="curler7_user.util.password_updater"
-                 class="%curler7_user.password_updater.class%"
+                 class="%curler7_user.util.password_updater.class%"
                  public="false"
         >
             <argument type="service" id="security.user_password_hasher" />
@@ -30,7 +30,7 @@
         <service id="Curler7\UserBundle\Util\PasswordUpdaterInterface" alias="curler7_user.util.password_updater" />
 
         <service id="curler7_user.util.user_registration"
-                 class="%curler7_user.user_registration.class%"
+                 class="%curler7_user.util.user_registration.class%"
                  public="false"
         >
             <argument type="service" id="notifier" />
@@ -40,7 +40,7 @@
         <service id="Curler7\UserBundle\Util\UserRegistrationInterface" alias="curler7_user.util.user_registration" />
 
         <service id="curler7_user.util.user_spy"
-                 class="%curler7_user.user_spy.class%"
+                 class="%curler7_user.util.user_spy.class%"
                  public="false"
         >
             <argument type="service" id="event_dispatcher" />
