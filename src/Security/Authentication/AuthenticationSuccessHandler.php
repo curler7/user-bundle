@@ -24,8 +24,6 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerI
  */
 class AuthenticationSuccessHandler implements AuthenticationSuccessHandlerInterface
 {
-    public const PATH = '/admin';
-
     public function onAuthenticationSuccess(Request $request, TokenInterface $token): RedirectResponse
     {
         /** @var UserInterface $user */
@@ -33,6 +31,6 @@ class AuthenticationSuccessHandler implements AuthenticationSuccessHandlerInterf
 
         $user->setEnabled(true);
 
-        return new RedirectResponse(static::PATH);
+        return new RedirectResponse('/admin');
     }
 }
