@@ -25,7 +25,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerI
  */
 class AuthenticationSuccessHandler implements AuthenticationSuccessHandlerInterface
 {
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token): RedirectResponse
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token)
     {
         /** @var UserInterface $user */
         $user = $token->getUser();
