@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Curler7\UserBundle\Security\Authentication;
 
 use Curler7\UserBundle\Model\UserInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -25,6 +24,8 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerI
  */
 class AuthenticationSuccessHandler implements AuthenticationSuccessHandlerInterface
 {
+    public const PATH = '/admin';
+
     public function onAuthenticationSuccess(Request $request, TokenInterface $token): RedirectResponse
     {
         /** @var UserInterface $user */
@@ -32,6 +33,6 @@ class AuthenticationSuccessHandler implements AuthenticationSuccessHandlerInterf
 
         $user->setEnabled(true);
 
-        return new RedirectResponse('/admin');
+        return new RedirectResponse(static::PATH);
     }
 }
