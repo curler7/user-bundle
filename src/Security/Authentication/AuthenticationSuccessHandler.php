@@ -14,6 +14,8 @@ declare(strict_types=1);
 namespace Curler7\UserBundle\Security\Authentication;
 
 use Curler7\UserBundle\Model\UserInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerInterface;
@@ -23,7 +25,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerI
  */
 class AuthenticationSuccessHandler implements AuthenticationSuccessHandlerInterface
 {
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token)
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token): RedirectResponse
     {
         /** @var UserInterface $user */
         $user = $token->getUser();
