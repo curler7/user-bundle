@@ -9,6 +9,7 @@
                  class="%curler7_user.security.authentication_success_handler.class%"
                  public="false"
         >
+            <argument type="service" id="lexik_jwt_authentication.jwt_manager" />
         </service>
         <service id="Curler7\UserBundle\Security\Authentication\AuthenticationSuccessHandler" alias="curler7_user.security.authentication_success_handler" />
 
