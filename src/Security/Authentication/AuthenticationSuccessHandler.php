@@ -14,7 +14,10 @@ declare(strict_types=1);
 namespace Curler7\UserBundle\Security\Authentication;
 
 use Curler7\UserBundle\Model\UserInterface;
+use Lexik\Bundle\JWTAuthenticationBundle\Response\JWTAuthenticationSuccessResponse;
+use Lexik\Bundle\JWTAuthenticationBundle\Security\Http\Authentication\AuthenticationSuccessHandler as LexikAuthenticationSuccessHandler;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
+use Symfony\Component\BrowserKit\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,17 +29,18 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerI
  */
 class AuthenticationSuccessHandler implements AuthenticationSuccessHandlerInterface
 {
-    public function __construct(protected JWTTokenManagerInterface $JWTTokenManager)
+    public function __construct(protected LexikAuthenticationSuccessHandler $lexikAuthenticationSuccessHandler)
     {}
 
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token): RedirectResponse
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token): JWTAuthenticationSuccessResponse
     {
         /** @var UserInterface $user */
         $user = $token->getUser();
         $user->setEnabled(true);
-        $this->JWTTokenManager->create($user);
 
-        return $this->generateResponse($request, $token);
+        return $this->lexikAuthenticationSuccessHandler->handleAuthenticationSuccess($user);
+
+        // return $this->generateResponse($request, $token);
     }
 
     protected function generateResponse(Request $request, TokenInterface $token): RedirectResponse|JsonResponse
