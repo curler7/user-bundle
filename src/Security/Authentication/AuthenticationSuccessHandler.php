@@ -25,11 +25,13 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerI
  */
 class AuthenticationSuccessHandler implements AuthenticationSuccessHandlerInterface
 {
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token)
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token): RedirectResponse
     {
         /** @var UserInterface $user */
         $user = $token->getUser();
 
         $user->setEnabled(true);
+
+        return new RedirectResponse('/admin');
     }
 }
