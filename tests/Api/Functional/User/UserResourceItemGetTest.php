@@ -84,6 +84,7 @@ class UserResourceItemGetTest extends AbstractUserResourceTest
                 'plainPassword',
                 'enabled',
                 'groups',
+                'verified',
             ],
         );
     }
@@ -129,6 +130,7 @@ class UserResourceItemGetTest extends AbstractUserResourceTest
                 'plainPassword',
                 'enabled',
                 'groups',
+                'verified',
             ],
         );
     }
@@ -174,6 +176,7 @@ class UserResourceItemGetTest extends AbstractUserResourceTest
                 'plainPassword',
                 'enabled',
                 'groups',
+                'verified',
             ],
         );
     }
@@ -212,6 +215,7 @@ class UserResourceItemGetTest extends AbstractUserResourceTest
                 'roles',
                 'enabled',
                 'groups',
+                'verified',
             ],
             notHasKey: [
                 'usernameCanonical',
@@ -254,6 +258,7 @@ class UserResourceItemGetTest extends AbstractUserResourceTest
                 'roles',
                 'enabled',
                 'groups',
+                'verified',
             ],
             notHasKey: [
                 'usernameCanonical',
@@ -299,6 +304,7 @@ class UserResourceItemGetTest extends AbstractUserResourceTest
                 'roles',
                 'enabled',
                 'groups',
+                'verified',
             ],
             notHasKey: [
                 'usernameCanonical',

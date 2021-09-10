@@ -41,7 +41,9 @@ abstract class AbstractUser implements UserInterface
 
     protected ?string $password = null;
 
-    protected bool $enabled = false;
+    protected bool $enabled = true;
+
+    protected bool $verified = false;
 
     protected ?\DateTimeInterface $lastLogin = null;
 
@@ -70,6 +72,18 @@ abstract class AbstractUser implements UserInterface
     public function setEnabled(bool $enabled): static
     {
         $this->enabled = $enabled;
+
+        return $this;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->verified;
+    }
+
+    public function setVerified(bool $verified): static
+    {
+        $this->verified = $verified;
 
         return $this;
     }

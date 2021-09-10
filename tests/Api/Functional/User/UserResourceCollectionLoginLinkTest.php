@@ -28,7 +28,7 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
  */
-class UserResourceItemLoginLinkTest extends AbstractUserResourceTest
+class UserResourceCollectionLoginLinkTest extends AbstractUserResourceTest
 {
     protected const URI = '/users/login-link';
 
@@ -55,7 +55,7 @@ class UserResourceItemLoginLinkTest extends AbstractUserResourceTest
         $this->checkCollectionPost(
             client: static::createClient(),
             json: [
-                'email' => UserFixtures::DATA[0]['email'],
+                'identifier' => UserFixtures::DATA[0]['email'],
             ],
             contains: [],
             notHasKey: [
@@ -72,6 +72,7 @@ class UserResourceItemLoginLinkTest extends AbstractUserResourceTest
                 'enabled',
                 'lastLogin',
                 'roles',
+                'verified',
             ],
             jsonContains: false,
         );

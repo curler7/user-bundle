@@ -37,6 +37,10 @@ interface UserInterface extends PasswordAuthenticatedUserInterface, GroupableInt
 
     public function setRoles(?array $roles): static;
 
+    public function isVerified(): bool;
+
+    public function setVerified(bool $verified): static;
+
     public function isEnabled(): bool;
 
     public function setEnabled(bool $enabled): static;

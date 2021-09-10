@@ -60,6 +60,7 @@ class UserResourceCollectionGetTest extends AbstractUserResourceTest
                 'enabled',
                 'lastLogin',
                 'roles',
+                'verified',
             ],
             hydraMember: \count(UserFixtures::DATA),
             hydraView: false,
@@ -97,6 +98,7 @@ class UserResourceCollectionGetTest extends AbstractUserResourceTest
                 'plainPassword',
                 'groups',
                 'enabled',
+                'verified',
             ],
             hydraMember: \count(UserFixtures::DATA),
             hydraView: false,
@@ -127,6 +129,7 @@ class UserResourceCollectionGetTest extends AbstractUserResourceTest
                 'roles',
                 'enabled',
                 'groups',
+                'verified',
             ],
             notHasKey: [
                 'usernameCanonical',

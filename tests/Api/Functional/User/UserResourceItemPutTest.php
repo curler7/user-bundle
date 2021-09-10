@@ -130,6 +130,7 @@ class UserResourceItemPutTest extends AbstractUserResourceTest
                 'plainPassword',
                 'enabled',
                 'groups',
+                'verified',
             ],
         );
     }
@@ -170,6 +171,7 @@ class UserResourceItemPutTest extends AbstractUserResourceTest
                 'roles',
                 'enabled',
                 'groups',
+                'verified',
             ],
             notHasKey: [
                 'usernameCanonical',
@@ -214,6 +216,7 @@ class UserResourceItemPutTest extends AbstractUserResourceTest
                 'roles',
                 'enabled',
                 'groups',
+                'verified',
             ],
             notHasKey: [
                 'usernameCanonical',
@@ -261,6 +264,7 @@ class UserResourceItemPutTest extends AbstractUserResourceTest
                 'roles',
                 'enabled',
                 'groups',
+                'verified',
             ],
             notHasKey: [
                 'usernameCanonical',

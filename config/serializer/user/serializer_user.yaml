@@ -10,6 +10,8 @@ Curler7\UserBundle\Model\AbstractUser:
       groups: ['user:user:read']
     enabled:
       groups: ['super_admin:user']
+    verified:
+      groups: ['super_admin:user']
     roles:
       groups: ['user:user:read', 'super_admin:user']
     plainPassword:

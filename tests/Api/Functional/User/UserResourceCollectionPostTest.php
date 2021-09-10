@@ -87,6 +87,7 @@ class UserResourceCollectionPostTest extends AbstractUserResourceTest
                 'enabled',
                 'lastLogin',
                 'roles',
+                'verified',
             ],
             notHasKey: [
                 'usernameCanonical',
