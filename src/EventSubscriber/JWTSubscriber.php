@@ -39,7 +39,7 @@ class JWTSubscriber implements EventSubscriberInterface
         if (!$user->isVerified()) {
             return;
         }
-
+        
         $this->userManager->updateUser($user->setLastLogin(new \DateTime()));
 
         $this->addRolesToPayload($event);
