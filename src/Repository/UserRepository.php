@@ -26,7 +26,7 @@ use Symfony\Component\Uid\AbstractUid;
 class UserRepository extends EntityRepository implements UserLoaderInterface
 {
     /** @throws NonUniqueResultException */
-    public function loadUserByIdentifier(string $identifier): ?UserInterface
+    public function loadUserByIdentifier(string $identifier, bool $enabled = true): ?UserInterface
     {
         $qb = $this->createQueryBuilder('o');
 
@@ -34,13 +34,16 @@ class UserRepository extends EntityRepository implements UserLoaderInterface
             $qb->orWhere($qb->expr()->eq('o.'.$value, ':identifier'));
         }
 
+        if ($enabled) {
+            $qb
+                ->andWhere($qb->expr()->eq('o.enabled', ':enabled'))
+                ->setParameter('enabled', true);
+        }
+
         return $qb
-            ->andWhere($qb->expr()->eq('o.enabled', ':enabled'))
-            ->setParameter('enabled', true)
             ->setParameter('identifier', $identifier)
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getOneOrNullResult();
     }
 
     /**

@@ -40,8 +40,8 @@ class LoginLinkController extends AbstractController
     public function __invoke(Request $request): JsonResponse
     {
         /** @var UserInterface $user */
-        if (!$user = $this->entityManager->getRepository($this->resourceClass)->findOneBy(['email' => $request->toArray()['email'] ?? null])) {
-            return new JsonResponse(['response.entity_not_found.email'], 404);
+        if (!$user = $this->entityManager->getRepository($this->resourceClass)->loadUserByIdentifier($request->toArray()['email'] ?? null)) {
+            return new JsonResponse(['response.entity_not_found'], 404);
         }
 
         $this->notifier->send(
