@@ -36,7 +36,6 @@ class LoginLinkController extends AbstractController
         private LoginLinkHandlerInterface $loginLinkHandler,
         private TranslatorInterface $translator,
         private EntityManagerInterface $entityManager,
-        private Security $security,
     ) {}
 
     public function __invoke(Request $request): JsonResponse
@@ -44,7 +43,7 @@ class LoginLinkController extends AbstractController
         /** @var UserInterface $user */
         if (!$user = $this->entityManager->getRepository($this->resourceClass)->loadUserByIdentifier(
             $request->toArray()['identifier'] ?? null,
-            !$this->security->isGranted(UserInterface::ROLE_SUPER_ADMIN)
+            false
         )) {
             return new JsonResponse(status: 404);
         }

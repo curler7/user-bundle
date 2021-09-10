@@ -32,7 +32,7 @@ class AuthenticationSuccessHandler implements AuthenticationSuccessHandlerInterf
     {
         /** @var UserInterface $user */
         $user = $token->getUser();
-        $user->setEnabled(true);
+        $user->setVerified(true);
         
         return $this->lexikAuthenticationSuccessHandler->handleAuthenticationSuccess($user);
     }
