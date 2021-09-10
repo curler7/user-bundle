@@ -37,8 +37,8 @@ class JWTSubscriber implements EventSubscriberInterface
         $user = $event->getUser();
         
         if (!$user->isVerified()) {
-            $event->setData(['id' => '']);
-            $event->getResponse()->setStatusCode(401, 'Not verified');
+            $event->setData([]);
+            $event->getResponse()->setStatusCode(401, 'User not verified');
 
             return;
         }
