@@ -3,6 +3,7 @@
 namespace Curler7\UserBundle\EventSubscriber;
 
 use Curler7\UserBundle\Manager\UserManagerInterface;
+use Curler7\UserBundle\Model\UserInterface;
 use JetBrains\PhpStorm\ArrayShape;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\AuthenticationSuccessEvent;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent;
@@ -39,6 +40,7 @@ class JWTSubscriber implements EventSubscriberInterface
 
     protected function addRolesToPayload($event): void
     {
+        /** @var UserInterface $user */
         if (!$user = $event->getUser()) {
             return;
         }
