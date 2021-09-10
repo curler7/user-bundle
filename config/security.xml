@@ -10,6 +10,7 @@
                  public="false"
         >
             <argument type="service" id="lexik_jwt_authentication.handler.authentication_success" />
+            <argument type="service" id="doctrine.orm.default_entity_manager" />
         </service>
         <service id="Curler7\UserBundle\Security\Authentication\AuthenticationSuccessHandler" alias="curler7_user.security.authentication_success_handler" />
 

@@ -26,18 +26,12 @@ use Symfony\Component\Uid\AbstractUid;
 class UserRepository extends EntityRepository implements UserLoaderInterface
 {
     /** @throws NonUniqueResultException */
-    public function loadUserByIdentifier(string $identifier, bool $verified = true): ?UserInterface
+    public function loadUserByIdentifier(string $identifier): ?UserInterface
     {
         $qb = $this->createQueryBuilder('o');
 
         foreach (UserInterface::IDENTIFIERS as $value) {
             $qb->orWhere($qb->expr()->eq('o.'.$value, ':identifier'));
-        }
-
-        if ($verified) {
-            $qb
-                ->andWhere($qb->expr()->eq('o.verified', ':verified'))
-                ->setParameter('verified', true);
         }
 
         return $qb

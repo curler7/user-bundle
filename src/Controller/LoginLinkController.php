@@ -42,8 +42,7 @@ class LoginLinkController extends AbstractController
     {
         /** @var UserInterface $user */
         if (!$user = $this->entityManager->getRepository($this->resourceClass)->loadUserByIdentifier(
-            $request->toArray()['identifier'] ?? null,
-            false
+            $request->toArray()['identifier'] ?? null
         )) {
             return new JsonResponse(status: 404);
         }
