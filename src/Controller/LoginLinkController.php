@@ -41,7 +41,9 @@ class LoginLinkController extends AbstractController
     {
         /** @var UserInterface $user */
         if (!$user = $this->entityManager->getRepository($this->resourceClass)->loadUserByIdentifier($request->toArray()['identifier'] ?? null)) {
-            return new JsonResponse(['response.entity_not_found'], 404);
+            return new JsonResponse([
+                'message' => 'response.entity_not_found'
+            ], 404);
         }
 
         $this->notifier->send(
