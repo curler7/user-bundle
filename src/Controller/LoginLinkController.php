@@ -20,6 +20,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Notifier\NotifierInterface;
 use Symfony\Component\Notifier\Recipient\Recipient;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Http\LoginLink\LoginLinkHandlerInterface;
 use Symfony\Component\Security\Http\LoginLink\LoginLinkNotification;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -35,12 +36,16 @@ class LoginLinkController extends AbstractController
         private LoginLinkHandlerInterface $loginLinkHandler,
         private TranslatorInterface $translator,
         private EntityManagerInterface $entityManager,
+        private Security $security,
     ) {}
 
     public function __invoke(Request $request): JsonResponse
     {
         /** @var UserInterface $user */
-        if (!$user = $this->entityManager->getRepository($this->resourceClass)->loadUserByIdentifier($request->toArray()['identifier'] ?? null)) {
+        if (!$user = $this->entityManager->getRepository($this->resourceClass)->loadUserByIdentifier(
+            $request->toArray()['identifier'] ?? null,
+            $this->security->isGranted(UserInterface::ROLE_SUPER_ADMIN)
+        )) {
             return new JsonResponse(status: 404);
         }
 
