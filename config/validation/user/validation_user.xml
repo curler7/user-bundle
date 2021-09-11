@@ -2,9 +2,16 @@
 <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                     xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping
-                    https://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+                https://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
 
     <class name="Curler7\UserBundle\Model\AbstractUser">
+
+        <constraint name="Curler7\UserBundle\Validator\LastSuperAdminUser">
+            <option name="groups">
+                <value>put</value>
+                <value>delete</value>
+            </option>
+        </constraint>
 
         <property name="username">
             <constraint name="NotBlank">
@@ -16,10 +23,62 @@
                 </option>
             </constraint>
             <constraint name="Length">
-                <option name="min">3</option>
+                <option name="min">2</option>
+                <option name="max">180</option>
                 <option name="minMessage">curler7_user.user.username.length.min</option>
+                <option name="maxMessage">curler7_user.user.username.length.max</option>
+                <option name="groups">
+                    <value>post</value>
+                    <value>put</value>
+                    <value>register</value>
+                </option>
+            </constraint>
+        </property>
+
+        <property name="email">
+            <constraint name="NotBlank">
+                <option name="message">curler7_user.user.email.not_blank</option>
+                <option name="groups">
+                    <value>post</value>
+                    <value>put</value>
+                    <value>register</value>
+                    <value>login_link</value>
+                </option>
+            </constraint>
+            <constraint name="Email">
+                <option name="message">curler7_user.user.email.email</option>
+                <option name="groups">
+                    <value>post</value>
+                    <value>put</value>
+                    <value>register</value>
+                    <value>login_link</value>
+                </option>
+            </constraint>
+            <constraint name="Length">
                 <option name="max">180</option>
                 <option name="maxMessage">curler7_user.user.username.length.max</option>
+                <option name="groups">
+                    <value>post</value>
+                    <value>put</value>
+                    <value>register</value>
+                    <value>login_link</value>
+                </option>
+            </constraint>
+        </property>
+
+        <property name="plainPassword">
+            <constraint name="NotBlank">
+                <option name="message">curler7_user.user.plain_password.not_blank</option>
+                <option name="groups">
+                    <value>post</value>
+                    <value>register</value>
+                </option>
+            </constraint>
+            <constraint name="Length">
+                <option name="min">8</option>
+                <option name="max">180</option>
+                <option name="minMessage">curler7_user.user.plain_password.length.min</option>
+                <option name="maxMessage">curler7_user.user.plain_password.length.max</option>
                 <option name="groups">
                     <value>post</value>
                     <value>put</value>

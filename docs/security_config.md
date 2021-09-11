@@ -1,3 +1,9 @@
+Security Config
+============
+
+### Config
+``` yaml
+# config/packages/security.yaml
 security:
     enable_authenticator_manager: true
     password_hashers:
@@ -27,17 +33,27 @@ security:
             stateless: true
             jwt: ~
 
-            # activate different ways to authenticate
-            # https://symfony.com/doc/current/security.html#firewalls-authentication
-
-            # https://symfony.com/doc/current/security/impersonating_user.html
-            # switch_user: true
-
-    # Easy way to control access for large sections of your site
-    # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
 
     role_hierarchy:
         ROLE_ADMIN:       [ROLE_USER]
         ROLE_SUPER_ADMIN: [ROLE_ALLOWED_TO_SWITCH, ROLE_ADMIN]
+```
+
+**Note:**
+> Provider with no property defined, because bundle handle that. The properties are defined in "Curler7\UserBundle\Model\UserInterface::IDENTIFIERS" array
+
+**Note:**
+> Access control need role "IS_AUTHENTICATED_ANONYMOUSLY", because of sharing login link is behind firewall
+
+### Routes
+``` yaml
+# config/routes/security.yaml
+api_login_check:
+  path: /api/login_check
+  methods: ['POST']
+
+login_check:
+  path: /login_check
+```

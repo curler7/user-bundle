@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<serializer xmlns="http://symfony.com/schema/dic/serializer-mapping"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/serializer-mapping
+        https://symfony.com/schema/dic/serializer-mapping/serializer-mapping-1.0.xsd"
+>
+    <class name="Curler7\UserBundle\Model\AbstractUser">
+
+        <attribute name="id">
+            <group>user:read</group>
+            <group>group:post:write</group>
+        </attribute>
+
+        <attribute name="username">
+            <group>user:post</group>
+            <group>user:put</group>
+            <group>user:register</group>
+            <group>user:get</group>
+        </attribute>
+
+        <attribute name="email">
+            <group>user</group>
+        </attribute>
+
+        <attribute name="lastLogin">
+            <group>user:user:read</group>
+        </attribute>
+
+        <attribute name="enabled">
+            <group>super_admin:user</group>
+        </attribute>
+
+        <attribute name="verified">
+            <group>super_admin:user</group>
+        </attribute>
+
+        <attribute name="roles">
+            <group>user:user:read</group>
+            <group>super_admin:user</group>
+        </attribute>
+
+        <attribute name="plainPassword" serialized-name="password">
+            <group>user:post:write</group>
+            <group>user:put:write</group>
+            <group>user:register:write</group>
+        </attribute>
+
+        <attribute name="groups">
+            <group>super_admin:user</group>
+        </attribute>
+
+    </class>
+
+</serializer>

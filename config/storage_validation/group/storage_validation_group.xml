@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping
+                https://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+
+    <class name="Curler7\UserBundle\Model\AbstractGroup">
+
+        <constraint name="Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity">
+            <option name="fields">name</option>
+            <option name="errorPath">name</option>
+            <option name="message">curler7_user.group.name.unique_entity</option>
+            <option name="groups">
+                <value>post</value>
+                <value>put</value>
+            </option>
+        </constraint>
+
+    </class>
+
+</constraint-mapping>

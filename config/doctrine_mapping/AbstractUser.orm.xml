@@ -3,7 +3,7 @@
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
-                                      http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+              https://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
     <mapped-superclass
             name="Curler7\UserBundle\Model\AbstractUser"
@@ -11,13 +11,13 @@
             repository-class="Curler7\UserBundle\Repository\UserRepository"
     >
 
-        <field name="username" column="username" type="string" length="180" />
+        <field name="username" column="username" length="180" />
 
-        <field name="usernameCanonical" column="username_canonical" type="string" length="180" unique="true" />
+        <field name="usernameCanonical" column="username_canonical" length="180" unique="true" />
 
-        <field name="email" column="email" type="string" length="180" />
+        <field name="email" column="email" length="180" />
 
-        <field name="emailCanonical" column="email_canonical" type="string" length="180" unique="true" />
+        <field name="emailCanonical" column="email_canonical" length="180" unique="true" />
 
         <field name="enabled" column="enabled" type="boolean" />
 
@@ -25,7 +25,7 @@
 
         <field name="share" column="share" type="boolean" />
 
-        <field name="password" column="password" type="string" />
+        <field name="password" column="password" />
 
         <field name="lastLogin" column="last_login" type="datetime" nullable="true" />
 

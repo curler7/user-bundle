@@ -1,0 +1,49 @@
+<resources xmlns="https://api-platform.com/schema/metadata"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="https://api-platform.com/schema/metadata
+        https://api-platform.com/schema/metadata/metadata-2.0.xsd">
+
+    <resource class="%curler7_user.model.group.class%">
+
+        <attribute name="security">is_granted("ROLE_SUPER_ADMIN")</attribute>
+        <attribute name="order">
+            <attribute>name</attribute>
+        </attribute>
+
+        <property name="id" identifier="true"/>
+
+        <collectionOperations>
+
+            <collectionOperation name="get" />
+
+            <collectionOperation name="post">
+                <attribute name="validation_groups">
+                    <attribute>Default</attribute>
+                    <attribute>post</attribute>
+                </attribute>
+            </collectionOperation>
+
+        </collectionOperations>
+
+        <itemOperations>
+
+            <itemOperation name="get" />
+
+            <itemOperation name="put">
+                <attribute name="validation_groups">
+                    <attribute>Default</attribute>
+                    <attribute>put</attribute>
+                </attribute>
+            </itemOperation>
+
+            <itemOperation name="delete">
+                <attribute name="validation_groups">
+                    <attribute>delete</attribute>
+                </attribute>
+            </itemOperation>
+
+        </itemOperations>
+
+    </resource>
+
+</resources>

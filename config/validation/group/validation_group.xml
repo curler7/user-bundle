@@ -2,7 +2,7 @@
 <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                     xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping
-                    https://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+                https://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
 
     <class name="Curler7\UserBundle\Model\AbstractGroup">
 
@@ -15,9 +15,9 @@
                 </option>
             </constraint>
             <constraint name="Length">
-                <option name="min">3</option>
-                <option name="minMessage">curler7_user.group.name.length.min</option>
+                <option name="min">2</option>
                 <option name="max">180</option>
+                <option name="minMessage">curler7_user.group.name.length.min</option>
                 <option name="maxMessage">curler7_user.group.name.length.max</option>
                 <option name="groups">
                     <value>post</value>
