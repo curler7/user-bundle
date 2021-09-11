@@ -3,7 +3,7 @@ Curler7UserBundle
 
 The Curler7UserBundle is a Symfony bundle handle user management for API Platform.
 
-###Features include:
+### Features include:
 - Users stored in database or on custom way
 - Registration support, with optional email confirmation
 - Password forgot support over login link
