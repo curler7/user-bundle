@@ -23,6 +23,8 @@
 
         <field name="verified" column="verified" type="boolean" />
 
+        <field name="share" column="share" type="boolean" />
+
         <field name="password" column="password" type="string" />
 
         <field name="lastLogin" column="last_login" type="datetime" nullable="true" />

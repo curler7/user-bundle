@@ -21,7 +21,7 @@ security:
         api:
             login_link:
                 check_route: login_check
-                signature_properties: ['id', 'email']
+                signature_properties: [ 'id', 'email', 'enabled', 'verified' ]
                 max_uses: 1
                 success_handler: Curler7\UserBundle\Security\Authentication\AuthenticationSuccessHandler
             stateless: true
@@ -36,8 +36,7 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-    # - { path: ^/admin, roles: ROLE_ADMIN }
-    # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
 
     role_hierarchy:
         ROLE_ADMIN:       [ROLE_USER]

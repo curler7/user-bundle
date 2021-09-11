@@ -85,6 +85,7 @@ class UserResourceItemGetTest extends AbstractUserResourceTest
                 'enabled',
                 'groups',
                 'verified',
+                'share',
             ],
         );
     }
@@ -131,6 +132,7 @@ class UserResourceItemGetTest extends AbstractUserResourceTest
                 'enabled',
                 'groups',
                 'verified',
+                'share',
             ],
         );
     }
@@ -177,6 +179,7 @@ class UserResourceItemGetTest extends AbstractUserResourceTest
                 'enabled',
                 'groups',
                 'verified',
+                'share',
             ],
         );
     }
@@ -223,6 +226,7 @@ class UserResourceItemGetTest extends AbstractUserResourceTest
                 'password',
                 'loginLinkRequestedAt',
                 'plainPassword',
+                'share',
             ],
         );
     }
@@ -266,6 +270,7 @@ class UserResourceItemGetTest extends AbstractUserResourceTest
                 'password',
                 'loginLinkRequestedAt',
                 'plainPassword',
+                'share',
             ],
         );
     }
@@ -312,6 +317,7 @@ class UserResourceItemGetTest extends AbstractUserResourceTest
                 'password',
                 'loginLinkRequestedAt',
                 'plainPassword',
+                'share',
             ],
         );
     }

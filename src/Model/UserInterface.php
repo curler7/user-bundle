@@ -41,6 +41,10 @@ interface UserInterface extends PasswordAuthenticatedUserInterface, GroupableInt
 
     public function setVerified(bool $verified): static;
 
+    public function isShare(): bool;
+
+    public function setShare(bool $share): static;
+
     public function isEnabled(): bool;
 
     public function setEnabled(bool $enabled): static;
@@ -71,5 +75,5 @@ interface UserInterface extends PasswordAuthenticatedUserInterface, GroupableInt
 
     public function getLoginLinkRequestedAt(): ?\DateTimeInterface;
 
-    public function setLoginLinkRequestedAt(?\DateTimeInterface $passwordRequestedAt): static;
+    public function setLoginLinkRequestedAt(?\DateTimeInterface $loginLinkRequestedAt): static;
 }

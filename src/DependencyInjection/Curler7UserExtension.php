@@ -82,7 +82,10 @@ class Curler7UserExtension extends Extension implements PrependExtensionInterfac
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../../config'));
 
-
+        // Config
+        $container->setParameter('curler7_user.config.login_link_post', $config['config']['login_link_post']);
+        $container->setParameter('curler7_user.config.login_link_register', $config['config']['login_link_register']);
+        $container->setParameter('curler7_user.config.login_link_share', $config['config']['login_link_share']);
         // Api platform
         $container->setParameter('curler7_user.api_platform.auto_group_resource_metadata_factory.class', $config['api_platform']['auto_group_resource_metadata_factory']);
         // Command
@@ -116,7 +119,7 @@ class Curler7UserExtension extends Extension implements PrependExtensionInterfac
         $container->setParameter('curler7_user.util.canonical_fields_updater.class', $config['util']['canonical_fields_updater']);
         $container->setParameter('curler7_user.util.canonicalizer.class', $config['util']['canonicalizer']);
         $container->setParameter('curler7_user.util.password_updater.class', $config['util']['password_updater']);
-        $container->setParameter('curler7_user.util.user_registration.class', $config['util']['user_registration']);
+        $container->setParameter('curler7_user.util.login_link_sender.class', $config['util']['login_link_sender']);
         $container->setParameter('curler7_user.util.user_spy.class', $config['util']['user_spy']);
         $container->setAlias('curler7_user.util.email_canonicalizer', $config['util']['email_canonicalizer']);
         $container->setAlias('curler7_user.util.username_canonicalizer', $config['util']['username_canonicalizer']);

@@ -16,7 +16,7 @@ namespace Curler7\UserBundle\Serializer;
 use Curler7\UserBundle\Model\UserInterface;
 use Curler7\UserBundle\Util\CanonicalFieldsUpdaterInterface;
 use Curler7\UserBundle\Util\PasswordUpdaterInterface;
-use Curler7\UserBundle\Util\UserRegistrationInterface;
+use Curler7\UserBundle\Util\LoginLinkSenderInterface;
 use Curler7\UserBundle\Util\UserSpyInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareDenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
@@ -42,9 +42,11 @@ final class UserNormalizer implements
     public function __construct(
         private CanonicalFieldsUpdaterInterface $canonicalFieldsUpdater,
         private PasswordUpdaterInterface        $passwordUpdater,
-        private UserRegistrationInterface       $userRegistration,
+        private LoginLinkSenderInterface        $loginLinkSender,
         private UserSpyInterface                $userSpy,
         private string                          $resourceClass,
+        private bool                            $loginLinkRegister,
+        private bool                            $loginLinkPost,
     ) {}
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
@@ -52,12 +54,11 @@ final class UserNormalizer implements
         return $this->resourceClass === $data && !isset($context[self::ALREADY_CALLED]);
     }
 
-    public function normalize($object, string $format = null, array $context = [])
+    public function normalize($object, string $format = null, array $context = []): float|int|bool|\ArrayObject|array|string|null
     {
         $context[self::ALREADY_CALLED] = true;
 
-        /** @var UserInterface $user */
-        $user = $this->normalizer->normalize($object, $format, $context);
+        return $this->normalizer->normalize($object, $format, $context);
     }
 
     public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
@@ -81,8 +82,12 @@ final class UserNormalizer implements
         if (isset($data['password'])) {
             $this->passwordUpdater->hashPassword($user);
         }
-        if ('register' === ($context['collection_operation_name'] ?? null)) {
-            $this->userRegistration->register($user);
+        if (isset($data['email']) &&
+            (('register' === ($context['collection_operation_name'] ?? null) &&
+                $this->loginLinkRegister) ||
+            ('post' === ($context['collection_operation_name'] ?? null) &&
+                $this->loginLinkPost))) {
+            $this->loginLinkSender->send($user, subject: 'user.register.notification.subject');
         }
 
         $this->userSpy->spy($user, $data, $context);

@@ -73,6 +73,7 @@ class UserResourceCollectionLoginLinkTest extends AbstractUserResourceTest
                 'lastLogin',
                 'roles',
                 'verified',
+                'share',
             ],
             jsonContains: false,
         );

@@ -9,10 +9,10 @@
                  public="false"
         >
             <argument>%curler7_user.model.user.class%</argument>
-            <argument type="service" id="notifier" />
-            <argument type="service" id="security.authenticator.login_link_handler.api" />
-            <argument type="service" id="translator.default" />
             <argument type="service" id="doctrine.orm.default_entity_manager" />
+            <argument type="service" id="curler7_user.util.login_link_sender" />
+            <argument type="service" id="security.helper" />
+            <argument>%curler7_user.config.login_link_share%</argument>
             <tag name="controller.service_arguments"/>
             <call method="setContainer">
                 <argument type="service" id="service_container" />

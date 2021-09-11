@@ -37,6 +37,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             'groups' => [0],
             'roles' => [],
             'enabled' => true,
+            'verified' => true,
             'full_name' => 'User',
         ],[
             'username' => 'admin',
@@ -45,6 +46,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             'groups' => [],
             'roles' => [UserInterface::ROLE_SUPER_ADMIN],
             'enabled' => true,
+            'verified' => true,
             'full_name' => 'Admin',
         ], [
             'username' => 'Neo',
@@ -53,6 +55,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             'groups' => [],
             'roles' => [],
             'enabled' => false,
+            'verified' => false,
             'full_name' => 'Neo',
         ], [
             'username' => 'Morpheus',
@@ -61,6 +64,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             'groups' => [],
             'roles' => [UserInterface::ROLE_SUPER_ADMIN],
             'enabled' => false,
+            'verified' => false,
             'full_name' => 'Morpheus',
         ], [
             'username' => 'Trinity',
@@ -69,6 +73,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             'groups' => [],
             'roles' => [],
             'enabled' => false,
+            'verified' => false,
             'full_name' => 'Morpheus',
         ],
     ];
@@ -87,7 +92,9 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
                 enabled: $data['enabled'],
             );
 
-            $user->setFullName($data['full_name']);
+            $user
+                ->setVerified($data['verified'])
+                ->setFullName($data['full_name']);
 
             foreach ($data['groups'] as $id) {
                 /** @var GroupInterface $group */

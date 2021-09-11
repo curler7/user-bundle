@@ -45,6 +45,8 @@ abstract class AbstractUser implements UserInterface
 
     protected bool $verified = false;
 
+    protected bool $share = false;
+
     protected ?\DateTimeInterface $lastLogin = null;
 
     protected ?\DateTimeInterface $loginLinkRequestedAt = null;
@@ -84,6 +86,18 @@ abstract class AbstractUser implements UserInterface
     public function setVerified(bool $verified): static
     {
         $this->verified = $verified;
+
+        return $this;
+    }
+
+    public function isShare(): bool
+    {
+        return $this->share;
+    }
+
+    public function setShare(bool $share): static
+    {
+        $this->share = $share;
 
         return $this;
     }
@@ -174,17 +188,17 @@ abstract class AbstractUser implements UserInterface
 
     public function getLoginLinkRequestedAt(): ?\DateTimeInterface
     {
-        return $this->passwordRequestedAt;
+        return $this->loginLinkRequestedAt;
     }
 
-    public function setLoginLinkRequestedAt(?\DateTimeInterface $passwordRequestedAt): static
+    public function setLoginLinkRequestedAt(?\DateTimeInterface $loginLinkRequestedAt): static
     {
-        $this->passwordRequestedAt = $passwordRequestedAt;
+        $this->loginLinkRequestedAt = $loginLinkRequestedAt;
 
         return $this;
     }
 
-    public function getUserIdentifier(): string
+    public function getUserIdentifier(): ?string
     {
         return $this->username;
     }

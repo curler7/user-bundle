@@ -95,6 +95,7 @@ class UserResourceCollectionPostTest extends AbstractUserResourceTest
                 'loginLinkRequestedAt',
                 'plainPassword',
                 'password',
+                'share',
             ],
         );
     }

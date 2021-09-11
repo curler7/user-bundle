@@ -28,11 +28,11 @@ Curler7\UserBundle\Model\AbstractUser:
 
     plainPassword:
       - NotBlank:
-          message: curler7_user.user.password.not_blank
+          message: curler7_user.user.plain_password.not_blank
           groups: ['post', 'register']
       - Length:
           min: 8
           max: 180
-          minMessage: curler7_user.user.password.length.min
-          maxMessage: curler7_user.user.password.length.max
+          minMessage: curler7_user.user.plain_password.length.min
+          maxMessage: curler7_user.user.plain_password.length.max
           groups: ['post', 'put', 'register']

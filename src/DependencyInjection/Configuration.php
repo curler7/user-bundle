@@ -29,7 +29,7 @@ use Curler7\UserBundle\Serializer\UserNormalizer;
 use Curler7\UserBundle\Util\CanonicalFieldsUpdater;
 use Curler7\UserBundle\Util\Canonicalizer;
 use Curler7\UserBundle\Util\PasswordUpdater;
-use Curler7\UserBundle\Util\UserRegistration;
+use Curler7\UserBundle\Util\LoginLinkSender;
 use Curler7\UserBundle\Util\UserSpy;
 use Curler7\UserBundle\Validator\LastSuperAdminUserValidator;
 use Doctrine\Persistence\ObjectManager;
@@ -80,8 +80,9 @@ class Configuration implements ConfigurationInterface
                             ->booleanNode('validation_group')->defaultValue(true)->end()
                             ->booleanNode('storage_validation_user')->defaultValue(true)->end()
                             ->booleanNode('storage_validation_group')->defaultValue(true)->end()
-                            ->booleanNode('email_post')->defaultValue(true)->end()
-                            ->booleanNode('email_register')->defaultValue(true)->end()
+                            ->booleanNode('login_link_post')->defaultValue(true)->end()
+                            ->booleanNode('login_link_register')->defaultValue(true)->end()
+                            ->booleanNode('login_link_share')->defaultValue(true)->end()
                         ->end()
                     ->end()
                 ->end()
@@ -210,7 +211,7 @@ class Configuration implements ConfigurationInterface
                             ->scalarNode('password_updater')->defaultValue(PasswordUpdater::class)->end()
                             ->scalarNode('email_canonicalizer')->defaultValue('curler7_user.util.canonicalizer')->end()
                             ->scalarNode('username_canonicalizer')->defaultValue('curler7_user.util.canonicalizer')->end()
-                            ->scalarNode('user_registration')->defaultValue(UserRegistration::class)->end()
+                            ->scalarNode('login_link_sender')->defaultValue(LoginLinkSender::class)->end()
                             ->scalarNode('user_spy')->defaultValue(UserSpy::class)->end()
                         ->end()
                     ->end()

@@ -131,6 +131,7 @@ class UserResourceItemPutTest extends AbstractUserResourceTest
                 'enabled',
                 'groups',
                 'verified',
+                'share',
             ],
         );
     }
@@ -179,6 +180,7 @@ class UserResourceItemPutTest extends AbstractUserResourceTest
                 'password',
                 'loginLinkRequestedAt',
                 'plainPassword',
+                'share',
             ],
         );
     }
@@ -224,6 +226,7 @@ class UserResourceItemPutTest extends AbstractUserResourceTest
                 'password',
                 'loginLinkRequestedAt',
                 'plainPassword',
+                'share',
             ],
         );
     }
@@ -272,6 +275,7 @@ class UserResourceItemPutTest extends AbstractUserResourceTest
                 'password',
                 'loginLinkRequestedAt',
                 'plainPassword',
+                'share',
             ],
         );
     }

@@ -73,6 +73,7 @@ class UserResourceCollectionRegisterTest extends AbstractUserResourceTest
                 'lastLogin',
                 'roles',
                 'verified',
+                'share',
             ],
         );
     }

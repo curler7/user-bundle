@@ -65,7 +65,7 @@ class Curler7UserExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasService('curler7_user.util.canonical_fields_updater');
         $this->assertContainerBuilderHasService('curler7_user.util.canonicalizer');
         $this->assertContainerBuilderHasService('curler7_user.util.password_updater');
-        $this->assertContainerBuilderHasService('curler7_user.util.user_registration');
+        $this->assertContainerBuilderHasService('curler7_user.util.login_link_sender');
         $this->assertContainerBuilderHasService('curler7_user.util.user_spy');
         $this->assertContainerBuilderHasService('curler7_user.util.email_canonicalizer');
         $this->assertContainerBuilderHasService('curler7_user.util.username_canonicalizer');

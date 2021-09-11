@@ -1,26 +1,30 @@
 curler7_user:
-  username:
-    already_used: 'The username is already used.'
-    blank: 'Please enter a username.'
-    short: 'The username is too short.'
-    long: 'The username is too long.'
-  email:
-    already_used: 'The email is already used.'
-    blank: 'Please enter an email.'
-    short: 'The email is too short.'
-    long: 'The email is too long.'
-    invalid: 'The email is not valid.'
-  password:
-    blank: 'Please enter a password.'
-    short: 'The password is too short.'
-    mismatch: 'The entered passwords don''t match.'
-  new_password:
-    blank: 'Please enter a new password.'
-    short: 'The new password is too short.'
-  current_password:
-    invalid: 'The entered password is invalid.'
+  user:
+    username:
+      unique_entity: 'The username is already used.'
+      not_blank: 'Please enter a username.'
+      length:
+        min: 'The username is too short, min: {{ limit }}'
+        max: 'The username is too long, max: {{ limit }}'
+    email:
+      unique_entity: 'The email is already used.'
+      not_blank: 'Please enter an email.'
+      email: 'The email is not valid.'
+      length:
+        max: 'The email is too long, max: {{ limit }}'
+    plain_password:
+      not_blank: 'Please enter a password.'
+      length:
+        min: 'The password is too short, min: {{ limit }}'
+        max: 'The password is too long, max: {{ limit }}'
+      mismatch: 'The entered passwords don''t match.'
+      invalid: 'The entered password is invalid.'
+    enabled:
+      last_super_admin: ''
   group:
-    blank: 'Please enter a name.'
-    short: 'The name is too short.'
-    long: 'The name is too long.'
-    already_used: 'The name is already used.'
+    name:
+      unique_entity: 'The name is already used.'
+      not_blank: 'Please enter a name.'
+      length:
+        min: 'The name is too short, min: {{ limit }}'
+        max: 'The name is too long, max: {{ limit }}'

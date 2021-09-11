@@ -23,7 +23,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
  */
-class UserRegistration implements UserRegistrationInterface
+class LoginLinkSender implements LoginLinkSenderInterface
 {
     public function __construct(
         protected NotifierInterface $notifier,
@@ -31,14 +31,18 @@ class UserRegistration implements UserRegistrationInterface
         protected TranslatorInterface $translator,
     ) {}
 
-    public function register(UserInterface $user): static
+    public function send(
+        UserInterface $user,
+        ?string $email = null,
+        string $subject = 'user.login_link.notification.subject',
+    ): static
     {
         $this->notifier->send(
             new LoginLinkNotification(
                 $this->loginLinkHandler->createLoginLink($user),
-                $this->translator->trans('user.register.notification.subject')
+                $this->translator->trans($subject)
             ),
-            new Recipient($user->getEmail())
+            new Recipient($email ?? $user->getEmail())
         );
 
         return $this;
