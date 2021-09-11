@@ -80,6 +80,8 @@ class Configuration implements ConfigurationInterface
                             ->booleanNode('validation_group')->defaultValue(true)->end()
                             ->booleanNode('storage_validation_user')->defaultValue(true)->end()
                             ->booleanNode('storage_validation_group')->defaultValue(true)->end()
+                            ->booleanNode('email_post')->defaultValue(true)->end()
+                            ->booleanNode('email_register')->defaultValue(true)->end()
                         ->end()
                     ->end()
                 ->end()

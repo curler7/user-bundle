@@ -174,6 +174,8 @@ curler7_user:
         validation_group:     true
         storage_validation_user: true
         storage_validation_group: true
+        email_post:           true
+        email_register:       true
     api_platform:
         auto_group_resource_metadata_factory: Curler7\UserBundle\ApiPlatform\AutoGroupResourceMetadataFactory
     security:
@@ -205,5 +207,4 @@ curler7_user:
         login_link:           Curler7\UserBundle\Controller\LoginLinkController
     validator:
         last_super_admin_user: Curler7\UserBundle\Validator\LastSuperAdminUserValidator
-
 ```
