@@ -23,7 +23,7 @@ curler7_user:
       invalid: '輸入的密碼無效'
 
     enabled:
-      last_super_admin: '至少一名具有角色的用戶 "ROLE_SUPER_USER"'
+      last_super_admin: '至少一名具有角色的用戶 "ROLE_SUPER_ADMIN"'
 
   group:
     name:

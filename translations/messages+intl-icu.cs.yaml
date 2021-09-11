@@ -23,7 +23,7 @@ curler7_user:
       invalid: 'Zadané heslo je neplatné'
 
     enabled:
-      last_super_admin: 'Minimálně jeden uživatel s rolí "ROLE_SUPER_USER"'
+      last_super_admin: 'Minimálně jeden uživatel s rolí "ROLE_SUPER_ADMIN"'
 
   group:
     name:

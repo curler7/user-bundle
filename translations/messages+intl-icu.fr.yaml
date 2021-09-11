@@ -23,7 +23,7 @@ curler7_user:
       invalid: 'Le mot de passe saisi est invalide'
 
     enabled:
-      last_super_admin: 'Au moins un utilisateur avec le rôle "ROLE_SUPER_USER"'
+      last_super_admin: 'Au moins un utilisateur avec le rôle "ROLE_SUPER_ADMIN"'
 
   group:
     name:

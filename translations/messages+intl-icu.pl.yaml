@@ -23,7 +23,7 @@ curler7_user:
       invalid: 'Wprowadzone hasło jest nieprawidłowe'
 
     enabled:
-      last_super_admin: 'Co najmniej jeden użytkownik z rolą "ROLE_SUPER_USER"'
+      last_super_admin: 'Co najmniej jeden użytkownik z rolą "ROLE_SUPER_ADMIN"'
 
   group:
     name:

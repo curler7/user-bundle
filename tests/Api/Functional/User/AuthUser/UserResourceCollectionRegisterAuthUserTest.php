@@ -11,14 +11,14 @@
 
 declare(strict_types=1);
 
-namespace Curler7\UserBundle\Tests\Api\Functional\User;
+namespace Curler7\UserBundle\Tests\Api\Functional\User\AuthUser;
 
-use App\DataFixtures\UserFixtures;
 use Curler7\ApiTestBundle\Exception\ArrayHasMoreItemsException;
 use Curler7\ApiTestBundle\Exception\ArrayNotEmptyException;
 use Curler7\ApiTestBundle\Exception\ConstraintNotDefinedException;
 use Curler7\ApiTestBundle\Exception\PropertyCheckedToManyCanNullKeyException;
 use Curler7\ApiTestBundle\Exception\PropertyNotCheckedException;
+use Curler7\UserBundle\Tests\Api\Functional\User\AbstractUserResourceTest;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
@@ -28,41 +28,42 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
  */
-class UserResourceCollectionLoginLinkTest extends AbstractUserResourceTest
+class UserResourceCollectionRegisterAuthUserTest extends AbstractUserResourceTest
 {
-    protected const URI = '/users/login-link';
-
-    protected int $collectionPostResponseStatusCode = 200;
-
-    protected array $collectionPostResponseHeaderSame = [];
-
-    protected array $checkPropertiesHasKey = [];
+    protected const URI = '/users/register';
 
     /**
      * @throws ArrayHasMoreItemsException
      * @throws ArrayNotEmptyException
-     * @throws ClientExceptionInterface
-     * @throws ConstraintNotDefinedException
-     * @throws DecodingExceptionInterface
-     * @throws PropertyNotCheckedException
      * @throws RedirectionExceptionInterface
-     * @throws ServerExceptionInterface
+     * @throws DecodingExceptionInterface
+     * @throws ConstraintNotDefinedException
+     * @throws ClientExceptionInterface
+     * @throws PropertyNotCheckedException
      * @throws TransportExceptionInterface
+     * @throws ServerExceptionInterface
      * @throws PropertyCheckedToManyCanNullKeyException
      */
-    public function testUserCollectionLoginLink(): void
+    public function testUserCollectionRegister(): void
     {
         $this->checkCollectionPost(
             client: static::createClient(),
             json: [
-                'identifier' => UserFixtures::DATA[0]['email'],
+                'username' => 'new',
+                'email' => 'corona@smart-media.design',
+                'password' => 'password',
             ],
-            contains: [],
-            notHasKey: [
+            contains: [
+                'username' => 'new',
+                'email' => 'corona@smart-media.design',
+            ],
+            hasKey: [
                 'id',
-                'email',
-                'fullName',
                 'username',
+                'email',
+            ],
+            notHasKey: [
+                'fullName',
                 'usernameCanonical',
                 'emailCanonical',
                 'password',
@@ -75,7 +76,6 @@ class UserResourceCollectionLoginLinkTest extends AbstractUserResourceTest
                 'verified',
                 'share',
             ],
-            jsonContains: false,
         );
     }
 }

@@ -23,7 +23,7 @@ curler7_user:
       invalid: 'كلمة المرور المدخلة غير صحيحة'
 
     enabled:
-      last_super_admin: 'مستخدم واحد على الأقل له دور "ROLE_SUPER_USER"'
+      last_super_admin: 'مستخدم واحد على الأقل له دور "ROLE_SUPER_ADMIN"'
 
   group:
     name:

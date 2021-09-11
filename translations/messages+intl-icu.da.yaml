@@ -23,7 +23,7 @@ curler7_user:
       invalid: 'Den indtastede adgangskode er ugyldig'
 
     enabled:
-      last_super_admin: 'Mindst en bruger med rolle "ROLE_SUPER_USER"'
+      last_super_admin: 'Mindst en bruger med rolle "ROLE_SUPER_ADMIN"'
 
   group:
     name:

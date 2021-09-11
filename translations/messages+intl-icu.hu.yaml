@@ -23,7 +23,7 @@ curler7_user:
       invalid: 'A megadott jelszó érvénytelen'
 
     enabled:
-      last_super_admin: 'Legalább egy felhasználó szerepkörrel "ROLE_SUPER_USER"'
+      last_super_admin: 'Legalább egy felhasználó szerepkörrel "ROLE_SUPER_ADMIN"'
 
   group:
     name:

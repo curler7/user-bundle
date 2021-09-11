@@ -11,13 +11,13 @@
 
 declare(strict_types=1);
 
-namespace Curler7\UserBundle\Tests\Api\Functional\User;
+namespace Curler7\UserBundle\Tests\Api\Functional\User\AuthUser;
 
-use Curler7\ApiTestBundle\Exception\ArrayHasMoreItemsException;
-use Curler7\ApiTestBundle\Exception\ArrayNotEmptyException;
+use App\DataFixtures\UserFixtures;
 use Curler7\ApiTestBundle\Exception\ConstraintNotDefinedException;
 use Curler7\ApiTestBundle\Exception\PropertyCheckedToManyCanNullKeyException;
 use Curler7\ApiTestBundle\Exception\PropertyNotCheckedException;
+use Curler7\UserBundle\Tests\Api\Functional\User\AbstractUserResourceTest;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
@@ -27,13 +27,9 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
  */
-class UserResourceCollectionRegisterTest extends AbstractUserResourceTest
+class UserResourceCollectionGetAuthUserTest extends AbstractUserResourceTest
 {
-    protected const URI = '/users/register';
-
     /**
-     * @throws ArrayHasMoreItemsException
-     * @throws ArrayNotEmptyException
      * @throws RedirectionExceptionInterface
      * @throws DecodingExceptionInterface
      * @throws ConstraintNotDefinedException
@@ -43,26 +39,20 @@ class UserResourceCollectionRegisterTest extends AbstractUserResourceTest
      * @throws ServerExceptionInterface
      * @throws PropertyCheckedToManyCanNullKeyException
      */
-    public function testUserCollectionRegister(): void
+    public function testUserCollectionGetAuthUser(): void
     {
-        $this->checkCollectionPost(
-            client: static::createClient(),
-            json: [
-                'username' => 'new',
-                'email' => 'corona@smart-media.design',
-                'password' => 'password',
-            ],
-            contains: [
-                'username' => 'new',
-                'email' => 'corona@smart-media.design',
-            ],
+        $this->checkCollectionGet(
+            client: $this->createClientWithCredentials(),
+            totalItems: \count(UserFixtures::DATA),
             hasKey: [
+                'fullName',
                 'id',
                 'username',
                 'email',
+                'lastLogin',
+                'roles',
             ],
             notHasKey: [
-                'fullName',
                 'usernameCanonical',
                 'emailCanonical',
                 'password',
@@ -70,11 +60,11 @@ class UserResourceCollectionRegisterTest extends AbstractUserResourceTest
                 'plainPassword',
                 'groups',
                 'enabled',
-                'lastLogin',
-                'roles',
                 'verified',
                 'share',
             ],
+            hydraMember: \count(UserFixtures::DATA),
+            hydraView: false,
         );
     }
 }

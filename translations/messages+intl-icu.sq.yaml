@@ -23,7 +23,7 @@ curler7_user:
       invalid: 'Fjalëkalimi i futur është i pavlefshëm'
 
     enabled:
-      last_super_admin: 'Të paktën një përdorues me rol "ROLE_SUPER_USER"'
+      last_super_admin: 'Të paktën një përdorues me rol "ROLE_SUPER_ADMIN"'
 
   group:
     name:

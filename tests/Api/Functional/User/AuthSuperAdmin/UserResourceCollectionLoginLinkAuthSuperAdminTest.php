@@ -11,16 +11,15 @@
 
 declare(strict_types=1);
 
-namespace Curler7\UserBundle\Tests\Api\Functional\Group;
+namespace Curler7\UserBundle\Tests\Api\Functional\User\AuthSuperAdmin;
 
-use App\DataFixtures\GroupFixtures;
+use App\DataFixtures\UserFixtures;
 use Curler7\ApiTestBundle\Exception\ArrayHasMoreItemsException;
 use Curler7\ApiTestBundle\Exception\ArrayNotEmptyException;
 use Curler7\ApiTestBundle\Exception\ConstraintNotDefinedException;
 use Curler7\ApiTestBundle\Exception\PropertyCheckedToManyCanNullKeyException;
 use Curler7\ApiTestBundle\Exception\PropertyNotCheckedException;
-use Curler7\ApiTestBundle\Exception\RequestMethodNotFoundException;
-use Curler7\ApiTestBundle\Exception\RequestUrlNotFoundException;
+use Curler7\UserBundle\Tests\Api\Functional\User\AbstractUserResourceTest;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
@@ -30,30 +29,15 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
  */
-class GroupResourceItemGetTest extends AbstractGroupResourceTest
+class UserResourceCollectionLoginLinkAuthSuperAdminTest extends AbstractUserResourceTest
 {
-    protected const GLOBAL_METHOD = self::METHOD_GET;
-    protected const GLOBAL_CRITERIA = ['name' => GroupFixtures::DATA[0]['name']];
+    protected const URI = '/users/login-link';
 
-    /**
-     * @throws ConstraintNotDefinedException
-     * @throws TransportExceptionInterface
-     * @throws RequestMethodNotFoundException
-     */
-    public function testGroupItemGetAuthNoop(): void
-    {
-        $this->check401(self::createClient());
-    }
+    protected int $collectionPostResponseStatusCode = 200;
 
-    /**
-     * @throws ConstraintNotDefinedException
-     * @throws RequestMethodNotFoundException
-     * @throws TransportExceptionInterface
-     */
-    public function testGroupItemGetAuthUser(): void
-    {
-        $this->check403($this->createClientWithCredentials());
-    }
+    protected array $collectionPostResponseHeaderSame = [];
+
+    protected array $checkPropertiesHasKey = [];
 
     /**
      * @throws ArrayHasMoreItemsException
@@ -66,20 +50,33 @@ class GroupResourceItemGetTest extends AbstractGroupResourceTest
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      * @throws PropertyCheckedToManyCanNullKeyException
-     * @throws RequestUrlNotFoundException
      */
-    public function testGroupItemGetAuthSuperAdmin(): void
+    public function testUserCollectionLoginLink(): void
     {
-        $this->checkItemGet(
-            client: $this->createClientWithCredentials(user: 'admin'),
-            contains: [
-                'name' => GroupFixtures::DATA[0]['name'],
+        $this->checkCollectionPost(
+            client: static::createClient(),
+            json: [
+                'identifier' => UserFixtures::DATA[0]['email'],
             ],
-            hasKey: [
+            contains: [],
+            notHasKey: [
                 'id',
-                'name',
+                'email',
+                'fullName',
+                'username',
+                'usernameCanonical',
+                'emailCanonical',
+                'password',
+                'loginLinkRequestedAt',
+                'plainPassword',
+                'groups',
+                'enabled',
+                'lastLogin',
                 'roles',
+                'verified',
+                'share',
             ],
+            jsonContains: false,
         );
     }
 }

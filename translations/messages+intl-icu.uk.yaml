@@ -23,7 +23,7 @@ curler7_user:
       invalid: 'Введений пароль недійсний'
 
     enabled:
-      last_super_admin: 'Принаймні один користувач із роллю "ROLE_SUPER_USER"'
+      last_super_admin: 'Принаймні один користувач із роллю "ROLE_SUPER_ADMIN"'
 
   group:
     name:

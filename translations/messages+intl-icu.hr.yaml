@@ -23,7 +23,7 @@ curler7_user:
       invalid: 'Unesena lozinka nije važeća'
 
     enabled:
-      last_super_admin: 'Najmanje jedan korisnik s ulogom "ROLE_SUPER_USER"'
+      last_super_admin: 'Najmanje jedan korisnik s ulogom "ROLE_SUPER_ADMIN"'
 
   group:
     name:

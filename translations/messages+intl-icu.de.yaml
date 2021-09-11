@@ -23,7 +23,7 @@ curler7_user:
       invalid: 'Das eingegebene Passwort ist ungültig'
 
     enabled:
-      last_super_admin: 'Mindestens ein Benutzer mit der Rolle "ROLE SUPERUSER"'
+      last_super_admin: 'Mindestens ein Benutzer mit der Rolle "ROLE_SUPER_ADMIN"'
 
   group:
     name:

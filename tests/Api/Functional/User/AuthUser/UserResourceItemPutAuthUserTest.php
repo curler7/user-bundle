@@ -11,14 +11,17 @@
 
 declare(strict_types=1);
 
-namespace Curler7\UserBundle\Tests\Api\Functional\User;
+namespace Curler7\UserBundle\Tests\Api\Functional\User\AuthUser;
 
+use App\DataFixtures\UserFixtures;
 use Curler7\ApiTestBundle\Exception\ArrayHasMoreItemsException;
 use Curler7\ApiTestBundle\Exception\ArrayNotEmptyException;
 use Curler7\ApiTestBundle\Exception\ConstraintNotDefinedException;
 use Curler7\ApiTestBundle\Exception\PropertyCheckedToManyCanNullKeyException;
 use Curler7\ApiTestBundle\Exception\PropertyNotCheckedException;
 use Curler7\ApiTestBundle\Exception\RequestMethodNotFoundException;
+use Curler7\ApiTestBundle\Exception\RequestUrlNotFoundException;
+use Curler7\UserBundle\Tests\Api\Functional\User\AbstractUserResourceTest;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
@@ -28,18 +31,22 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
  */
-class UserResourceCollectionPostTest extends AbstractUserResourceTest
+class UserResourceItemPutAuthUserTest extends AbstractUserResourceTest
 {
-    protected const GLOBAL_METHOD = self::METHOD_POST;
+    protected const GLOBAL_CRITERIA = ['username' => UserFixtures::DATA[0]['username']];
+    protected const GLOBAL_METHOD = self::METHOD_PUT;
 
     /**
      * @throws ConstraintNotDefinedException
      * @throws TransportExceptionInterface
      * @throws RequestMethodNotFoundException
      */
-    public function testUserCollectionPostAuthNoop(): void
+    public function testUserItemPutAuthUserOtherUser(): void
     {
-        $this->check401(static::createClient());
+        $this->check403(
+            $this->createClientWithCredentials(),
+            ['username' => UserFixtures::DATA[2]['username']]
+        );
     }
 
     /**
@@ -47,54 +54,55 @@ class UserResourceCollectionPostTest extends AbstractUserResourceTest
      * @throws TransportExceptionInterface
      * @throws RequestMethodNotFoundException
      */
-    public function testUserCollectionPostAuthUser(): void
+    public function testUserItemPutAuthUserOtherAdmin(): void
     {
-        $this->check403($this->createClientWithCredentials());
+        $this->check403(
+            $this->createClientWithCredentials(),
+            ['username' => UserFixtures::DATA[1]['username']]
+        );
     }
 
     /**
      * @throws ArrayHasMoreItemsException
+     * @throws RequestUrlNotFoundException
      * @throws ArrayNotEmptyException
      * @throws RedirectionExceptionInterface
-     * @throws DecodingExceptionInterface
      * @throws ConstraintNotDefinedException
+     * @throws DecodingExceptionInterface
      * @throws ClientExceptionInterface
      * @throws PropertyNotCheckedException
      * @throws TransportExceptionInterface
      * @throws ServerExceptionInterface
      * @throws PropertyCheckedToManyCanNullKeyException
      */
-    public function testUserCollectionPostAuthSuperAdmin(): void
+    public function testUserItemPutAuthUserSelf(): void
     {
-        $this->checkCollectionPost(
-            client: $this->createClientWithCredentials(user: 'admin'),
+        $this->checkItemPut(
+            client: $this->createClientWithCredentials(),
             json: [
-                'fullName' => 'new',
-                'username' => 'new',
-                'email' => 'corona@smart-media.design',
-                'password' => 'password',
+                'email' => 'new@example.com',
             ],
             contains: [
-                'username' => 'new',
-                'email' => 'corona@smart-media.design',
+                'username' => UserFixtures::DATA[0]['username'],
+                'email' => 'new@example.com',
             ],
             hasKey: [
-                'fullName',
                 'id',
+                'fullName',
+                'lastLogin',
                 'username',
                 'email',
-                'groups',
-                'enabled',
-                'lastLogin',
                 'roles',
-                'verified',
             ],
             notHasKey: [
                 'usernameCanonical',
                 'emailCanonical',
+                'password',
                 'loginLinkRequestedAt',
                 'plainPassword',
-                'password',
+                'enabled',
+                'groups',
+                'verified',
                 'share',
             ],
         );

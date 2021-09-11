@@ -11,66 +11,23 @@
 
 declare(strict_types=1);
 
-namespace Curler7\UserBundle\Tests\Api\Functional\User;
+namespace Curler7\UserBundle\Tests\Api\Functional\User\AuthSuperAdmin;
 
 use App\DataFixtures\UserFixtures;
-use Curler7\ApiTestBundle\Exception\ArrayHasMoreItemsException;
-use Curler7\ApiTestBundle\Exception\ArrayNotEmptyException;
 use Curler7\ApiTestBundle\Exception\ConstraintNotDefinedException;
-use Curler7\ApiTestBundle\Exception\PropertyCheckedToManyCanNullKeyException;
-use Curler7\ApiTestBundle\Exception\PropertyNotCheckedException;
 use Curler7\ApiTestBundle\Exception\RequestMethodNotFoundException;
 use Curler7\ApiTestBundle\Exception\RequestUrlNotFoundException;
 use Curler7\UserBundle\Model\UserInterface;
-use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
-use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
-use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
-use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
+use Curler7\UserBundle\Tests\Api\Functional\User\AbstractUserResourceTest;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
  */
-class UserResourceItemDeleteTest extends AbstractUserResourceTest
+class UserResourceItemDeleteAuthSuperAdminTest extends AbstractUserResourceTest
 {
     protected const GLOBAL_CRITERIA = ['username' => UserFixtures::DATA[0]['username']];
     protected const GLOBAL_METHOD = self::METHOD_DELETE;
-
-    /**
-     * @throws ConstraintNotDefinedException
-     * @throws TransportExceptionInterface
-     * @throws RequestMethodNotFoundException
-     */
-    public function testUserItemDeleteAuthNoop(): void
-    {
-        $this->check401(static::createClient());
-    }
-
-    /**
-     * @throws ConstraintNotDefinedException
-     * @throws RequestMethodNotFoundException
-     * @throws TransportExceptionInterface
-     */
-    public function testUserItemDeleteAuthUserOtherUser(): void
-    {
-        $this->check403(
-            $this->createClientWithCredentials(),
-            ['username' => UserFixtures::DATA[2]['username']],
-        );
-    }
-
-    /**
-     * @throws ConstraintNotDefinedException
-     * @throws RequestMethodNotFoundException
-     * @throws TransportExceptionInterface
-     */
-    public function testUserItemDeleteAuthUserOtherAdmin(): void
-    {
-        $this->check403(
-            $this->createClientWithCredentials(),
-            ['username' => UserFixtures::DATA[1]['username']],
-        );
-    }
 
     /**
      * @throws ConstraintNotDefinedException
@@ -84,16 +41,6 @@ class UserResourceItemDeleteTest extends AbstractUserResourceTest
             description: 'enabled: curler7_user.user.enabled.last_super_admin',
             criteria: ['username' => UserFixtures::DATA[1]['username']],
         );
-    }
-
-    /**
-     * @throws TransportExceptionInterface
-     * @throws ConstraintNotDefinedException
-     * @throws RequestUrlNotFoundException
-     */
-    public function testUserItemDeleteAuthUserSelf(): void
-    {
-        $this->checkItemDelete($this->createClientWithCredentials());
     }
 
     /**

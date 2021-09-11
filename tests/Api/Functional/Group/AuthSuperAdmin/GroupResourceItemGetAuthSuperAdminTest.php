@@ -11,13 +11,16 @@
 
 declare(strict_types=1);
 
-namespace Curler7\UserBundle\Tests\Api\Functional\Group;
+namespace Curler7\UserBundle\Tests\Api\Functional\Group\AuthSuperAdmin;
 
 use App\DataFixtures\GroupFixtures;
+use Curler7\ApiTestBundle\Exception\ArrayHasMoreItemsException;
+use Curler7\ApiTestBundle\Exception\ArrayNotEmptyException;
 use Curler7\ApiTestBundle\Exception\ConstraintNotDefinedException;
 use Curler7\ApiTestBundle\Exception\PropertyCheckedToManyCanNullKeyException;
 use Curler7\ApiTestBundle\Exception\PropertyNotCheckedException;
-use Curler7\ApiTestBundle\Exception\RequestMethodNotFoundException;
+use Curler7\ApiTestBundle\Exception\RequestUrlNotFoundException;
+use Curler7\UserBundle\Tests\Api\Functional\Group\AbstractGroupResourceTest;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
@@ -27,31 +30,14 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
  */
-class GroupResourceCollectionGetTest extends AbstractGroupResourceTest
+class GroupResourceItemGetAuthSuperAdminTest extends AbstractGroupResourceTest
 {
     protected const GLOBAL_METHOD = self::METHOD_GET;
+    protected const GLOBAL_CRITERIA = ['name' => GroupFixtures::DATA[0]['name']];
 
     /**
-     * @throws ConstraintNotDefinedException
-     * @throws TransportExceptionInterface
-     * @throws RequestMethodNotFoundException
-     */
-    public function testGroupCollectionGetAuthNoop(): void
-    {
-        $this->check401(self::createClient());
-    }
-
-    /**
-     * @throws ConstraintNotDefinedException
-     * @throws RequestMethodNotFoundException
-     * @throws TransportExceptionInterface
-     */
-    public function testGroupCollectionGetAuthUser(): void
-    {
-        $this->check403($this->createClientWithCredentials());
-    }
-
-    /**
+     * @throws ArrayHasMoreItemsException
+     * @throws ArrayNotEmptyException
      * @throws ClientExceptionInterface
      * @throws ConstraintNotDefinedException
      * @throws DecodingExceptionInterface
@@ -60,19 +46,20 @@ class GroupResourceCollectionGetTest extends AbstractGroupResourceTest
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      * @throws PropertyCheckedToManyCanNullKeyException
+     * @throws RequestUrlNotFoundException
      */
-    public function testGroupCollectionGetAuthSuperAdmin(): void
+    public function testGroupItemGetAuthSuperAdmin(): void
     {
-        $this->checkCollectionGet(
+        $this->checkItemGet(
             client: $this->createClientWithCredentials(user: 'admin'),
-            totalItems: 2,
+            contains: [
+                'name' => GroupFixtures::DATA[0]['name'],
+            ],
             hasKey: [
                 'id',
                 'name',
                 'roles',
             ],
-            hydraMember: 2,
-            hydraView: false,
         );
     }
 }

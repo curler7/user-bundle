@@ -23,7 +23,7 @@ curler7_user:
       invalid: 'A senha inserida é inválida'
 
     enabled:
-      last_super_admin: 'Pelo menos um usuário com função "ROLE_SUPER_USER"'
+      last_super_admin: 'Pelo menos um usuário com função "ROLE_SUPER_ADMIN"'
 
   group:
     name:

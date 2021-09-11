@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a55f6b4bdbd777b94809ba4f12289c67",
+    "content-hash": "1f9b80ccb1ff6da6452f098a0f53f6f7",
     "packages": [
         {
             "name": "api-platform/core",
@@ -2112,141 +2112,6 @@
                 }
             ],
             "time": "2021-07-09T11:58:40+00:00"
-        },
-        {
-            "name": "lcobucci/clock",
-            "version": "2.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/lcobucci/clock.git",
-                "reference": "353d83fe2e6ae95745b16b3d911813df6a05bfb3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/lcobucci/clock/zipball/353d83fe2e6ae95745b16b3d911813df6a05bfb3",
-                "reference": "353d83fe2e6ae95745b16b3d911813df6a05bfb3",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.4 || ^8.0"
-            },
-            "require-dev": {
-                "infection/infection": "^0.17",
-                "lcobucci/coding-standard": "^6.0",
-                "phpstan/extension-installer": "^1.0",
-                "phpstan/phpstan": "^0.12",
-                "phpstan/phpstan-deprecation-rules": "^0.12",
-                "phpstan/phpstan-phpunit": "^0.12",
-                "phpstan/phpstan-strict-rules": "^0.12",
-                "phpunit/php-code-coverage": "9.1.4",
-                "phpunit/phpunit": "9.3.7"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Lcobucci\\Clock\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Luís Cobucci",
-                    "email": "lcobucci@gmail.com"
-                }
-            ],
-            "description": "Yet another clock abstraction",
-            "support": {
-                "issues": "https://github.com/lcobucci/clock/issues",
-                "source": "https://github.com/lcobucci/clock/tree/2.0.x"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/lcobucci",
-                    "type": "github"
-                },
-                {
-                    "url": "https://www.patreon.com/lcobucci",
-                    "type": "patreon"
-                }
-            ],
-            "time": "2020-08-27T18:56:02+00:00"
-        },
-        {
-            "name": "lcobucci/jwt",
-            "version": "4.1.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/lcobucci/jwt.git",
-                "reference": "71cf170102c8371ccd933fa4df6252086d144de6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/lcobucci/jwt/zipball/71cf170102c8371ccd933fa4df6252086d144de6",
-                "reference": "71cf170102c8371ccd933fa4df6252086d144de6",
-                "shasum": ""
-            },
-            "require": {
-                "ext-hash": "*",
-                "ext-json": "*",
-                "ext-mbstring": "*",
-                "ext-openssl": "*",
-                "ext-sodium": "*",
-                "lcobucci/clock": "^2.0",
-                "php": "^7.4 || ^8.0"
-            },
-            "require-dev": {
-                "infection/infection": "^0.21",
-                "lcobucci/coding-standard": "^6.0",
-                "mikey179/vfsstream": "^1.6.7",
-                "phpbench/phpbench": "^1.0@alpha",
-                "phpstan/extension-installer": "^1.0",
-                "phpstan/phpstan": "^0.12",
-                "phpstan/phpstan-deprecation-rules": "^0.12",
-                "phpstan/phpstan-phpunit": "^0.12",
-                "phpstan/phpstan-strict-rules": "^0.12",
-                "phpunit/php-invoker": "^3.1",
-                "phpunit/phpunit": "^9.5"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Lcobucci\\JWT\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Luís Cobucci",
-                    "email": "lcobucci@gmail.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "A simple library to work with JSON Web Token and JSON Web Signature",
-            "keywords": [
-                "JWS",
-                "jwt"
-            ],
-            "support": {
-                "issues": "https://github.com/lcobucci/jwt/issues",
-                "source": "https://github.com/lcobucci/jwt/tree/4.1.4"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/lcobucci",
-                    "type": "github"
-                },
-                {
-                    "url": "https://www.patreon.com/lcobucci",
-                    "type": "patreon"
-                }
-            ],
-            "time": "2021-03-23T23:53:08+00:00"
         },
         {
             "name": "lorenzo/pinky",
@@ -4540,93 +4405,6 @@
             "time": "2021-08-26T08:37:07+00:00"
         },
         {
-            "name": "symfony/http-client",
-            "version": "v5.3.7",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/http-client.git",
-                "reference": "da8638ffecefc4e8ba2bc848d7b61a408119b333"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-client/zipball/da8638ffecefc4e8ba2bc848d7b61a408119b333",
-                "reference": "da8638ffecefc4e8ba2bc848d7b61a408119b333",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.2.5",
-                "psr/log": "^1|^2|^3",
-                "symfony/deprecation-contracts": "^2.1",
-                "symfony/http-client-contracts": "^2.4",
-                "symfony/polyfill-php73": "^1.11",
-                "symfony/polyfill-php80": "^1.16",
-                "symfony/service-contracts": "^1.0|^2"
-            },
-            "provide": {
-                "php-http/async-client-implementation": "*",
-                "php-http/client-implementation": "*",
-                "psr/http-client-implementation": "1.0",
-                "symfony/http-client-implementation": "2.4"
-            },
-            "require-dev": {
-                "amphp/amp": "^2.5",
-                "amphp/http-client": "^4.2.1",
-                "amphp/http-tunnel": "^1.0",
-                "amphp/socket": "^1.1",
-                "guzzlehttp/promises": "^1.4",
-                "nyholm/psr7": "^1.0",
-                "php-http/httplug": "^1.0|^2.0",
-                "psr/http-client": "^1.0",
-                "symfony/dependency-injection": "^4.4|^5.0",
-                "symfony/http-kernel": "^4.4.13|^5.1.5",
-                "symfony/process": "^4.4|^5.0",
-                "symfony/stopwatch": "^4.4|^5.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\HttpClient\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nicolas Grekas",
-                    "email": "p@tchwork.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Provides powerful methods to fetch HTTP resources synchronously or asynchronously",
-            "homepage": "https://symfony.com",
-            "support": {
-                "source": "https://github.com/symfony/http-client/tree/v5.3.7"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2021-08-28T16:24:37+00:00"
-        },
-        {
             "name": "symfony/http-client-contracts",
             "version": "v2.4.0",
             "source": {
@@ -4963,169 +4741,6 @@
                 }
             ],
             "time": "2021-07-23T15:55:36+00:00"
-        },
-        {
-            "name": "symfony/mercure",
-            "version": "v0.5.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/mercure.git",
-                "reference": "52b074d0c9bc303605bcd053563a8c67ed9ca55a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/mercure/zipball/52b074d0c9bc303605bcd053563a8c67ed9ca55a",
-                "reference": "52b074d0c9bc303605bcd053563a8c67ed9ca55a",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.1.3",
-                "symfony/deprecation-contracts": "^2.0",
-                "symfony/http-client": "^4.4|^5.0",
-                "symfony/http-foundation": "^4.4|^5.0",
-                "symfony/web-link": "^4.4|^5.0"
-            },
-            "require-dev": {
-                "lcobucci/jwt": "^3.4|^4.0",
-                "symfony/phpunit-bridge": "^4.4|^5.0",
-                "symfony/stopwatch": "^4.4|^5.0"
-            },
-            "suggest": {
-                "symfony/stopwatch": "Integration with the profiler performances"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-main": "0.5.x-dev"
-                },
-                "thanks": {
-                    "name": "dunglas/mercure",
-                    "url": "https://github.com/dunglas/mercure"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\Mercure\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Kévin Dunglas",
-                    "email": "dunglas@gmail.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony Mercure Component",
-            "homepage": "https://symfony.com",
-            "keywords": [
-                "mercure",
-                "push",
-                "sse",
-                "updates"
-            ],
-            "support": {
-                "issues": "https://github.com/symfony/mercure/issues",
-                "source": "https://github.com/symfony/mercure/tree/v0.5.3"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/dunglas",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/mercure",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2021-04-04T13:19:55+00:00"
-        },
-        {
-            "name": "symfony/mercure-bundle",
-            "version": "v0.3.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/mercure-bundle.git",
-                "reference": "afa9865ed7e29aa88f33f10c2ff750fb83973e8d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/mercure-bundle/zipball/afa9865ed7e29aa88f33f10c2ff750fb83973e8d",
-                "reference": "afa9865ed7e29aa88f33f10c2ff750fb83973e8d",
-                "shasum": ""
-            },
-            "require": {
-                "lcobucci/jwt": "^3.4|^4.0",
-                "php": ">=7.1.3",
-                "symfony/config": "^4.4|^5.0",
-                "symfony/dependency-injection": "^4.4|^5.0",
-                "symfony/http-kernel": "^4.4|^5.0",
-                "symfony/mercure": "^0.5.3",
-                "symfony/web-link": "^4.4|^5.0"
-            },
-            "require-dev": {
-                "symfony/phpunit-bridge": "^4.3.7|^5.0",
-                "symfony/stopwatch": "^4.3.7|^5.0",
-                "symfony/ux-turbo-mercure": "*",
-                "symfony/var-dumper": "^4.3.7|^5.0"
-            },
-            "suggest": {
-                "symfony/messenger": "To use the Messenger integration"
-            },
-            "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-main": "0.3.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Bundle\\MercureBundle\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Kévin Dunglas",
-                    "email": "dunglas@gmail.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony MercureBundle",
-            "homepage": "https://symfony.com",
-            "keywords": [
-                "mercure",
-                "push",
-                "sse",
-                "updates"
-            ],
-            "support": {
-                "issues": "https://github.com/symfony/mercure-bundle/issues",
-                "source": "https://github.com/symfony/mercure-bundle/tree/v0.3.2"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/dunglas",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/mercure-bundle",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2021-04-04T13:25:57+00:00"
         },
         {
             "name": "symfony/mime",
@@ -9634,6 +9249,141 @@
             "time": "2021-07-22T09:24:00+00:00"
         },
         {
+            "name": "lcobucci/clock",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lcobucci/clock.git",
+                "reference": "353d83fe2e6ae95745b16b3d911813df6a05bfb3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lcobucci/clock/zipball/353d83fe2e6ae95745b16b3d911813df6a05bfb3",
+                "reference": "353d83fe2e6ae95745b16b3d911813df6a05bfb3",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4 || ^8.0"
+            },
+            "require-dev": {
+                "infection/infection": "^0.17",
+                "lcobucci/coding-standard": "^6.0",
+                "phpstan/extension-installer": "^1.0",
+                "phpstan/phpstan": "^0.12",
+                "phpstan/phpstan-deprecation-rules": "^0.12",
+                "phpstan/phpstan-phpunit": "^0.12",
+                "phpstan/phpstan-strict-rules": "^0.12",
+                "phpunit/php-code-coverage": "9.1.4",
+                "phpunit/phpunit": "9.3.7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Lcobucci\\Clock\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Luís Cobucci",
+                    "email": "lcobucci@gmail.com"
+                }
+            ],
+            "description": "Yet another clock abstraction",
+            "support": {
+                "issues": "https://github.com/lcobucci/clock/issues",
+                "source": "https://github.com/lcobucci/clock/tree/2.0.x"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/lcobucci",
+                    "type": "github"
+                },
+                {
+                    "url": "https://www.patreon.com/lcobucci",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2020-08-27T18:56:02+00:00"
+        },
+        {
+            "name": "lcobucci/jwt",
+            "version": "4.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lcobucci/jwt.git",
+                "reference": "71cf170102c8371ccd933fa4df6252086d144de6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lcobucci/jwt/zipball/71cf170102c8371ccd933fa4df6252086d144de6",
+                "reference": "71cf170102c8371ccd933fa4df6252086d144de6",
+                "shasum": ""
+            },
+            "require": {
+                "ext-hash": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "ext-openssl": "*",
+                "ext-sodium": "*",
+                "lcobucci/clock": "^2.0",
+                "php": "^7.4 || ^8.0"
+            },
+            "require-dev": {
+                "infection/infection": "^0.21",
+                "lcobucci/coding-standard": "^6.0",
+                "mikey179/vfsstream": "^1.6.7",
+                "phpbench/phpbench": "^1.0@alpha",
+                "phpstan/extension-installer": "^1.0",
+                "phpstan/phpstan": "^0.12",
+                "phpstan/phpstan-deprecation-rules": "^0.12",
+                "phpstan/phpstan-phpunit": "^0.12",
+                "phpstan/phpstan-strict-rules": "^0.12",
+                "phpunit/php-invoker": "^3.1",
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Lcobucci\\JWT\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Luís Cobucci",
+                    "email": "lcobucci@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A simple library to work with JSON Web Token and JSON Web Signature",
+            "keywords": [
+                "JWS",
+                "jwt"
+            ],
+            "support": {
+                "issues": "https://github.com/lcobucci/jwt/issues",
+                "source": "https://github.com/lcobucci/jwt/tree/4.1.4"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/lcobucci",
+                    "type": "github"
+                },
+                {
+                    "url": "https://www.patreon.com/lcobucci",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2021-03-23T23:53:08+00:00"
+        },
+        {
             "name": "league/html-to-markdown",
             "version": "4.10.0",
             "source": {
@@ -10354,6 +10104,93 @@
                 }
             ],
             "time": "2021-08-29T19:32:13+00:00"
+        },
+        {
+            "name": "symfony/http-client",
+            "version": "v5.3.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/http-client.git",
+                "reference": "da8638ffecefc4e8ba2bc848d7b61a408119b333"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/http-client/zipball/da8638ffecefc4e8ba2bc848d7b61a408119b333",
+                "reference": "da8638ffecefc4e8ba2bc848d7b61a408119b333",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.5",
+                "psr/log": "^1|^2|^3",
+                "symfony/deprecation-contracts": "^2.1",
+                "symfony/http-client-contracts": "^2.4",
+                "symfony/polyfill-php73": "^1.11",
+                "symfony/polyfill-php80": "^1.16",
+                "symfony/service-contracts": "^1.0|^2"
+            },
+            "provide": {
+                "php-http/async-client-implementation": "*",
+                "php-http/client-implementation": "*",
+                "psr/http-client-implementation": "1.0",
+                "symfony/http-client-implementation": "2.4"
+            },
+            "require-dev": {
+                "amphp/amp": "^2.5",
+                "amphp/http-client": "^4.2.1",
+                "amphp/http-tunnel": "^1.0",
+                "amphp/socket": "^1.1",
+                "guzzlehttp/promises": "^1.4",
+                "nyholm/psr7": "^1.0",
+                "php-http/httplug": "^1.0|^2.0",
+                "psr/http-client": "^1.0",
+                "symfony/dependency-injection": "^4.4|^5.0",
+                "symfony/http-kernel": "^4.4.13|^5.1.5",
+                "symfony/process": "^4.4|^5.0",
+                "symfony/stopwatch": "^4.4|^5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\HttpClient\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Provides powerful methods to fetch HTTP resources synchronously or asynchronously",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/http-client/tree/v5.3.7"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2021-08-28T16:24:37+00:00"
         },
         {
             "name": "symfony/maker-bundle",

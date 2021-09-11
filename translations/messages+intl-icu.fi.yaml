@@ -23,7 +23,7 @@ curler7_user:
       invalid: 'Syötetty salasana on virheellinen'
 
     enabled:
-      last_super_admin: 'Ainakin yksi käyttäjä, jolla on rooli "ROLE_SUPER_USER"'
+      last_super_admin: 'Ainakin yksi käyttäjä, jolla on rooli "ROLE_SUPER_ADMIN"'
 
   group:
     name:

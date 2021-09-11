@@ -23,7 +23,7 @@ curler7_user:
       invalid: 'La password inserita non è valida'
 
     enabled:
-      last_super_admin: 'Almeno un utente con ruolo "ROLE_SUPER_USER"'
+      last_super_admin: 'Almeno un utente con ruolo "ROLE_SUPER_ADMIN"'
 
   group:
     name:

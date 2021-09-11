@@ -23,7 +23,7 @@ curler7_user:
       invalid: 'Въведената парола е невалидна'
 
     enabled:
-      last_super_admin: 'Най -малко един потребител с роля "ROLE_SUPER_USER"'
+      last_super_admin: 'Най -малко един потребител с роля "ROLE_SUPER_ADMIN"'
 
   group:
     name:

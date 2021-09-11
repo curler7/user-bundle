@@ -23,7 +23,7 @@ curler7_user:
       invalid: ''
 
     enabled:
-      last_super_admin: ' "ROLE_SUPER_USER"'
+      last_super_admin: ' "ROLE_SUPER_ADMIN"'
 
   group:
     name:

@@ -23,7 +23,7 @@ curler7_user:
       invalid: 'La contrasenya introduïda no és vàlida'
 
     enabled:
-      last_super_admin: 'Almenys un usuari amb rol "ROLE_SUPER_USER"'
+      last_super_admin: 'Almenys un usuari amb rol "ROLE_SUPER_ADMIN"'
 
   group:
     name:

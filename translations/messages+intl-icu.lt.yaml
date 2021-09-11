@@ -23,7 +23,7 @@ curler7_user:
       invalid: 'Įvestas slaptažodis neteisingas'
 
     enabled:
-      last_super_admin: 'Bent vienas vartotojas su vaidmeniu "ROLE_SUPER_USER"'
+      last_super_admin: 'Bent vienas vartotojas su vaidmeniu "ROLE_SUPER_ADMIN"'
 
   group:
     name:

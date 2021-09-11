@@ -11,15 +11,15 @@
 
 declare(strict_types=1);
 
-namespace Curler7\UserBundle\Tests\Api\Functional\Group;
+namespace Curler7\UserBundle\Tests\Api\Functional\Group\AuthSuperAdmin;
 
 use App\DataFixtures\GroupFixtures;
 use Curler7\ApiTestBundle\Exception\ArrayHasMoreItemsException;
 use Curler7\ApiTestBundle\Exception\ArrayNotEmptyException;
 use Curler7\ApiTestBundle\Exception\ConstraintNotDefinedException;
 use Curler7\ApiTestBundle\Exception\PropertyCheckedToManyCanNullKeyException;
-use Curler7\ApiTestBundle\Exception\RequestMethodNotFoundException;
 use Curler7\ApiTestBundle\Exception\PropertyNotCheckedException;
+use Curler7\UserBundle\Tests\Api\Functional\Group\AbstractGroupResourceTest;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
@@ -29,29 +29,9 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
  */
-class GroupResourceCollectionPostTest extends AbstractGroupResourceTest
+class GroupResourceCollectionPostAuthSuperAdminTest extends AbstractGroupResourceTest
 {
     protected const GLOBAL_METHOD = self::METHOD_POST;
-
-    /**
-     * @throws ConstraintNotDefinedException
-     * @throws TransportExceptionInterface
-     * @throws RequestMethodNotFoundException
-     */
-    public function testGroupCollectionPostAuthNoop(): void
-    {
-        $this->check401(self::createClient());
-    }
-
-    /**
-     * @throws ConstraintNotDefinedException
-     * @throws RequestMethodNotFoundException
-     * @throws TransportExceptionInterface
-     */
-    public function testGroupCollectionPostAuthUser(): void
-    {
-        $this->check403($this->createClientWithCredentials());
-    }
 
     /**
      * @throws ConstraintNotDefinedException

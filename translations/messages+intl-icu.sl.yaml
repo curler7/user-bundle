@@ -23,7 +23,7 @@ curler7_user:
       invalid: 'Vneseno geslo je neveljavno'
 
     enabled:
-      last_super_admin: 'Vsaj en uporabnik z vlogo "ROLE_SUPER_USER"'
+      last_super_admin: 'Vsaj en uporabnik z vlogo "ROLE_SUPER_ADMIN"'
 
   group:
     name:

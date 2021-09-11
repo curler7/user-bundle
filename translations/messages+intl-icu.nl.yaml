@@ -23,7 +23,7 @@ curler7_user:
       invalid: 'Het ingevoerde wachtwoord is ongeldig'
 
     enabled:
-      last_super_admin: 'Ten minste één gebruiker met rol "ROLE_SUPER_USER"'
+      last_super_admin: 'Ten minste één gebruiker met rol "ROLE_SUPER_ADMIN"'
 
   group:
     name:
