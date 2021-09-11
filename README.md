@@ -31,7 +31,7 @@ The Curler7UserBundle is a Symfony bundle handle user management for API Platfor
 [docs/security_config.md](https://github.com/curler7/user-bundle/blob/master/docs/security_config.md)
 
 ### API resource override
-[docs/api_resource_override.md](https://github.com/curler7/user-bundle/blob/master/docs/api_recource_override.md)
+[docs/api_resource_override.md](https://github.com/curler7/user-bundle/blob/master/docs/api_resource_override.md)
 
 ### Config reference
 [docs/config_reference.md](https://github.com/curler7/user-bundle/blob/master/docs/config_reference.md)
@@ -40,4 +40,4 @@ The Curler7UserBundle is a Symfony bundle handle user management for API Platfor
 [docs/upgrading.md](https://github.com/curler7/user-bundle/blob/master/docs/upgrading.md)
 
 ## Licence
-[LICENCE](https://github.com/curler7/user-bundle/blob/master/LICENCE)
+[LICENCE](https://github.com/curler7/user-bundle/blob/master/LICENSE)
