@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Curler7\UserBundle\Util;
 
+use Curler7\UserBundle\Manager\UserManagerInterface;
 use Curler7\UserBundle\Model\UserInterface;
 use Symfony\Component\Notifier\NotifierInterface;
 use Symfony\Component\Notifier\Recipient\Recipient;
@@ -29,6 +30,7 @@ class LoginLinkSender implements LoginLinkSenderInterface
         protected NotifierInterface $notifier,
         protected LoginLinkHandlerInterface $loginLinkHandler,
         protected TranslatorInterface $translator,
+        protected UserManagerInterface $userManager,
     ) {}
 
     public function send(
@@ -44,6 +46,8 @@ class LoginLinkSender implements LoginLinkSenderInterface
             ),
             new Recipient($email ?? $user->getEmail())
         );
+
+        $this->userManager->updateUser($user->setLoginLinkRequestedAt(new \DateTime()));
 
         return $this;
     }

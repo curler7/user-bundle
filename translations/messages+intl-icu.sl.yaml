@@ -1,0 +1,34 @@
+curler7_user:
+  user:
+    username:
+      unique_entity: 'Uporabniško ime je že uporabljeno'
+      not_blank: 'Prosimo, vnesite uporabniško ime'
+      length:
+        min: 'Uporabniško ime je prekratko, min: {limit}'
+        max: 'Uporabniško ime je predolgo, maks: {limit}'
+
+    email:
+      unique_entity: 'E -poštni naslov je že uporabljen'
+      not_blank: 'Prosimo, vnesite e -poštni naslov'
+      email: 'E -poštni naslov ni veljaven'
+      length:
+        max: 'E -poštno sporočilo je predolgo, maks: {limit}'
+
+    plain_password:
+      not_blank: 'Prosimo, vnesite geslo'
+      length:
+        min: 'Geslo je prekratko, min: {limit}'
+        max: 'Geslo je predolgo, maks: {limit}'
+      mismatch: 'Vnesena gesla se ne ujemajo'
+      invalid: 'Vneseno geslo je neveljavno'
+
+    enabled:
+      last_super_admin: 'Vsaj en uporabnik z vlogo "ROLE_SUPER_USER"'
+
+  group:
+    name:
+      unique_entity: 'Ime je že uporabljeno'
+      not_blank: 'Prosimo, vnesite ime'
+      length:
+        min: 'Ime je prekratko, min: {limit}'
+        max: 'Ime je predolgo, maks : {limit}'

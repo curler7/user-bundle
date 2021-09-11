@@ -1,0 +1,34 @@
+curler7_user:
+  user:
+    username:
+      unique_entity: 'Uživatelské jméno je již použito'
+      not_blank: 'Zadejte prosím uživatelské jméno'
+      length:
+        min: 'Uživatelské jméno je příliš krátké, min: {limit}'
+        max: 'Uživatelské jméno je příliš dlouhé, max: {limit}'
+
+    email:
+      unique_entity: 'E -mail je již použit'
+      not_blank: 'Zadejte prosím e -mail'
+      email: 'E -mail není platný'
+      length:
+        max: 'E -mail je příliš dlouhý, max: {limit}'
+
+    plain_password:
+      not_blank: 'Prosím, vložte heslo'
+      length:
+        min: 'Heslo je příliš krátké, min: {limit}'
+        max: 'Heslo je příliš dlouhé, max: {limit}'
+      mismatch: 'Zadaná hesla se neshodují'
+      invalid: 'Zadané heslo je neplatné'
+
+    enabled:
+      last_super_admin: 'Minimálně jeden uživatel s rolí "ROLE_SUPER_USER"'
+
+  group:
+    name:
+      unique_entity: 'Název je již použit'
+      not_blank: 'Zadejte prosím jméno'
+      length:
+        min: 'Název je příliš krátký, min: {limit}'
+        max: 'Název je příliš dlouhý, max : {limit}'

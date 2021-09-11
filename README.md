@@ -14,6 +14,7 @@ The Curler7UserBundle is a Symfony bundle handle user management for API Platfor
 - At least one enabled user with role "ROLE_SUPER_ADMIN" in system validator
 - Advanced API Platform context groups
 - CLI commands
+- 23 languages
 - API Unit tested
 
 ### Storage

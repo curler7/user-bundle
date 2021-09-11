@@ -37,6 +37,7 @@
             <argument type="service" id="notifier" />
             <argument type="service" id="security.authenticator.login_link_handler.api" />
             <argument type="service" id="translator.default" />
+            <argument type="service" id="curler7_user.model.user_manager" />
         </service>
         <service id="Curler7\UserBundle\Util\LoginLinkSenderInterface" alias="curler7_user.util.login_link_sender" />
 

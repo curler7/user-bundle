@@ -1,0 +1,34 @@
+curler7_user:
+  user:
+    username:
+      unique_entity: 'De gebruikersnaam is al in gebruik'
+      not_blank: 'Voer een gebruikersnaam in'
+      length:
+        min: 'De gebruikersnaam is te kort, min: {limit}'
+        max: 'De gebruikersnaam is te lang, max: {limit}'
+
+    email:
+      unique_entity: 'Het e-mailadres is al in gebruik'
+      not_blank: 'Voer een e-mailadres in'
+      email: 'De e-mail is niet geldig'
+      length:
+        max: 'De e-mail is te lang, max: {limit}'
+
+    plain_password:
+      not_blank: 'voer een wachtwoord in alstublieft'
+      length:
+        min: 'Het wachtwoord is te kort, min: {limit}'
+        max: 'Het wachtwoord is te lang, max: {limit}'
+      mismatch: 'De ingevoerde wachtwoorden komen niet overeen'
+      invalid: 'Het ingevoerde wachtwoord is ongeldig'
+
+    enabled:
+      last_super_admin: 'Ten minste één gebruiker met rol "ROLE_SUPER_USER"'
+
+  group:
+    name:
+      unique_entity: 'De naam wordt al gebruikt'
+      not_blank: 'Voer een naam in'
+      length:
+        min: 'De naam is te kort, min: {limit}'
+        max: 'De naam is te lang, max : {limit}'

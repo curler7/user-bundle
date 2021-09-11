@@ -1,0 +1,34 @@
+curler7_user:
+  user:
+    username:
+      unique_entity: 'Brugernavnet er allerede brugt'
+      not_blank: 'Indtast venligst et brugernavn'
+      length:
+        min: 'Brugernavnet er for kort, min: {limit}'
+        max: 'Brugernavnet er for langt, maks: {limit}'
+
+    email:
+      unique_entity: 'E -mailen er allerede brugt'
+      not_blank: 'Indtast venligst en e -mail'
+      email: 'E -mailen er ikke gyldig'
+      length:
+        max: 'Mailen er for lang, maks: {limit}'
+
+    plain_password:
+      not_blank: 'Indtast venligst en adgangskode'
+      length:
+        min: 'Adgangskoden er for kort, min: {limit}'
+        max: 'Adgangskoden er for lang, maks: {limit}'
+      mismatch: 'De indtastede adgangskoder matcher ikke'
+      invalid: 'Den indtastede adgangskode er ugyldig'
+
+    enabled:
+      last_super_admin: 'Mindst en bruger med rolle "ROLE_SUPER_USER"'
+
+  group:
+    name:
+      unique_entity: 'Navnet er allerede brugt'
+      not_blank: 'Indtast venligst et navn'
+      length:
+        min: 'Navnet er for kort, min: {limit}'
+        max: 'Navnet er for langt, maks : {limit}'

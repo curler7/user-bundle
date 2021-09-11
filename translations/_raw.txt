@@ -1,0 +1,22 @@
+The username is already used
+Please enter a username
+The username is too short, min
+The username is too long, max
+
+The email is already used
+Please enter an email
+The email is not valid
+The email is too long, max
+
+Please enter a password
+The password is too short, min
+The password is too long, max
+The entered passwords don't match
+The entered password is invalid
+
+At least one user with role
+
+The name is already used
+Please enter a name
+The name is too short, min
+The name is too long, max

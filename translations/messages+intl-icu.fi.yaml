@@ -1,0 +1,34 @@
+curler7_user:
+  user:
+    username:
+      unique_entity: 'Käyttäjänimi on jo käytössä'
+      not_blank: 'Olkaa hyvä ja kirjoittakaa käyttäjätunnus'
+      length:
+        min: 'Käyttäjätunnus on liian lyhyt, min: {limit}'
+        max: 'Käyttäjätunnus on liian pitkä, max: {limit}'
+
+    email:
+      unique_entity: 'Sähköposti on jo käytetty'
+      not_blank: 'Anna sähköpostiosoite'
+      email: 'Sähköpostiosoite ei kelpaa'
+      length:
+        max: 'Sähköposti on liian pitkä, max: {limit}'
+
+    plain_password:
+      not_blank: 'Ole hyvä ja anna salasana'
+      length:
+        min: 'Salasana on liian lyhyt, min: {limit}'
+        max: 'Salasana on liian pitkä, max: {limit}'
+      mismatch: 'Annetut salasanat eivät täsmää'
+      invalid: 'Syötetty salasana on virheellinen'
+
+    enabled:
+      last_super_admin: 'Ainakin yksi käyttäjä, jolla on rooli "ROLE_SUPER_USER"'
+
+  group:
+    name:
+      unique_entity: 'Nimi on jo käytössä'
+      not_blank: 'Anna nimi'
+      length:
+        min: 'Nimi on liian lyhyt, min: {limit}'
+        max: 'Nimi on liian pitkä, max: {limit}'

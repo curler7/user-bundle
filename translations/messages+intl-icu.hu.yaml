@@ -1,0 +1,34 @@
+curler7_user:
+  user:
+    username:
+      unique_entity: 'A felhasználónév már foglalt'
+      not_blank: 'Kérjük, adjon meg egy felhasználónevet'
+      length:
+        min: 'A felhasználónév túl rövid, min: {limit}'
+        max: 'A felhasználónév túl hosszú, max: {limit}'
+
+    email:
+      unique_entity: 'Az e -mail már használatban van'
+      not_blank: 'Kérjük, adjon meg egy e -mail címet'
+      email: 'Az e -mail nem érvényes'
+      length:
+        max: 'Az e -mail túl hosszú, max: {limit}'
+
+    plain_password:
+      not_blank: 'Kérjük, adjon meg egy jelszót'
+      length:
+        min: 'A jelszó túl rövid, min: {limit}'
+        max: 'A jelszó túl hosszú, max: {limit}'
+      mismatch: 'A megadott jelszavak nem egyeznek'
+      invalid: 'A megadott jelszó érvénytelen'
+
+    enabled:
+      last_super_admin: 'Legalább egy felhasználó szerepkörrel "ROLE_SUPER_USER"'
+
+  group:
+    name:
+      unique_entity: 'A név már használatban van'
+      not_blank: 'Kérjük, adjon meg egy nevet'
+      length:
+        min: 'A név túl rövid, min: {limit}'
+        max: 'A név túl hosszú, max : {limit}'

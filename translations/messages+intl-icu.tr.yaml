@@ -1,0 +1,34 @@
+curler7_user:
+  user:
+    username:
+      unique_entity: 'Bu kullanıcı adı zaten kullanılıyor'
+      not_blank: 'Lütfen bir kullanıcı adı giriniz'
+      length:
+        min: 'Kullanıcı adı çok kısa, min: {limit}'
+        max: 'Kullanıcı adı çok uzun, maks: {limit}'
+
+    email:
+      unique_entity: 'E-posta zaten kullanılıyor'
+      not_blank: 'Lütfen bir e-posta girin'
+      email: 'E-posta geçerli değil'
+      length:
+        max: 'E-posta çok uzun, maks: {limit}'
+
+    plain_password:
+      not_blank: 'lütfen bir şifre girin'
+      length:
+        min: 'Şifre çok kısa, min: {limit}'
+        max: 'Şifre çok uzun, maks.: {limit}'
+      mismatch: 'Girilen şifreler eşleşmiyor'
+      invalid: 'Girilen şifre geçersiz'
+
+    enabled:
+      last_super_admin: 'Rol olan en az bir kullanıcı "ROLE_SUPER_USER"'
+
+  group:
+    name:
+      unique_entity: 'Ad zaten kullanılıyor'
+      not_blank: 'Lütfen bir ad girin'
+      length:
+        min: 'İsim çok kısa, min: {limit}'
+        max: 'Ad çok uzun, maks: {limit}'

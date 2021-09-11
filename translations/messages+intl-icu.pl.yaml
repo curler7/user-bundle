@@ -1,0 +1,34 @@
+curler7_user:
+  user:
+    username:
+      unique_entity: 'Nazwa użytkownika jest już używana'
+      not_blank: 'Proszę, wpisz nazwę użytkownika'
+      length:
+        min: 'Nazwa użytkownika jest za krótka, min: {limit}'
+        max: 'Nazwa użytkownika jest za długa, max: {limit}'
+
+    email:
+      unique_entity: 'Adres e-mail jest już używany'
+      not_blank: 'Proszę wpisać e-mail'
+      email: 'E-mail jest nieprawidłowy'
+      length:
+        max: 'E-mail jest za długi, max: {limit}'
+
+    plain_password:
+      not_blank: 'proszę wprowadzić hasło'
+      length:
+        min: 'Hasło jest za krótkie, min: {limit}'
+        max: 'Hasło jest za długie, max: {limit}'
+      mismatch: 'Wprowadzone hasła nie pasują'
+      invalid: 'Wprowadzone hasło jest nieprawidłowe'
+
+    enabled:
+      last_super_admin: 'Co najmniej jeden użytkownik z rolą "ROLE_SUPER_USER"'
+
+  group:
+    name:
+      unique_entity: 'Nazwa jest już używana'
+      not_blank: 'Proszę podać nazwę'
+      length:
+        min: 'Nazwa jest za krótka, min: {limit}'
+        max: 'Imię jest za długie, max : {limit}'

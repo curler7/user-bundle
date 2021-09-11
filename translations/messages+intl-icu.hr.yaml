@@ -1,0 +1,34 @@
+curler7_user:
+  user:
+    username:
+      unique_entity: 'Korisničko ime je već korišteno'
+      not_blank: 'Molimo unesite korisničko ime'
+      length:
+        min: 'Korisničko ime je prekratko, min: {limit}'
+        max: 'Korisničko ime je predugo, maks: {limit}'
+
+    email:
+      unique_entity: 'E -mail je već korišten'
+      not_blank: 'Molimo unesite adresu e -pošte'
+      email: 'E -poruka nije valjana'
+      length:
+        max: 'E -poruka je predugačka, maks: {limit}'
+
+    plain_password:
+      not_blank: 'Molimo unesite lozinku'
+      length:
+        min: 'Lozinka je prekratka, min: {limit}'
+        max: 'Lozinka je preduga, maks: {limit}'
+      mismatch: 'Unesene lozinke se ne podudaraju'
+      invalid: 'Unesena lozinka nije važeća'
+
+    enabled:
+      last_super_admin: 'Najmanje jedan korisnik s ulogom "ROLE_SUPER_USER"'
+
+  group:
+    name:
+      unique_entity: 'Naziv se već koristi'
+      not_blank: 'Molimo unesite ime'
+      length:
+        min: 'Naziv je prekratak, min: {limit}'
+        max: 'Naziv je predug, max : {limit}'

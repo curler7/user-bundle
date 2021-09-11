@@ -1,0 +1,34 @@
+curler7_user:
+  user:
+    username:
+      unique_entity: 'el nombre de usuario ya está en uso'
+      not_blank: 'por favor, ingrese un nombre de usuario'
+      length:
+        min: 'El nombre de usuario es demasiado corto, min: {limit}'
+        max: 'El nombre de usuario es demasiado largo, máx: {limit}'
+
+    email:
+      unique_entity: 'El correo electrónico ya está en uso'
+      not_blank: 'Por favor ingrese un correo electrónico'
+      email: 'El correo electrónico no es válido'
+      length:
+        max: 'correo electrónico es demasiado largo, máx: {limit}'
+
+    plain_password:
+      not_blank: 'porfavor ingrese una contraseña'
+      length:
+        min: 'La contraseña es demasiado corta, min: {limit}'
+        max: 'La contraseña es demasiado larga, máx: {limit}'
+      mismatch: 'Las contraseñas ingresadas no coinciden'
+      invalid: 'La contraseña ingresada no es válida'
+
+    enabled:
+      last_super_admin: 'Al menos un usuario con rol "ROLE_SUPER_USER"'
+
+  group:
+    name:
+      unique_entity: 'El nombre ya se usa'
+      not_blank: 'Por favor ingrese un nombre'
+      length:
+        min: 'El nombre es demasiado corto, min: {limit}'
+        max: 'El nombre es demasiado largo, máx: {limit}'

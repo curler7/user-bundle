@@ -5,6 +5,8 @@
 /vendor/
 /fixtures/config/jwt/
 /fixtures/var/
+/translations/_raw.txt
+/translations/_template.yaml
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###

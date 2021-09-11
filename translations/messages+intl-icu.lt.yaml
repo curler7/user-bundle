@@ -1,0 +1,34 @@
+curler7_user:
+  user:
+    username:
+      unique_entity: 'Vartotojo vardas jau naudojamas'
+      not_blank: 'Įveskite naudotojo vardą'
+      length:
+        min: 'Vartotojo vardas per trumpas, min: {limit}'
+        max: 'Vartotojo vardas per ilgas, maks: {limit}'
+
+    email:
+      unique_entity: 'El. Paštas jau naudojamas'
+      not_blank: 'Įveskite el. Pašto adresą'
+      email: 'El. Pašto adresas negalioja'
+      length:
+        max: 'Laiškas per ilgas, maks: {limit}'
+
+    plain_password:
+      not_blank: 'Įveskite slaptažodį'
+      length:
+        min: 'Slaptažodis per trumpas, min: {limit}'
+        max: 'Slaptažodis per ilgas, maks: {limit}'
+      mismatch: 'Įvesti slaptažodžiai nesutampa'
+      invalid: 'Įvestas slaptažodis neteisingas'
+
+    enabled:
+      last_super_admin: 'Bent vienas vartotojas su vaidmeniu "ROLE_SUPER_USER"'
+
+  group:
+    name:
+      unique_entity: 'Pavadinimas jau naudojamas'
+      not_blank: 'Įveskite pavadinimą'
+      length:
+        min: 'Pavadinimas per trumpas, min: {limit}'
+        max: 'Pavadinimas per ilgas, maks: {limit}'

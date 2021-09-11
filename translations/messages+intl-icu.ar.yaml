@@ -1,0 +1,34 @@
+curler7_user:
+  user:
+    username:
+      unique_entity: 'اسم المستخدم مستخدم بالفعل'
+      not_blank: 'الرجاء ادخال اسم المستخدم'
+      length:
+        min: 'اسم المستخدم قصير جدًا ، دقيقة: {limit}'
+        max: 'اسم المستخدم طويل جدًا ، بحد أقصى: {limit}'
+
+    email:
+      unique_entity: 'البريد الإلكتروني مستخدم بالفعل'
+      not_blank: 'الرجاء إدخال بريد إلكتروني'
+      email: 'البريد الإلكتروني غير صحيح'
+      length:
+        max: 'البريد الإلكتروني طويل جدًا ، بحد أقصى: {limit}'
+
+    plain_password:
+      not_blank: 'الرجاء إدخال كلمة المرور'
+      length:
+        min: 'كلمة المرور قصيرة جدًا ، دقيقة: {limit}'
+        max: 'كلمة المرور طويلة جدًا ، بحد أقصى: {limit}'
+      mismatch: 'كلمات المرور التي تم إدخالها غير متطابقة'
+      invalid: 'كلمة المرور المدخلة غير صحيحة'
+
+    enabled:
+      last_super_admin: 'مستخدم واحد على الأقل له دور "ROLE_SUPER_USER"'
+
+  group:
+    name:
+      unique_entity: 'الاسم مستخدم بالفعل'
+      not_blank: 'الرجاء إدخال اسم'
+      length:
+        min: 'الاسم قصير جدًا ، دقيقة: {limit}'
+        max: 'الاسم طويل جدًا ، بحد أقصى : {limit}'

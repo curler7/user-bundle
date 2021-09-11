@@ -1,0 +1,34 @@
+curler7_user:
+  user:
+    username:
+      unique_entity: 'El nom d''usuari ja s''ha utilitzat'
+      not_blank: 'Introduïu un nom d''usuari'
+      length:
+        min: 'El nom d''usuari és massa curt, mín: {limit}'
+        max: 'El nom d''usuari és massa llarg, màx: {limit}'
+
+    email:
+      unique_entity: 'El correu electrònic ja està utilitzat'
+      not_blank: 'Introduïu un correu electrònic'
+      email: 'El correu electrònic no és vàlid'
+      length:
+        max: 'El correu electrònic és massa llarg, màx: {limit}'
+
+    plain_password:
+      not_blank: 'Introduïu una contrasenya'
+      length:
+        min: 'La contrasenya és massa curta, mín: {limit}'
+        max: 'La contrasenya és massa llarga, màx: {limit}'
+      mismatch: 'Les contrasenyes introduïdes no coincideixen'
+      invalid: 'La contrasenya introduïda no és vàlida'
+
+    enabled:
+      last_super_admin: 'Almenys un usuari amb rol "ROLE_SUPER_USER"'
+
+  group:
+    name:
+      unique_entity: 'El nom ja està utilitzat'
+      not_blank: 'Introduïu un nom'
+      length:
+        min: 'El nom és massa curt, mín: {limit}'
+        max: 'El nom és massa llarg, màx : {limit}'

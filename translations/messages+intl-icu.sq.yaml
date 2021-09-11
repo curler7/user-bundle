@@ -1,0 +1,34 @@
+curler7_user:
+  user:
+    username:
+      unique_entity: 'Emri i përdoruesit është përdorur tashmë'
+      not_blank: 'Ju lutemi shkruani një emër përdoruesi'
+      length:
+        min: 'Emri i përdoruesit është shumë i shkurtër, min: {limit}'
+        max: 'Emri i përdoruesit është shumë i gjatë, maks: {limit}'
+
+    email:
+      unique_entity: 'Emaili është përdorur tashmë'
+      not_blank: 'Ju lutemi shkruani një email'
+      email: 'Emaili nuk është i vlefshëm'
+      length:
+        max: 'Emaili është shumë i gjatë, maks: {limit}'
+
+    plain_password:
+      not_blank: 'Ju lutemi shkruani një fjalëkalim'
+      length:
+        min: 'Fjalëkalimi është shumë i shkurtër, min: {limit}'
+        max: 'Fjalëkalimi është shumë i gjatë, max: {limit}'
+      mismatch: 'Fjalëkalimet e futura nuk përputhen'
+      invalid: 'Fjalëkalimi i futur është i pavlefshëm'
+
+    enabled:
+      last_super_admin: 'Të paktën një përdorues me rol "ROLE_SUPER_USER"'
+
+  group:
+    name:
+      unique_entity: 'Emri është përdorur tashmë'
+      not_blank: 'Ju lutemi shkruani një emër'
+      length:
+        min: 'Emri është shumë i shkurtër, min: {limit}'
+        max: 'Emri është shumë i gjatë, max : {limit}'

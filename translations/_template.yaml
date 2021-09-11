@@ -1,0 +1,34 @@
+curler7_user:
+  user:
+    username:
+      unique_entity: ''
+      not_blank: ''
+      length:
+        min: ': {limit}'
+        max: ': {limit}'
+
+    email:
+      unique_entity: ''
+      not_blank: ''
+      email: ''
+      length:
+        max: ': {limit}'
+
+    plain_password:
+      not_blank: ''
+      length:
+        min: ': {limit}'
+        max: ': {limit}'
+      mismatch: ''
+      invalid: ''
+
+    enabled:
+      last_super_admin: ' "ROLE_SUPER_USER"'
+
+  group:
+    name:
+      unique_entity: ''
+      not_blank: ''
+      length:
+        min: ': {limit}'
+        max: ': {limit}'
