@@ -1,6 +1,15 @@
 API Resource Override
 ============
 
+### Config
+``` yaml
+# config/packages/curler7_user.yaml
+curler7_user:
+  model:
+    user_class: App\Entity\User
+    group_class: App\Entity\Group
+```
+
 #### User
 ``` php
 # App/Entity/User.php
