@@ -1,0 +1,62 @@
+<resources xmlns="https://api-platform.com/schema/metadata"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="https://api-platform.com/schema/metadata
+        https://api-platform.com/schema/metadata/metadata-2.0.xsd">
+
+    <resource class="%curler7_user.model.user.class%">
+
+        <attribute name="order">
+            <attribute>username</attribute>
+        </attribute>
+
+        <property name="id" identifier="true"/>
+
+        <collectionOperations>
+
+            <collectionOperation name="get" />
+
+            <collectionOperation name="post">
+                <attribute name="validation_groups">
+                    <attribute>Default</attribute>
+                    <attribute>post</attribute>
+                </attribute>
+                <attribute name="security_post_denormalize">is_granted("POST", object)</attribute>
+            </collectionOperation>
+
+            <collectionOperation name="register">
+                <attribute name="method">POST</attribute>
+                <attribute name="path">/users/register</attribute>
+                <attribute name="validation_groups">
+                    <attribute>Default</attribute>
+                    <attribute>register</attribute>
+                </attribute>
+            </collectionOperation>
+
+        </collectionOperations>
+
+        <itemOperations>
+
+            <itemOperation name="get">
+                <attribute name="security">is_granted("GET", object)</attribute>
+            </itemOperation>
+
+            <itemOperation name="put">
+                <attribute name="validation_groups">
+                    <attribute>Default</attribute>
+                    <attribute>put</attribute>
+                </attribute>
+                <attribute name="security">is_granted("PUT", object)</attribute>
+            </itemOperation>
+
+            <itemOperation name="delete">
+                <attribute name="validation_groups">
+                    <attribute>delete</attribute>
+                </attribute>
+                <attribute name="security">is_granted("DELETE", object)</attribute>
+            </itemOperation>
+
+        </itemOperations>
+
+    </resource>
+
+</resources>

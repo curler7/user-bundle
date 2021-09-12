@@ -4,7 +4,6 @@ Config Reference
 ``` yaml
 # config/packages/curler7_user.yaml
 curler7_user:
-curler7_user:
     model:
         db_driver:            orm
         user_class:           ~ # Required
@@ -25,6 +24,8 @@ curler7_user:
         login_link_post:      true
         login_link_register:  true
         login_link_share:     true
+        operation_login_link: true
+        operation_registration: true
     api_platform:
         auto_group_resource_metadata_factory: Curler7\UserBundle\ApiPlatform\AutoGroupResourceMetadataFactory
     security:

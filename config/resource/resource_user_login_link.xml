@@ -23,15 +23,6 @@
                 <attribute name="security_post_denormalize">is_granted("POST", object)</attribute>
             </collectionOperation>
 
-            <collectionOperation name="register">
-                <attribute name="method">POST</attribute>
-                <attribute name="path">/users/register</attribute>
-                <attribute name="validation_groups">
-                    <attribute>Default</attribute>
-                    <attribute>register</attribute>
-                </attribute>
-            </collectionOperation>
-
             <collectionOperation name="login_link">
                 <attribute name="method">POST</attribute>
                 <attribute name="path">/users/login-link</attribute>
@@ -41,7 +32,6 @@
                     <attribute>login_link</attribute>
                 </attribute>
             </collectionOperation>
-
 
         </collectionOperations>
 

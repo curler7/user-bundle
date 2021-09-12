@@ -83,6 +83,8 @@ class Configuration implements ConfigurationInterface
                             ->booleanNode('login_link_post')->defaultValue(true)->end()
                             ->booleanNode('login_link_register')->defaultValue(true)->end()
                             ->booleanNode('login_link_share')->defaultValue(true)->end()
+                            ->booleanNode('operation_login_link')->defaultValue(true)->end()
+                            ->booleanNode('operation_registration')->defaultValue(true)->end()
                         ->end()
                     ->end()
                 ->end()

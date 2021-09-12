@@ -56,20 +56,30 @@ class Curler7UserExtension extends Extension implements PrependExtensionInterfac
         );
 
         $paths = [];
-        !$config['config']['resource_user'] ?: $paths[] = __DIR__ . '/../../config/resource/user';
-        !$config['config']['resource_group'] ?: $paths[] = __DIR__ . '/../../config/resource/group';
+        if ($config['config']['resource_user']) {
+            if ($config['config']['operation_login_link'] && $config['config']['operation_registration']) {
+                $paths[] = __DIR__ . '/../../config/resource/resource_user.xml';
+            } elseif ($config['config']['operation_login_link']) {
+                $paths[] = __DIR__ . '/../../config/resource/resource_user_login_link.xml';
+            } elseif ($config['config']['operation_registration']) {
+                $paths[] = __DIR__ . '/../../config/resource/resource_user_registration.xml';
+            } else {
+                $paths[] = __DIR__ . '/../../config/resource/resource_user_default.xml';
+            }
+        }
+        !$config['config']['resource_group'] ?: $paths[] = __DIR__ . '/../../config/resource/resource_group.xml';
         $container->prependExtensionConfig('api_platform', ['mapping' => ['paths' => $paths]]);
 
         $paths = [];
-        !$config['config']['serializer_user'] ?: $paths[] = __DIR__ . '/../../config/serializer/user';
-        !$config['config']['serializer_group'] ?: $paths[] = __DIR__ . '/../../config/serializer/group';
+        !$config['config']['serializer_user'] ?: $paths[] = __DIR__ . '/../../config/serializer/serializer_user.xml';
+        !$config['config']['serializer_group'] ?: $paths[] = __DIR__ . '/../../config/serializer/serializer_group.xml';
         $container->prependExtensionConfig('framework', ['serializer' => ['mapping' => ['paths' => $paths]]]);
 
         $paths = [];
-        !$config['config']['validation_user'] ?: $paths[] = __DIR__ . '/../../config/validation/user';
-        !$config['config']['validation_group'] ?: $paths[] = __DIR__ . '/../../config/validation/group';
-        !$config['config']['storage_validation_user'] ?: $paths[] = __DIR__ . '/../../config/storage_validation/user';
-        !$config['config']['storage_validation_group'] ?: $paths[] = __DIR__ . '/../../config/storage_validation/group';
+        !$config['config']['validation_user'] ?: $paths[] = __DIR__ . '/../../config/validation/validation_user.xml';
+        !$config['config']['validation_group'] ?: $paths[] = __DIR__ . '/../../config/validation/validation_group.xml';
+        !$config['config']['storage_validation_user'] ?: $paths[] = __DIR__ . '/../../config/storage_validation/storage_validation_user.xml';
+        !$config['config']['storage_validation_group'] ?: $paths[] = __DIR__ . '/../../config/storage_validation/storage_validation_group.xml';
         $container->prependExtensionConfig('framework', ['validation' => ['mapping' => ['paths' => $paths]]]);
     }
 
