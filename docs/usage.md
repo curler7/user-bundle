@@ -26,9 +26,9 @@ Usage
 ``` yaml
 # config/packages/curler7_user.yaml
 curler7_user:
-    config:
-        resource_user:  false
-        resource_group: false
+    model:
+        user_class: App/Entity/User
+        group_class: App/Entity/Group
 ```
 
 ### Entity
@@ -60,7 +60,7 @@ class User extends AbstractUser
     #[ORM\ManyToMany(targetEntity: Group::class)]
     #[ORM\JoinTable(name: 'app_users_groups')]
     #[ORM\JoinColumn(name: 'user_id', referencedColumnName: 'id')]
-    #[ORM\JoinColumn(name: 'group_id', referencedColumnName: 'id')]
+    #[ORM\InverseJoinColumn(name: 'group_id', referencedColumnName: 'id')]
     protected Collection|array $groups;
 }
 ```

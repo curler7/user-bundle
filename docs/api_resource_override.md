@@ -5,9 +5,9 @@ API Resource Override
 ``` yaml
 # config/packages/curler7_user.yaml
 curler7_user:
-  model:
-    user_class: App\Entity\User
-    group_class: App\Entity\Group
+  config:
+    resource_user:  false
+    resource_group: false
 ```
 
 #### User
