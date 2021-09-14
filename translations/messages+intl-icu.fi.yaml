@@ -24,11 +24,3 @@ curler7_user:
 
     enabled:
       last_super_admin: 'Ainakin yksi käyttäjä, jolla on rooli "ROLE_SUPER_ADMIN"'
-
-  group:
-    name:
-      unique_entity: 'Nimi on jo käytössä'
-      not_blank: 'Anna nimi'
-      length:
-        min: 'Nimi on liian lyhyt, min: {limit}'
-        max: 'Nimi on liian pitkä, max: {limit}'

@@ -19,6 +19,7 @@ use Curler7\ApiTestBundle\Exception\ArrayNotEmptyException;
 use Curler7\ApiTestBundle\Exception\ConstraintNotDefinedException;
 use Curler7\ApiTestBundle\Exception\PropertyCheckedToManyCanNullKeyException;
 use Curler7\ApiTestBundle\Exception\PropertyNotCheckedException;
+use Curler7\ApiTestBundle\Exception\RequestMethodNotFoundException;
 use Curler7\UserBundle\Tests\Api\Functional\User\AbstractUserResourceTest;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
@@ -32,12 +33,42 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 class UserResourceCollectionLoginLinkAuthUserTest extends AbstractUserResourceTest
 {
     protected const URI = '/users/login-link';
+    protected const GLOBAL_METHOD = self::METHOD_POST;
 
     protected int $collectionPostResponseStatusCode = 200;
 
     protected array $collectionPostResponseHeaderSame = [];
 
     protected array $checkPropertiesHasKey = [];
+
+    /**
+     * @throws ConstraintNotDefinedException
+     * @throws TransportExceptionInterface
+     * @throws RequestMethodNotFoundException
+     */
+    public function testResourceUserCollectionLoginLinkAuthUserWithNoParameters(): void
+    {
+        $this->check422(
+            client: self::createClient(),
+            description: 'email: curler7_user.user.email.not_blank',
+        );
+    }
+
+    /**
+     * @throws ConstraintNotDefinedException
+     * @throws TransportExceptionInterface
+     * @throws RequestMethodNotFoundException
+     */
+    public function testResourceUserCollectionLoginLinkAuthUserWithFalseParameters(): void
+    {
+        $this->check422(
+            client: self::createClient(),
+            description: 'email: curler7_user.user.email.email',
+            json: [
+                'identifier' => 'a',
+            ],
+        );
+    }
 
     /**
      * @throws ArrayHasMoreItemsException
@@ -51,10 +82,10 @@ class UserResourceCollectionLoginLinkAuthUserTest extends AbstractUserResourceTe
      * @throws TransportExceptionInterface
      * @throws PropertyCheckedToManyCanNullKeyException
      */
-    public function testUserCollectionLoginLink(): void
+    public function testResourceUserCollectionLoginLinkAuthUserWithMinimalParameters(): void
     {
         $this->checkCollectionPost(
-            client: static::createClient(),
+            client: $this->createClientWithCredentials(),
             json: [
                 'identifier' => UserFixtures::DATA[0]['email'],
             ],
@@ -69,7 +100,6 @@ class UserResourceCollectionLoginLinkAuthUserTest extends AbstractUserResourceTe
                 'password',
                 'loginLinkRequestedAt',
                 'plainPassword',
-                'groups',
                 'enabled',
                 'lastLogin',
                 'roles',

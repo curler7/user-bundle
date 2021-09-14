@@ -23,12 +23,3 @@ curler7_user:
       invalid: 'Girilen şifre geçersiz'
 
     enabled:
-      last_super_admin: 'Rol olan en az bir kullanıcı "ROLE_SUPER_ADMIN"'
-
-  group:
-    name:
-      unique_entity: 'Ad zaten kullanılıyor'
-      not_blank: 'Lütfen bir ad girin'
-      length:
-        min: 'İsim çok kısa, min: {limit}'
-        max: 'Ad çok uzun, maks: {limit}'

@@ -19,6 +19,7 @@ use Curler7\ApiTestBundle\Exception\ArrayNotEmptyException;
 use Curler7\ApiTestBundle\Exception\ConstraintNotDefinedException;
 use Curler7\ApiTestBundle\Exception\PropertyCheckedToManyCanNullKeyException;
 use Curler7\ApiTestBundle\Exception\PropertyNotCheckedException;
+use Curler7\ApiTestBundle\Exception\RequestMethodNotFoundException;
 use Curler7\UserBundle\Tests\Api\Functional\User\AbstractUserResourceTest;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
@@ -32,12 +33,42 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 class UserResourceCollectionLoginLinkAuthSuperAdminTest extends AbstractUserResourceTest
 {
     protected const URI = '/users/login-link';
+    protected const GLOBAL_METHOD = self::METHOD_POST;
 
     protected int $collectionPostResponseStatusCode = 200;
 
     protected array $collectionPostResponseHeaderSame = [];
 
     protected array $checkPropertiesHasKey = [];
+
+    /**
+     * @throws ConstraintNotDefinedException
+     * @throws TransportExceptionInterface
+     * @throws RequestMethodNotFoundException
+     */
+    public function testResourceUserCollectionLoginLinkAuthSuperAdminWithNoParameters(): void
+    {
+        $this->check422(
+            client: self::createClient(),
+            description: 'email: curler7_user.user.email.not_blank',
+        );
+    }
+
+    /**
+     * @throws ConstraintNotDefinedException
+     * @throws TransportExceptionInterface
+     * @throws RequestMethodNotFoundException
+     */
+    public function testResourceUserCollectionLoginLinkAuthSuperAdminWithFalseParameters(): void
+    {
+        $this->check422(
+            client: self::createClient(),
+            description: 'email: curler7_user.user.email.email',
+            json: [
+                'identifier' => 'a',
+            ],
+        );
+    }
 
     /**
      * @throws ArrayHasMoreItemsException
@@ -51,7 +82,7 @@ class UserResourceCollectionLoginLinkAuthSuperAdminTest extends AbstractUserReso
      * @throws TransportExceptionInterface
      * @throws PropertyCheckedToManyCanNullKeyException
      */
-    public function testUserCollectionLoginLink(): void
+    public function testResourceUserCollectionLoginLinkAuthSuperAdminWithMinimalParameters(): void
     {
         $this->checkCollectionPost(
             client: static::createClient(),
@@ -69,7 +100,6 @@ class UserResourceCollectionLoginLinkAuthSuperAdminTest extends AbstractUserReso
                 'password',
                 'loginLinkRequestedAt',
                 'plainPassword',
-                'groups',
                 'enabled',
                 'lastLogin',
                 'roles',

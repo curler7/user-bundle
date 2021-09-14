@@ -39,7 +39,7 @@ class UserResourceCollectionGetAuthUserTest extends AbstractUserResourceTest
      * @throws ServerExceptionInterface
      * @throws PropertyCheckedToManyCanNullKeyException
      */
-    public function testUserCollectionGetAuthUser(): void
+    public function testResourceUserCollectionGetAuthUser(): void
     {
         $this->checkCollectionGet(
             client: $this->createClientWithCredentials(),
@@ -58,7 +58,6 @@ class UserResourceCollectionGetAuthUserTest extends AbstractUserResourceTest
                 'password',
                 'loginLinkRequestedAt',
                 'plainPassword',
-                'groups',
                 'enabled',
                 'verified',
                 'share',

@@ -29,31 +29,9 @@ abstract class AbstractUserManager implements UserManagerInterface
         private CanonicalFieldsUpdaterInterface $canonicalFieldsUpdater
     ) {}
 
-    public function createUser(
-        ?AbstractUid $id = null,
-        ?string $username = null,
-        ?string $email = null,
-        ?string $plainPassword = null,
-        array $roles = [UserInterface::ROLE_DEFAULT],
-        bool $enabled = false,
-        ?array $groups = null,
-    ): UserInterface
+    public function createUser(): UserInterface
     {
-        $class = $this->getClass();
-        /** @var UserInterface $user */
-        $user = new $class($id);
-
-        foreach ($groups ?? [] as $group) {
-            $user->addGroup($group);
-        }
-
-        return $user
-            ->setUsername($username)
-            ->setEmail($email)
-            ->setPlainPassword($plainPassword)
-            ->setRoles($roles)
-            ->setEnabled($enabled)
-        ;
+        return new ($this->getClass())();
     }
 
     public function findUserByEmail(string $email): ?UserInterface

@@ -22,15 +22,7 @@ use Symfony\Component\Uid\AbstractUid;
  */
 interface UserManagerInterface
 {
-    public function createUser(
-        ?AbstractUid $id = null,
-        ?string $username = null,
-        ?string $email = null,
-        ?string $plainPassword = null,
-        array $roles = [UserInterface::ROLE_DEFAULT],
-        bool $enabled = false,
-        ?array $groups = null,
-    ): UserInterface;
+    public function createUser(): UserInterface;
 
     public function deleteUser(UserInterface $user): static;
 

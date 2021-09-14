@@ -39,20 +39,19 @@ class UserResourceCollectionGetAuthSuperAdminTest extends AbstractUserResourceTe
      * @throws ServerExceptionInterface
      * @throws PropertyCheckedToManyCanNullKeyException
      */
-    public function testUserCollectionGetSuperAdminAuth(): void
+    public function testResourceUserCollectionGetAuthSuperAdmin(): void
     {
         $this->checkCollectionGet(
             client: $this->createClientWithCredentials(user: 'admin'),
             totalItems: \count(UserFixtures::DATA),
             hasKey: [
-                'fullName',
                 'id',
+                'fullName',
                 'username',
                 'email',
                 'lastLogin',
                 'roles',
                 'enabled',
-                'groups',
                 'verified',
             ],
             notHasKey: [

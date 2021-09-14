@@ -18,6 +18,8 @@ use Curler7\ApiTestBundle\Exception\ConstraintNotDefinedException;
 use Curler7\ApiTestBundle\Exception\RequestMethodNotFoundException;
 use Curler7\ApiTestBundle\Exception\RequestUrlNotFoundException;
 use Curler7\UserBundle\Tests\Api\Functional\User\AbstractUserResourceTest;
+use Curler7\ApiTestBundle\Exception\ResourceFoundException;
+use Curler7\ApiTestBundle\Exception\ResourceNotFoundException;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 /**
@@ -33,11 +35,11 @@ class UserResourceItemDeleteAuthUserTest extends AbstractUserResourceTest
      * @throws RequestMethodNotFoundException
      * @throws TransportExceptionInterface
      */
-    public function testUserItemDeleteAuthUserOtherUser(): void
+    public function testResourceUserItemDeleteAuthUserOtherUser(): void
     {
         $this->check403(
-            $this->createClientWithCredentials(),
-            ['username' => UserFixtures::DATA[2]['username']],
+            client: $this->createClientWithCredentials(),
+            criteria: ['username' => UserFixtures::DATA[2]['username']],
         );
     }
 
@@ -46,20 +48,22 @@ class UserResourceItemDeleteAuthUserTest extends AbstractUserResourceTest
      * @throws RequestMethodNotFoundException
      * @throws TransportExceptionInterface
      */
-    public function testUserItemDeleteAuthUserOtherAdmin(): void
+    public function testResourceUserItemDeleteAuthUserOtherAdmin(): void
     {
         $this->check403(
-            $this->createClientWithCredentials(),
-            ['username' => UserFixtures::DATA[1]['username']],
+            client: $this->createClientWithCredentials(),
+            criteria: ['username' => UserFixtures::DATA[1]['username']],
         );
     }
 
     /**
-     * @throws TransportExceptionInterface
      * @throws ConstraintNotDefinedException
      * @throws RequestUrlNotFoundException
+     * @throws ResourceFoundException
+     * @throws ResourceNotFoundException
+     * @throws TransportExceptionInterface
      */
-    public function testUserItemDeleteAuthUserSelf(): void
+    public function testResourceUserItemDeleteAuthUserSelf(): void
     {
         $this->checkItemDelete($this->createClientWithCredentials());
     }

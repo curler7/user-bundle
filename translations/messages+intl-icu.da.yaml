@@ -24,11 +24,3 @@ curler7_user:
 
     enabled:
       last_super_admin: 'Mindst en bruger med rolle "ROLE_SUPER_ADMIN"'
-
-  group:
-    name:
-      unique_entity: 'Navnet er allerede brugt'
-      not_blank: 'Indtast venligst et navn'
-      length:
-        min: 'Navnet er for kort, min: {limit}'
-        max: 'Navnet er for langt, maks : {limit}'

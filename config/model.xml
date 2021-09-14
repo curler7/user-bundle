@@ -6,15 +6,6 @@
        https://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
 
-        <service id="curler7_user.model.group_manager"
-                class="%curler7_user.model.group_manager.class%"
-                public="false"
-        >
-            <argument type="service" id="curler7_user.model.object_manager" />
-            <argument>%curler7_user.model.group.class%</argument>
-        </service>
-        <service id="Curler7\UserBundle\Manager\GroupManagerInterface" alias="curler7_user.model.group_manager" />
-
         <service id="curler7_user.model.user_manager"
                 class="%curler7_user.model.user_manager.class%"
                 public="false"

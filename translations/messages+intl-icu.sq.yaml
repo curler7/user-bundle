@@ -24,11 +24,3 @@ curler7_user:
 
     enabled:
       last_super_admin: 'Të paktën një përdorues me rol "ROLE_SUPER_ADMIN"'
-
-  group:
-    name:
-      unique_entity: 'Emri është përdorur tashmë'
-      not_blank: 'Ju lutemi shkruani një emër'
-      length:
-        min: 'Emri është shumë i shkurtër, min: {limit}'
-        max: 'Emri është shumë i gjatë, max : {limit}'

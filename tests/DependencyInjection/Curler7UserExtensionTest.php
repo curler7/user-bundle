@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Curler7\UserBundle\Tests\DependencyInjection;
 
-use App\Entity\Group;
 use App\Entity\User;
 use Curler7\UserBundle\DependencyInjection\Curler7UserExtension;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
@@ -26,7 +25,6 @@ class Curler7UserExtensionTest extends AbstractExtensionTestCase
     private array $default = [
         'model' => [
             'user_class' => User::class,
-            'group_class' => Group::class,
         ]
     ];
 
@@ -51,14 +49,12 @@ class Curler7UserExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasService('curler7_user.api_platform.auto_group_resource_metadata_factory');
         $this->assertContainerBuilderHasService('curler7_user.command.create_user');
         $this->assertContainerBuilderHasService('curler7_user.controller.login_link');
-        $this->assertContainerBuilderHasService('curler7_user.model.group_manager');
         $this->assertContainerBuilderHasService('curler7_user.model.user_manager');
         $this->assertContainerBuilderHasService('curler7_user.model.object_manager');
         $this->assertContainerBuilderHasService('curler7_user.open_api.jwt_decorator');
         $this->assertContainerBuilderHasService('curler7_user.security.groups_context_builder');
         $this->assertContainerBuilderHasService('curler7_user.security.authentication_success_handler');
         $this->assertContainerBuilderHasService('curler7_user.security.user_voter');
-        $this->assertContainerBuilderHasService('curler7_user.security.group_voter');
         $this->assertContainerBuilderHasService('curler7_user.serializer.user_normalizer');
         $this->assertContainerBuilderHasService('curler7_user.subscriber.jwt_subscriber');
         $this->assertContainerBuilderHasService('curler7_user.subscriber.validate_before_delete');
@@ -73,7 +69,6 @@ class Curler7UserExtensionTest extends AbstractExtensionTestCase
 
         $container = $this->container;
         $this->assertIsString($container->getParameter('curler7_user.model.user.class'));
-        $this->assertIsString($container->getParameter('curler7_user.model.group.class'));
         $this->assertIsString($container->getParameter('curler7_user.model.model_manager_name'));
         $this->assertIsString($container->getParameter('curler7_user.model.storage'));
     }

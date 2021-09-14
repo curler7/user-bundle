@@ -13,11 +13,8 @@ declare(strict_types=1);
 
 namespace Curler7\UserBundle\Model;
 
-use Curler7\UserBundle\Model\AwareTrait\GroupsAwareTrait;
 use Curler7\UserBundle\Model\AwareTrait\ResourceAwareTrait;
 use Curler7\UserBundle\Model\AwareTrait\RolesAwareTrait;
-use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Uid\AbstractUid;
 
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
@@ -25,11 +22,7 @@ use Symfony\Component\Uid\AbstractUid;
 abstract class AbstractUser implements UserInterface
 {
     use ResourceAwareTrait,
-        RolesAwareTrait,
-        GroupsAwareTrait {
-        ResourceAwareTrait::__construct as protected __constructResource;
-        GroupsAwareTrait::__construct as protected __constructGroups;
-    }
+        RolesAwareTrait;
 
     protected ?string $username = null;
 
@@ -52,12 +45,6 @@ abstract class AbstractUser implements UserInterface
     protected ?\DateTimeInterface $loginLinkRequestedAt = null;
 
     protected ?string $plainPassword = null;
-
-    public function __construct(?AbstractUid $id = null)
-    {
-        $this->__constructResource($id);
-        $this->__constructGroups();
-    }
 
     public function eraseCredentials(): static
     {

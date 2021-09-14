@@ -30,7 +30,7 @@ class UserResourceCollectionPostAuthUserTest extends AbstractUserResourceTest
      * @throws TransportExceptionInterface
      * @throws RequestMethodNotFoundException
      */
-    public function testUserCollectionPostAuthUser(): void
+    public function testResourceUserCollectionPostAuthUser(): void
     {
         $this->check403($this->createClientWithCredentials());
     }

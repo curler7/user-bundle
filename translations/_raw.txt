@@ -15,8 +15,3 @@ The entered passwords don't match
 The entered password is invalid
 
 At least one user with role
-
-The name is already used
-Please enter a name
-The name is too short, min
-The name is too long, max

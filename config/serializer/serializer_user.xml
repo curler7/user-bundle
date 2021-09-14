@@ -8,7 +8,8 @@
 
         <attribute name="id">
             <group>user:read</group>
-            <group>group:post:write</group>
+            <group>user:post</group>
+            <group>user:register</group>
         </attribute>
 
         <attribute name="username">
@@ -19,7 +20,9 @@
         </attribute>
 
         <attribute name="email">
-            <group>user</group>
+            <group>user:user</group>
+            <group>user:write</group>
+            <group>user:register</group>
         </attribute>
 
         <attribute name="lastLogin">
@@ -27,16 +30,20 @@
         </attribute>
 
         <attribute name="enabled">
-            <group>super_admin:user</group>
+            <group>super_admin:user:read</group>
+            <group>super_admin:user:post</group>
+            <group>super_admin:user:put</group>
         </attribute>
 
         <attribute name="verified">
-            <group>super_admin:user</group>
+            <group>super_admin:user:read</group>
         </attribute>
 
         <attribute name="roles">
             <group>user:user:read</group>
-            <group>super_admin:user</group>
+            <group>super_admin:user:read</group>
+            <group>super_admin:user:post</group>
+            <group>super_admin:user:put</group>
         </attribute>
 
         <attribute name="plainPassword" serialized-name="password">

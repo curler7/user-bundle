@@ -24,11 +24,3 @@ curler7_user:
 
     enabled:
       last_super_admin: 'مستخدم واحد على الأقل له دور "ROLE_SUPER_ADMIN"'
-
-  group:
-    name:
-      unique_entity: 'الاسم مستخدم بالفعل'
-      not_blank: 'الرجاء إدخال اسم'
-      length:
-        min: 'الاسم قصير جدًا ، دقيقة: {limit}'
-        max: 'الاسم طويل جدًا ، بحد أقصى : {limit}'

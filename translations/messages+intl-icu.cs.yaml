@@ -24,11 +24,3 @@ curler7_user:
 
     enabled:
       last_super_admin: 'Minimálně jeden uživatel s rolí "ROLE_SUPER_ADMIN"'
-
-  group:
-    name:
-      unique_entity: 'Název je již použit'
-      not_blank: 'Zadejte prosím jméno'
-      length:
-        min: 'Název je příliš krátký, min: {limit}'
-        max: 'Název je příliš dlouhý, max : {limit}'

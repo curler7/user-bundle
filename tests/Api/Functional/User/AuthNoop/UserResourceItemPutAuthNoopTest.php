@@ -32,7 +32,7 @@ class UserResourceItemPutAuthNoopTest extends AbstractUserResourceTest
      * @throws TransportExceptionInterface
      * @throws RequestMethodNotFoundException
      */
-    public function testUserItemPutAuthNoop(): void
+    public function testResourceUserItemPutAuthNoop(): void
     {
         $this->check401(static::createClient());
     }

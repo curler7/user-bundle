@@ -42,11 +42,8 @@ final class UserNormalizer implements
     public function __construct(
         private CanonicalFieldsUpdaterInterface $canonicalFieldsUpdater,
         private PasswordUpdaterInterface        $passwordUpdater,
-        private LoginLinkSenderInterface        $loginLinkSender,
         private UserSpyInterface                $userSpy,
         private string                          $resourceClass,
-        private bool                            $loginLinkRegister,
-        private bool                            $loginLinkPost,
     ) {}
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
@@ -82,15 +79,8 @@ final class UserNormalizer implements
         if (isset($data['password'])) {
             $this->passwordUpdater->hashPassword($user);
         }
-        if (isset($data['email']) &&
-            (('register' === ($context['collection_operation_name'] ?? null) &&
-                $this->loginLinkRegister) ||
-            ('post' === ($context['collection_operation_name'] ?? null) &&
-                $this->loginLinkPost))) {
-            $this->loginLinkSender->send($user, subject: 'user.register.notification.subject');
-        }
 
-        $this->userSpy->spy($user, $data, $context);
+        // $this->userSpy->spy($user, $data, $context);
 
         return $user;
     }

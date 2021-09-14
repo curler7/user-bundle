@@ -14,12 +14,14 @@ declare(strict_types=1);
 namespace Curler7\UserBundle\Tests\Api\Functional\User\AuthSuperAdmin;
 
 use App\DataFixtures\UserFixtures;
+use App\Entity\User;
 use Curler7\ApiTestBundle\Exception\ArrayHasMoreItemsException;
 use Curler7\ApiTestBundle\Exception\ArrayNotEmptyException;
 use Curler7\ApiTestBundle\Exception\ConstraintNotDefinedException;
 use Curler7\ApiTestBundle\Exception\PropertyCheckedToManyCanNullKeyException;
 use Curler7\ApiTestBundle\Exception\PropertyNotCheckedException;
 use Curler7\ApiTestBundle\Exception\RequestUrlNotFoundException;
+use Curler7\UserBundle\Model\UserInterface;
 use Curler7\UserBundle\Tests\Api\Functional\User\AbstractUserResourceTest;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
@@ -48,14 +50,25 @@ class UserResourceItemGetAuthSuperAdminTest extends AbstractUserResourceTest
      * @throws RequestUrlNotFoundException
      * @throws PropertyCheckedToManyCanNullKeyException
      */
-    public function testUserItemGetAuthSuperAdminSelf(): void
+    public function testResourceUserItemGetAuthSuperAdminSelf(): void
     {
+        /** @var User $user */
+        $user = self::findOneBy(['username' => UserFixtures::DATA[1]['username']]);
+
         $this->checkItemGet(
             client: $this->createClientWithCredentials(user: 'admin'),
             contains: [
-                'fullName' => UserFixtures::DATA[1]['full_name'],
+                'id' => $user->getId()->toRfc4122(),
+                'fullName' => UserFixtures::DATA[1]['fullName'],
                 'username' => UserFixtures::DATA[1]['username'],
                 'email' => UserFixtures::DATA[1]['email'],
+                'lastLogin' => (new \DateTime())->format(DATE_W3C),
+                'roles' => [
+                    UserInterface::ROLE_SUPER_ADMIN,
+                    UserInterface::ROLE_DEFAULT,
+                ],
+                'enabled' => UserFixtures::DATA[1]['enabled'],
+                'verified' => UserFixtures::DATA[1]['verified'],
             ],
             criteria: [
                 'username' => UserFixtures::DATA[1]['username']
@@ -68,7 +81,6 @@ class UserResourceItemGetAuthSuperAdminTest extends AbstractUserResourceTest
                 'email',
                 'roles',
                 'enabled',
-                'groups',
                 'verified',
             ],
             notHasKey: [
@@ -95,14 +107,24 @@ class UserResourceItemGetAuthSuperAdminTest extends AbstractUserResourceTest
      * @throws RequestUrlNotFoundException
      * @throws PropertyCheckedToManyCanNullKeyException
      */
-    public function testUserItemGetAuthSuperAdminOtherUser(): void
+    public function testResourceUserItemGetAuthSuperAdminOtherUser(): void
     {
+        /** @var User $user */
+        $user = self::findOneBy();
+
         $this->checkItemGet(
             client: $this->createClientWithCredentials(user: 'admin'),
             contains: [
-                'fullName' => UserFixtures::DATA[0]['full_name'],
+                'id' => $user->getId()->toRfc4122(),
+                'fullName' => UserFixtures::DATA[0]['fullName'],
                 'username' => UserFixtures::DATA[0]['username'],
                 'email' => UserFixtures::DATA[0]['email'],
+                'lastLogin' => null,
+                'roles' => [
+                    UserInterface::ROLE_DEFAULT,
+                ],
+                'enabled' => UserFixtures::DATA[0]['enabled'],
+                'verified' => UserFixtures::DATA[0]['verified'],
             ],
             hasKey: [
                 'id',
@@ -112,7 +134,6 @@ class UserResourceItemGetAuthSuperAdminTest extends AbstractUserResourceTest
                 'email',
                 'roles',
                 'enabled',
-                'groups',
                 'verified',
             ],
             notHasKey: [
@@ -139,14 +160,25 @@ class UserResourceItemGetAuthSuperAdminTest extends AbstractUserResourceTest
      * @throws RequestUrlNotFoundException
      * @throws PropertyCheckedToManyCanNullKeyException
      */
-    public function testUserItemGetAuthSuperAdminOtherSuperAdmin(): void
+    public function testResourceUserItemGetAuthSuperAdminOtherSuperAdmin(): void
     {
+        /** @var User $user */
+        $user = self::findOneBy(['username' => UserFixtures::DATA[3]['username']]);
+
         $this->checkItemGet(
             client: $this->createClientWithCredentials(user: 'admin'),
             contains: [
-                'fullName' => UserFixtures::DATA[3]['full_name'],
+                'id' => $user->getId()->toRfc4122(),
+                'fullName' => UserFixtures::DATA[3]['fullName'],
                 'username' => UserFixtures::DATA[3]['username'],
                 'email' => UserFixtures::DATA[3]['email'],
+                'lastLogin' => null,
+                'roles' => [
+                    UserInterface::ROLE_SUPER_ADMIN,
+                    UserInterface::ROLE_DEFAULT,
+                ],
+                'enabled' => UserFixtures::DATA[3]['enabled'],
+                'verified' => UserFixtures::DATA[3]['verified'],
             ],
             criteria: [
                 'username' => UserFixtures::DATA[3]['username']
@@ -159,7 +191,6 @@ class UserResourceItemGetAuthSuperAdminTest extends AbstractUserResourceTest
                 'email',
                 'roles',
                 'enabled',
-                'groups',
                 'verified',
             ],
             notHasKey: [

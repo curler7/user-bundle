@@ -39,7 +39,7 @@ class UserResourceCollectionGetAuthNoopTest extends AbstractUserResourceTest
      * @throws ServerExceptionInterface
      * @throws PropertyCheckedToManyCanNullKeyException
      */
-    public function testUserCollectionGetAuthNoop(): void
+    public function testResourceUserCollectionGetAuthNoop(): void
     {
         $this->checkCollectionGet(
             client: static::createClient(),
@@ -48,7 +48,6 @@ class UserResourceCollectionGetAuthNoopTest extends AbstractUserResourceTest
                 'fullName',
                 'id',
                 'username',
-                'email',
             ],
             notHasKey: [
                 'usernameCanonical',
@@ -57,12 +56,12 @@ class UserResourceCollectionGetAuthNoopTest extends AbstractUserResourceTest
                 'confirmationToken',
                 'loginLinkRequestedAt',
                 'plainPassword',
-                'groups',
                 'enabled',
                 'lastLogin',
                 'roles',
                 'verified',
                 'share',
+                'email',
             ],
             hydraMember: \count(UserFixtures::DATA),
             hydraView: false,

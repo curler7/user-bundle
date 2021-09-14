@@ -14,12 +14,14 @@ declare(strict_types=1);
 namespace Curler7\UserBundle\Tests\Api\Functional\User\AuthUser;
 
 use App\DataFixtures\UserFixtures;
+use App\Entity\User;
 use Curler7\ApiTestBundle\Exception\ArrayHasMoreItemsException;
 use Curler7\ApiTestBundle\Exception\ArrayNotEmptyException;
 use Curler7\ApiTestBundle\Exception\ConstraintNotDefinedException;
 use Curler7\ApiTestBundle\Exception\PropertyCheckedToManyCanNullKeyException;
 use Curler7\ApiTestBundle\Exception\PropertyNotCheckedException;
 use Curler7\ApiTestBundle\Exception\RequestUrlNotFoundException;
+use Curler7\UserBundle\Model\UserInterface;
 use Curler7\UserBundle\Tests\Api\Functional\User\AbstractUserResourceTest;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
@@ -48,15 +50,22 @@ class UserResourceItemGetAuthUserTest extends AbstractUserResourceTest
      * @throws RequestUrlNotFoundException
      * @throws PropertyCheckedToManyCanNullKeyException
      */
-    public function testUserItemGetAuthUserSelf(): void
+    public function testResourceUserItemGetAuthUserSelf(): void
     {
+        /** @var User $user */
+        $user = self::findOneBy();
+
         $this->checkItemGet(
             client: $this->createClientWithCredentials(),
             contains: [
-                'fullName' => UserFixtures::DATA[0]['full_name'],
+                'id' => $user->getId()->toRfc4122(),
+                'fullName' => UserFixtures::DATA[0]['fullName'],
                 'username' => UserFixtures::DATA[0]['username'],
                 'email' => UserFixtures::DATA[0]['email'],
                 'lastLogin' => (new \DateTime())->format(DATE_W3C),
+                'roles' => [
+                    UserInterface::ROLE_DEFAULT,
+                ],
             ],
             hasKey: [
                 'id',
@@ -73,7 +82,6 @@ class UserResourceItemGetAuthUserTest extends AbstractUserResourceTest
                 'loginLinkRequestedAt',
                 'plainPassword',
                 'enabled',
-                'groups',
                 'verified',
                 'share',
             ],
@@ -93,14 +101,22 @@ class UserResourceItemGetAuthUserTest extends AbstractUserResourceTest
      * @throws RequestUrlNotFoundException
      * @throws PropertyCheckedToManyCanNullKeyException
      */
-    public function testUserItemGetAuthUserOtherUser(): void
+    public function testResourceUserItemGetAuthUserOtherUser(): void
     {
+        /** @var User $user */
+        $user = self::findOneBy(['username' => UserFixtures::DATA[2]['username']]);
+
         $this->checkItemGet(
             client: $this->createClientWithCredentials(),
             contains: [
-                'fullName' => UserFixtures::DATA[2]['full_name'],
+                'id' => $user->getId()->toRfc4122(),
+                'fullName' => UserFixtures::DATA[2]['fullName'],
                 'username' => UserFixtures::DATA[2]['username'],
                 'email' => UserFixtures::DATA[2]['email'],
+                'lastLogin' => null,
+                'roles' => [
+                    UserInterface::ROLE_DEFAULT,
+                ],
             ],
             criteria: [
                 'username' => UserFixtures::DATA[2]['username']
@@ -120,7 +136,6 @@ class UserResourceItemGetAuthUserTest extends AbstractUserResourceTest
                 'loginLinkRequestedAt',
                 'plainPassword',
                 'enabled',
-                'groups',
                 'verified',
                 'share',
             ],
@@ -140,14 +155,23 @@ class UserResourceItemGetAuthUserTest extends AbstractUserResourceTest
      * @throws RequestUrlNotFoundException
      * @throws PropertyCheckedToManyCanNullKeyException
      */
-    public function testUserItemGetAuthUserOtherSuperAdmin(): void
+    public function testResourceUserItemGetAuthUserOtherSuperAdmin(): void
     {
+        /** @var User $user */
+        $user = self::findOneBy(['username' => UserFixtures::DATA[1]['username']]);
+
         $this->checkItemGet(
             client: $this->createClientWithCredentials(),
             contains: [
-                'fullName' => UserFixtures::DATA[1]['full_name'],
+                'id' => $user->getId()->toRfc4122(),
+                'fullName' => UserFixtures::DATA[1]['fullName'],
                 'username' => UserFixtures::DATA[1]['username'],
                 'email' => UserFixtures::DATA[1]['email'],
+                'lastLogin' => null,
+                'roles' => [
+                    UserInterface::ROLE_SUPER_ADMIN,
+                    UserInterface::ROLE_DEFAULT,
+                ],
             ],
             criteria: [
                 'username' => UserFixtures::DATA[1]['username']
@@ -167,7 +191,6 @@ class UserResourceItemGetAuthUserTest extends AbstractUserResourceTest
                 'loginLinkRequestedAt',
                 'plainPassword',
                 'enabled',
-                'groups',
                 'verified',
                 'share',
             ],

@@ -67,19 +67,15 @@ class Curler7UserExtension extends Extension implements PrependExtensionInterfac
                 $paths[] = __DIR__ . '/../../config/resource/resource_user_default.xml';
             }
         }
-        !$config['config']['resource_group'] ?: $paths[] = __DIR__ . '/../../config/resource/resource_group.xml';
         $container->prependExtensionConfig('api_platform', ['mapping' => ['paths' => $paths]]);
 
         $paths = [];
         !$config['config']['serializer_user'] ?: $paths[] = __DIR__ . '/../../config/serializer/serializer_user.xml';
-        !$config['config']['serializer_group'] ?: $paths[] = __DIR__ . '/../../config/serializer/serializer_group.xml';
         $container->prependExtensionConfig('framework', ['serializer' => ['mapping' => ['paths' => $paths]]]);
 
         $paths = [];
         !$config['config']['validation_user'] ?: $paths[] = __DIR__ . '/../../config/validation/validation_user.xml';
-        !$config['config']['validation_group'] ?: $paths[] = __DIR__ . '/../../config/validation/validation_group.xml';
         !$config['config']['storage_validation_user'] ?: $paths[] = __DIR__ . '/../../config/storage_validation/storage_validation_user.xml';
-        !$config['config']['storage_validation_group'] ?: $paths[] = __DIR__ . '/../../config/storage_validation/storage_validation_group.xml';
         $container->prependExtensionConfig('framework', ['validation' => ['mapping' => ['paths' => $paths]]]);
     }
 
@@ -104,10 +100,8 @@ class Curler7UserExtension extends Extension implements PrependExtensionInterfac
         $container->setParameter('curler7_user.controller.login_link.class', $config['controller']['login_link']);
         // Model
         $container->setParameter('curler7_user.model.user.class', $config['model']['user_class']);
-        $container->setParameter('curler7_user.model.group.class', $config['model']['group_class']);
         $container->setParameter('curler7_user.model.model_manager_name', $config['model']['model_manager_name']);
         $container->setParameter('curler7_user.model.storage', $config['model']['db_driver']);
-        $container->setParameter('curler7_user.model.group_manager.class', $config['model']['group_manager']);
         $container->setParameter('curler7_user.model.user_manager.class', $config['model']['user_manager']);
         $container->setParameter('curler7_user.model.object_manager.class', $config['model']['object_manager']);
         // Open api
@@ -119,9 +113,10 @@ class Curler7UserExtension extends Extension implements PrependExtensionInterfac
         $container->setParameter('curler7_user.security.groups_context_builder.class', $config['security']['groups_context_builder']);
         $container->setParameter('curler7_user.security.authentication_success_handler.class', $config['security']['authentication_success_handler']);
         $container->setParameter('curler7_user.security.user_voter.class', $config['security']['user_voter']);
-        $container->setParameter('curler7_user.security.group_voter.class', $config['security']['group_voter']);
         // Serializer
         $container->setParameter('curler7_user.serializer.user_normalizer.class', $config['serializer']['user_normalizer']);
+        // Data persister
+        $container->setParameter('curler7_user.data_persister.user_data_persister.class', $config['data_persister']['user_data_persister']);
         // Subscriber
         $container->setParameter('curler7_user.subscriber.jwt_subscriber.class', $config['subscriber']['jwt_subscriber']);
         $container->setParameter('curler7_user.subscriber.validate_before_delete.class', $config['subscriber']['validate_before_delete']);
@@ -138,7 +133,7 @@ class Curler7UserExtension extends Extension implements PrependExtensionInterfac
 
         foreach ([
             'api_platform', 'command', 'controller',
-            'event_subscriber', 'open_api',
+            'data_persister', 'event_subscriber', 'open_api',
             'security', 'serializer', 'util', 'validator',
          ] as $file) {
             $loader->load($file.'.xml');

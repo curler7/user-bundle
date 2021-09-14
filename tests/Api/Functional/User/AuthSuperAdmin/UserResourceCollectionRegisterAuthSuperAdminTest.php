@@ -13,16 +13,9 @@ declare(strict_types=1);
 
 namespace Curler7\UserBundle\Tests\Api\Functional\User\AuthSuperAdmin;
 
-use Curler7\ApiTestBundle\Exception\ArrayHasMoreItemsException;
-use Curler7\ApiTestBundle\Exception\ArrayNotEmptyException;
 use Curler7\ApiTestBundle\Exception\ConstraintNotDefinedException;
-use Curler7\ApiTestBundle\Exception\PropertyCheckedToManyCanNullKeyException;
-use Curler7\ApiTestBundle\Exception\PropertyNotCheckedException;
+use Curler7\ApiTestBundle\Exception\RequestMethodNotFoundException;
 use Curler7\UserBundle\Tests\Api\Functional\User\AbstractUserResourceTest;
-use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
-use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
-use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
-use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 /**
@@ -31,51 +24,15 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 class UserResourceCollectionRegisterAuthSuperAdminTest extends AbstractUserResourceTest
 {
     protected const URI = '/users/register';
+    protected const GLOBAL_METHOD = self::METHOD_POST;
 
     /**
-     * @throws ArrayHasMoreItemsException
-     * @throws ArrayNotEmptyException
-     * @throws RedirectionExceptionInterface
-     * @throws DecodingExceptionInterface
      * @throws ConstraintNotDefinedException
-     * @throws ClientExceptionInterface
-     * @throws PropertyNotCheckedException
+     * @throws RequestMethodNotFoundException
      * @throws TransportExceptionInterface
-     * @throws ServerExceptionInterface
-     * @throws PropertyCheckedToManyCanNullKeyException
      */
-    public function testUserCollectionRegister(): void
+    public function testResourceUserCollectionRegisterAuthSuperAdmin(): void
     {
-        $this->checkCollectionPost(
-            client: static::createClient(),
-            json: [
-                'username' => 'new',
-                'email' => 'corona@smart-media.design',
-                'password' => 'password',
-            ],
-            contains: [
-                'username' => 'new',
-                'email' => 'corona@smart-media.design',
-            ],
-            hasKey: [
-                'id',
-                'username',
-                'email',
-            ],
-            notHasKey: [
-                'fullName',
-                'usernameCanonical',
-                'emailCanonical',
-                'password',
-                'loginLinkRequestedAt',
-                'plainPassword',
-                'groups',
-                'enabled',
-                'lastLogin',
-                'roles',
-                'verified',
-                'share',
-            ],
-        );
+        $this->check403($this->createClientWithCredentials(user: 'admin'));
     }
 }

@@ -20,10 +20,17 @@ use Symfony\Component\Uid\AbstractUid;
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
  */
-interface UserInterface extends PasswordAuthenticatedUserInterface, GroupableInterface, BaseUserInterface
+interface UserInterface extends PasswordAuthenticatedUserInterface, BaseUserInterface
 {
     public const ROLE_DEFAULT = 'ROLE_USER';
     public const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
+
+    public const IS_AUTHENTICATED_REMEMBERED = 'IS_AUTHENTICATED_REMEMBERED';
+    public const IS_AUTHENTICATED_FULLY = 'IS_AUTHENTICATED_FULLY';
+    public const IS_AUTHENTICATED_ANONYMOUSLY = 'IS_AUTHENTICATED_ANONYMOUSLY';
+    public const IS_ANONYMOUS = 'IS_ANONYMOUS';
+    public const IS_REMEMBERED = 'IS_REMEMBERED';
+    public const IS_IMPERSONATOR = 'IS_IMPERSONATOR';
 
     public const IDENTIFIERS = ['username', 'email'];
 

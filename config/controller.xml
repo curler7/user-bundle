@@ -14,6 +14,8 @@
             <argument type="service" id="curler7_user.util.login_link_sender" />
             <argument type="service" id="security.helper" />
             <argument>%curler7_user.config.login_link_share%</argument>
+            <argument type="service" id="api_platform.jsonld.normalizer.item" />
+            <argument type="service" id="api_platform.validator" />
             <tag name="controller.service_arguments"/>
             <call method="setContainer">
                 <argument type="service" id="service_container" />

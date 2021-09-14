@@ -14,15 +14,14 @@ declare(strict_types=1);
 namespace Curler7\UserBundle\DependencyInjection;
 
 use Curler7\UserBundle\Controller\LoginLinkController;
+use Curler7\UserBundle\DataPersister\UserDataPersister;
 use Curler7\UserBundle\EventSubscriber\JWTSubscriber;
 use Curler7\UserBundle\EventSubscriber\ValidateBeforeDeleteSubscriber;
 use Curler7\UserBundle\OpenApi\JwtDecorator;
 use Curler7\UserBundle\ApiPlatform\AutoGroupResourceMetadataFactory;
 use Curler7\UserBundle\Command\CreateUserCommand;
-use Curler7\UserBundle\Manager\GroupManager;
 use Curler7\UserBundle\Manager\UserManager;
 use Curler7\UserBundle\Security\Authentication\AuthenticationSuccessHandler;
-use Curler7\UserBundle\Security\Voter\GroupVoter;
 use Curler7\UserBundle\Security\Voter\UserVoter;
 use Curler7\UserBundle\Serializer\GroupsContextBuilder;
 use Curler7\UserBundle\Serializer\UserNormalizer;
@@ -54,6 +53,7 @@ class Configuration implements ConfigurationInterface
         $this->addApiPlatformSection($rootNode);
         $this->addSecuritySection($rootNode);
         $this->addSerializerSection($rootNode);
+        $this->addDataPersisterSection($rootNode);
         $this->addOpenApiSection($rootNode);
         $this->addCommandSection($rootNode);
         $this->addUtilSection($rootNode);
@@ -73,13 +73,9 @@ class Configuration implements ConfigurationInterface
                     ->addDefaultsIfNotSet()
                         ->children()
                             ->booleanNode('resource_user')->defaultValue(true)->end()
-                            ->booleanNode('resource_group')->defaultValue(true)->end()
                             ->booleanNode('serializer_user')->defaultValue(true)->end()
-                            ->booleanNode('serializer_group')->defaultValue(true)->end()
                             ->booleanNode('validation_user')->defaultValue(true)->end()
-                            ->booleanNode('validation_group')->defaultValue(true)->end()
                             ->booleanNode('storage_validation_user')->defaultValue(true)->end()
-                            ->booleanNode('storage_validation_group')->defaultValue(true)->end()
                             ->booleanNode('login_link_post')->defaultValue(true)->end()
                             ->booleanNode('login_link_register')->defaultValue(true)->end()
                             ->booleanNode('login_link_share')->defaultValue(true)->end()
@@ -102,9 +98,7 @@ class Configuration implements ConfigurationInterface
                         ->children()
                             ->scalarNode('db_driver')->defaultValue('orm')->end()
                             ->scalarNode('user_class')->isRequired()->cannotBeEmpty()->end()
-                            ->scalarNode('group_class')->isRequired()->cannotBeEmpty()->end()
                             ->scalarNode('model_manager_name')->defaultValue('default')->end()
-                            ->scalarNode('group_manager')->defaultValue(GroupManager::class)->end()
                             ->scalarNode('user_manager')->defaultValue(UserManager::class)->end()
                             ->scalarNode('object_manager')->defaultValue(ObjectManager::class)->end()
                         ->end()
@@ -146,6 +140,22 @@ class Configuration implements ConfigurationInterface
         ;
     }
 
+    private function addDataPersisterSection(ArrayNodeDefinition $node): void
+    {
+        $node
+            ->addDefaultsIfNotSet()
+            ->children()
+                ->arrayNode('data_persister')
+                    ->addDefaultsIfNotSet()
+                        ->children()
+                            ->scalarNode('user_data_persister')->defaultValue(UserDataPersister::class)->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
+    }
+
     private function addSecuritySection(ArrayNodeDefinition $node): void
     {
         $node
@@ -157,7 +167,6 @@ class Configuration implements ConfigurationInterface
                             ->scalarNode('groups_context_builder')->defaultValue(GroupsContextBuilder::class)->end()
                             ->scalarNode('authentication_success_handler')->defaultValue(AuthenticationSuccessHandler::class)->end()
                             ->scalarNode('user_voter')->defaultValue(UserVoter::class)->end()
-                            ->scalarNode('group_voter')->defaultValue(GroupVoter::class)->end()
                         ->end()
                     ->end()
                 ->end()

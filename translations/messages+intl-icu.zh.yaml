@@ -24,11 +24,3 @@ curler7_user:
 
     enabled:
       last_super_admin: '至少一名具有角色的用戶 "ROLE_SUPER_ADMIN"'
-
-  group:
-    name:
-      unique_entity: '該名稱已被使用'
-      not_blank: '請輸入姓名'
-      length:
-        min: '名字太短了，最小的: {limit}'
-        max: '名字太長，最大 : {limit}'

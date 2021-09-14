@@ -24,11 +24,3 @@ curler7_user:
 
     enabled:
       last_super_admin: 'Najmanje jedan korisnik s ulogom "ROLE_SUPER_ADMIN"'
-
-  group:
-    name:
-      unique_entity: 'Naziv se već koristi'
-      not_blank: 'Molimo unesite ime'
-      length:
-        min: 'Naziv je prekratak, min: {limit}'
-        max: 'Naziv je predug, max : {limit}'

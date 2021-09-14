@@ -13,7 +13,8 @@ declare(strict_types=1);
 
 namespace Curler7\UserBundle\Security\Voter;
 
-use Curler7\UserBundle\Model\UserInterface;
+use Curler7\UserBundle\Model\UserInterface as ModelUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
@@ -22,23 +23,33 @@ class UserVoter extends AbstractVoter
 {
     protected const RESOURCE = UserInterface::class;
 
-    protected function checkPost(UserInterface $user, UserInterface $subject): bool
+    protected function checkPost(?UserInterface $user, UserInterface $subject): bool
     {
-        return $this->security->isGranted(UserInterface::ROLE_SUPER_ADMIN);
+        return $this->security->isGranted(ModelUserInterface::ROLE_SUPER_ADMIN);
     }
 
-    protected function checkGet(UserInterface $user, UserInterface $subject): bool
+    protected function checkGet(?UserInterface $user, UserInterface $subject): bool
     {
-        return $this->security->isGranted(UserInterface::ROLE_DEFAULT);
+        return $this->security->isGranted(ModelUserInterface::IS_AUTHENTICATED_ANONYMOUSLY);
     }
 
-    protected function checkPut(UserInterface $user, UserInterface $subject): bool
+    protected function checkPut(?UserInterface $user, UserInterface $subject): bool
     {
-        return $user === $subject || $this->security->isGranted(UserInterface::ROLE_SUPER_ADMIN);
+        return $user === $subject || $this->security->isGranted(ModelUserInterface::ROLE_SUPER_ADMIN);
     }
 
-    protected function checkDelete(UserInterface $user, UserInterface $subject): bool
+    protected function checkDelete(?UserInterface $user, UserInterface $subject): bool
     {
-        return $user === $subject || $this->security->isGranted(UserInterface::ROLE_SUPER_ADMIN);
+        return $user === $subject || $this->security->isGranted(ModelUserInterface::ROLE_SUPER_ADMIN);
+    }
+
+    protected function checkRegister(?UserInterface $user, UserInterface $subject): bool
+    {
+        return $this->security->isGranted(ModelUserInterface::IS_ANONYMOUS);
+    }
+
+    protected function checkLoginLink(?UserInterface $user, UserInterface $subject): bool
+    {
+        return $this->security->isGranted(ModelUserInterface::IS_AUTHENTICATED_ANONYMOUSLY);
     }
 }

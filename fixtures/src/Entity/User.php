@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Curler7\UserBundle\Model\AbstractUser;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -33,12 +32,6 @@ class User extends AbstractUser
     #[ORM\Column(nullable: true)]
     #[Groups(['user:post', 'user:put', 'user:get'])]
     protected ?string $fullName = null;
-
-    #[ORM\ManyToMany(targetEntity: Group::class)]
-    #[ORM\JoinTable(name: 'app_users_groups')]
-    #[ORM\JoinColumn(name: 'user_id', referencedColumnName: 'id')]
-    #[ORM\InverseJoinColumn(name: 'group_id', referencedColumnName: 'id')]
-    protected Collection|array $groups;
 
     public function getFullName(): ?string
     {

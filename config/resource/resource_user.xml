@@ -30,6 +30,7 @@
                     <attribute>Default</attribute>
                     <attribute>register</attribute>
                 </attribute>
+                <attribute name="security_post_denormalize">is_granted("REGISTER", object)</attribute>
             </collectionOperation>
 
             <collectionOperation name="login_link">
@@ -40,6 +41,7 @@
                     <attribute>Default</attribute>
                     <attribute>login_link</attribute>
                 </attribute>
+                <attribute name="security_post_denormalize">is_granted("LOGIN_LINK", object)</attribute>
             </collectionOperation>
 
         </collectionOperations>

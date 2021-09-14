@@ -1,4 +1,3 @@
 curler7_user:
   model:
     user_class: App\Entity\User
-    group_class: App\Entity\Group

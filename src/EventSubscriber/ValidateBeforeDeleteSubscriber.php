@@ -28,7 +28,10 @@ final class ValidateBeforeDeleteSubscriber implements EventSubscriberInterface
 {
     public const DEFAULT_VALIDATION_GROUPS = ['delete'];
 
-    public function __construct(private ValidatorInterface $validator, private ?array $validationGroups = null) {}
+    public function __construct(
+        private ValidatorInterface $validator,
+        private ?array $validationGroups = null
+    ) {}
 
     #[ArrayShape([KernelEvents::VIEW => "array"])]
     public static function getSubscribedEvents(): array

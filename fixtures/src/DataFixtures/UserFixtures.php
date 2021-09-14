@@ -15,16 +15,14 @@ namespace App\DataFixtures;
 
 use App\Entity\User;
 use Curler7\UserBundle\Manager\UserManagerInterface;
-use Curler7\UserBundle\Model\GroupInterface;
 use Curler7\UserBundle\Model\UserInterface;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
  */
-class UserFixtures extends Fixture implements DependentFixtureInterface
+class UserFixtures extends Fixture
 {
     public function __construct(protected UserManagerInterface $userManager)
     {}
@@ -34,47 +32,42 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             'username' => 'user',
             'email' => 'gunnar.s.gs@gmail.com',
             'password' => 'pass',
-            'groups' => [0],
             'roles' => [],
             'enabled' => true,
             'verified' => true,
-            'full_name' => 'User',
+            'fullName' => 'User',
         ],[
             'username' => 'admin',
             'email' => 'admin@example.com',
             'password' => 'pass',
-            'groups' => [],
             'roles' => [UserInterface::ROLE_SUPER_ADMIN],
             'enabled' => true,
             'verified' => true,
-            'full_name' => 'Admin',
+            'fullName' => 'Admin',
         ], [
             'username' => 'Neo',
             'email' => 'neo@example.com',
             'password' => 'matrix',
-            'groups' => [],
             'roles' => [],
             'enabled' => false,
             'verified' => false,
-            'full_name' => 'Neo',
+            'fullName' => 'Neo',
         ], [
             'username' => 'Morpheus',
             'email' => 'morpheus@example.com',
             'password' => 'search',
-            'groups' => [],
             'roles' => [UserInterface::ROLE_SUPER_ADMIN],
             'enabled' => false,
             'verified' => false,
-            'full_name' => 'Morpheus',
+            'fullName' => 'Morpheus',
         ], [
             'username' => 'Trinity',
             'email' => 'trinity@example.com',
             'password' => 'whiterabbit',
-            'groups' => [],
             'roles' => [],
             'enabled' => false,
             'verified' => false,
-            'full_name' => 'Morpheus',
+            'fullName' => 'Morpheus',
         ],
     ];
 
@@ -84,32 +77,16 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 
         foreach (static::DATA as $key => $data) {
             /** @var User $user */
-            $user = $this->userManager->createUser(
-                username: $data['username'],
-                email: $data['email'],
-                plainPassword: $data['password'],
-                roles: $data['roles'],
-                enabled: $data['enabled'],
-            );
-
-            $user
+            $user = $this->userManager->createUser()
+                ->setUsername($data['username'])
+                ->setEmail($data['email'])
+                ->setPlainPassword($data['password'])
+                ->setRoles($data['roles'])
+                ->setEnabled($data['enabled'])
                 ->setVerified($data['verified'])
-                ->setFullName($data['full_name']);
-
-            foreach ($data['groups'] as $id) {
-                /** @var GroupInterface $group */
-                $group = $this->getReference(GroupFixtures::REFERENCE.$id);
-                $user->addGroup($group);
-            }
+                ->setFullName($data['fullName']);
 
             $this->userManager->updateUser($user, $last === $key);
         }
-    }
-
-    public function getDependencies(): array
-    {
-        return [
-            GroupFixtures::class,
-        ];
     }
 }

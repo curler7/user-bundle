@@ -16,14 +16,7 @@ trait RolesAwareTrait
     public function getRoles(): array
     {
         $roles = $this->roles;
-
-        if (method_exists($this, 'getGroups')) {
-            foreach ($this->getGroups() as $group) {
-                $roles = array_merge($roles, $group->getRoles());
-            }
-
-            $roles[] = UserInterface::ROLE_DEFAULT;
-        }
+        $roles[] = UserInterface::ROLE_DEFAULT;
 
         return array_unique($roles);
     }

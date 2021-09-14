@@ -12,14 +12,11 @@
         >
             <argument type="service" id="curler7_user.util.canonical_fields_updater" />
             <argument type="service" id="curler7_user.util.password_updater" />
-            <argument type="service" id="curler7_user.util.login_link_sender" />
             <argument type="service" id="curler7_user.util.user_spy" />
             <argument>%curler7_user.model.user.class%</argument>
-            <argument>%curler7_user.config.login_link_register%</argument>
-            <argument>%curler7_user.config.login_link_post%</argument>
             <tag name="serializer.normalizer" />
         </service>
-        <service id="Curler7\UserBundle\Bridge\ApiPlatform\UserNormalizer" alias="curler7_user.serializer.user_normalizer" />
+        <service id="Curler7\UserBundle\Serializer\UserNormalizer" alias="curler7_user.serializer.user_normalizer" />
 
     </services>
 </container>

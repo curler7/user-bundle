@@ -24,11 +24,3 @@ curler7_user:
 
     enabled:
       last_super_admin: 'Bent vienas vartotojas su vaidmeniu "ROLE_SUPER_ADMIN"'
-
-  group:
-    name:
-      unique_entity: 'Pavadinimas jau naudojamas'
-      not_blank: 'Įveskite pavadinimą'
-      length:
-        min: 'Pavadinimas per trumpas, min: {limit}'
-        max: 'Pavadinimas per ilgas, maks: {limit}'

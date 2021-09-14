@@ -24,11 +24,3 @@ curler7_user:
 
     enabled:
       last_super_admin: 'Al menos un usuario con rol "ROLE_SUPER_ADMIN"'
-
-  group:
-    name:
-      unique_entity: 'El nombre ya se usa'
-      not_blank: 'Por favor ingrese un nombre'
-      length:
-        min: 'El nombre es demasiado corto, min: {limit}'
-        max: 'El nombre es demasiado largo, máx: {limit}'

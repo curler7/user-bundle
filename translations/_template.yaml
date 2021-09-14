@@ -24,11 +24,3 @@ curler7_user:
 
     enabled:
       last_super_admin: ' "ROLE_SUPER_ADMIN"'
-
-  group:
-    name:
-      unique_entity: ''
-      not_blank: ''
-      length:
-        min: ': {limit}'
-        max: ': {limit}'

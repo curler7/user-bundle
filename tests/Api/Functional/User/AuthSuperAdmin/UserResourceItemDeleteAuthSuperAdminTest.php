@@ -15,6 +15,8 @@ namespace Curler7\UserBundle\Tests\Api\Functional\User\AuthSuperAdmin;
 
 use App\DataFixtures\UserFixtures;
 use Curler7\ApiTestBundle\Exception\ConstraintNotDefinedException;
+use Curler7\ApiTestBundle\Exception\ResourceFoundException;
+use Curler7\ApiTestBundle\Exception\ResourceNotFoundException;
 use Curler7\ApiTestBundle\Exception\RequestMethodNotFoundException;
 use Curler7\ApiTestBundle\Exception\RequestUrlNotFoundException;
 use Curler7\UserBundle\Model\UserInterface;
@@ -34,7 +36,7 @@ class UserResourceItemDeleteAuthSuperAdminTest extends AbstractUserResourceTest
      * @throws RequestMethodNotFoundException
      * @throws TransportExceptionInterface
      */
-    public function testUserItemDeleteAuthSuperAdminValidatorLastSuperAdmin(): void
+    public function testResourceUserItemDeleteAuthSuperAdminValidatorLastSuperAdmin(): void
     {
         $this->check422(
             client: $this->createClientWithCredentials(user: 'admin'),
@@ -46,9 +48,11 @@ class UserResourceItemDeleteAuthSuperAdminTest extends AbstractUserResourceTest
     /**
      * @throws ConstraintNotDefinedException
      * @throws RequestUrlNotFoundException
+     * @throws ResourceFoundException
+     * @throws ResourceNotFoundException
      * @throws TransportExceptionInterface
      */
-    public function testUserItemDeleteAuthSuperAdminSelf(): void
+    public function testResourceUserItemDeleteAuthSuperAdminSelf(): void
     {
         static::update(
             fn(UserInterface $user) => $user->setEnabled(true),
@@ -63,20 +67,24 @@ class UserResourceItemDeleteAuthSuperAdminTest extends AbstractUserResourceTest
 
     /**
      * @throws ConstraintNotDefinedException
-     * @throws TransportExceptionInterface
      * @throws RequestUrlNotFoundException
+     * @throws ResourceFoundException
+     * @throws ResourceNotFoundException
+     * @throws TransportExceptionInterface
      */
-    public function testUserItemDeleteAuthSuperAdminOtherUser(): void
+    public function testResourceUserItemDeleteAuthSuperAdminOtherUser(): void
     {
         $this->checkItemDelete($this->createClientWithCredentials(user: 'admin'));
     }
 
     /**
      * @throws ConstraintNotDefinedException
-     * @throws TransportExceptionInterface
      * @throws RequestUrlNotFoundException
+     * @throws ResourceFoundException
+     * @throws ResourceNotFoundException
+     * @throws TransportExceptionInterface
      */
-    public function testUserItemDeleteAuthSuperAdminOtherAdmin(): void
+    public function testResourceUserItemDeleteAuthSuperAdminOtherAdmin(): void
     {
         $this->checkItemDelete(
             client: $this->createClientWithCredentials(user: 'admin'),

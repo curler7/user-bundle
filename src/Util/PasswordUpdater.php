@@ -25,6 +25,12 @@ class PasswordUpdater implements PasswordUpdaterInterface
 
     public function hashPassword(UserInterface $user): static
     {
+        /*
+        if (!$user->getPlainPassword()) {
+            throw new \InvalidArgumentException('Must provide plainPassword as string null given');
+        }
+        */
+
         if (!$user->getPlainPassword()) {
             return $this;
         }

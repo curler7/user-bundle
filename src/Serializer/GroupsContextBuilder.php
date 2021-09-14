@@ -23,7 +23,7 @@ final class GroupsContextBuilder implements SerializerContextBuilderInterface
     {
         $context = $this->decorated->createFromRequest($request, $normalization, $extractedAttributes);
 
-        $context['groups'] = $context['groups'] ?? [];
+        $context['groups'] ??=  [];
         $context['groups'] = array_unique(array_merge(
             $context['groups'], $this->addDefaultGroups($context, $normalization)
         ));

@@ -30,7 +30,7 @@ class UserResourceCollectionPostAuthNoopTest extends AbstractUserResourceTest
      * @throws TransportExceptionInterface
      * @throws RequestMethodNotFoundException
      */
-    public function testUserCollectionPostAuthNoop(): void
+    public function testResourceUserCollectionPostAuthNoop(): void
     {
         $this->check401(static::createClient());
     }

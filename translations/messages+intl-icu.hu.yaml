@@ -24,11 +24,3 @@ curler7_user:
 
     enabled:
       last_super_admin: 'Legalább egy felhasználó szerepkörrel "ROLE_SUPER_ADMIN"'
-
-  group:
-    name:
-      unique_entity: 'A név már használatban van'
-      not_blank: 'Kérjük, adjon meg egy nevet'
-      length:
-        min: 'A név túl rövid, min: {limit}'
-        max: 'A név túl hosszú, max : {limit}'
