@@ -45,6 +45,8 @@ class CreateUserCommand extends Command
                 new InputArgument('password', InputArgument::REQUIRED, 'The password'),
                 new InputOption('super-admin', null, InputOption::VALUE_NONE, 'Set the user as super admin'),
                 new InputOption('inactive', null, InputOption::VALUE_NONE, 'Set the user as inactive'),
+                new InputOption('inactive', null, InputOption::VALUE_NONE, 'Set the user as inactive'),
+                new InputOption('verified', null, InputOption::VALUE_NONE, 'Set the user as verified'),
             ])
             ->setHelp(<<<'EOT'
 The <info>curler7:user:create</info> command creates a user:
@@ -76,11 +78,13 @@ EOT
         $password   = $input->getArgument('password');
         $inactive   = $input->getOption('inactive');
         $superAdmin = $input->getOption('super-admin');
+        $verified = $input->getOption('verified');
 
         $user = $this->userManager->createUser()->setUsername($username)
             ->setPlainPassword($password)
             ->setEmail($email)
             ->setEnabled(!$inactive)
+            ->setVerified($verified)
         ;
 
         if ($superAdmin) {
