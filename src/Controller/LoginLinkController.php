@@ -18,6 +18,7 @@ use ApiPlatform\Core\JsonLd\Serializer\ObjectNormalizer;
 use ApiPlatform\Core\Validator\ValidatorInterface;
 use Curler7\UserBundle\Model\UserInterface;
 use Curler7\UserBundle\Util\LoginLinkSender;
+use Curler7\UserBundle\Util\LoginLinkSenderInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -33,13 +34,13 @@ class LoginLinkController extends AbstractController
     const VALIDATION_GROUPS = ['login_link'];
 
     public function __construct(
-        private string                 $resourceClass,
-        private EntityManagerInterface $entityManager,
-        private LoginLinkSender        $loginLinkSender,
-        private Security               $security,
-        private bool                   $loginLinkShare,
-        protected ItemNormalizer       $itemNormalizer,
-        private ValidatorInterface     $validator,
+        private string                      $resourceClass,
+        private EntityManagerInterface      $entityManager,
+        private LoginLinkSenderInterface    $loginLinkSender,
+        private Security                    $security,
+        private bool                        $loginLinkShare,
+        protected ItemNormalizer            $itemNormalizer,
+        private ValidatorInterface          $validator,
     ) {}
 
     /**
