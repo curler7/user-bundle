@@ -15,7 +15,7 @@ namespace Curler7\UserBundle\DataPersister;
 
 use ApiPlatform\Core\DataPersister\ContextAwareDataPersisterInterface;
 use Curler7\UserBundle\Model\UserInterface;
-use Curler7\UserBundle\Util\LoginLinkSender;
+use Curler7\UserBundle\Util\LoginLinkSenderInterface;
 
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
@@ -24,7 +24,7 @@ final class UserDataPersister implements ContextAwareDataPersisterInterface
 {
     public function __construct(
         private ContextAwareDataPersisterInterface $decorated,
-        private LoginLinkSender                    $loginLinkSender,
+        private LoginLinkSenderInterface           $loginLinkSender,
         private bool                               $loginLinkRegister,
         private bool                               $loginLinkPost,
     ) {}

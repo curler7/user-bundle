@@ -17,7 +17,6 @@ use ApiPlatform\Core\JsonLd\Serializer\ItemNormalizer;
 use ApiPlatform\Core\JsonLd\Serializer\ObjectNormalizer;
 use ApiPlatform\Core\Validator\ValidatorInterface;
 use Curler7\UserBundle\Model\UserInterface;
-use Curler7\UserBundle\Util\LoginLinkSender;
 use Curler7\UserBundle\Util\LoginLinkSenderInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
