@@ -53,7 +53,7 @@
         </attribute>
 
         <attribute name="groups">
-            <group>super_admin:user:write</group>
+            <group>super_admin:user</group>
         </attribute>
 
     </class>
