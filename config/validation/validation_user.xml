@@ -46,7 +46,7 @@
                 </option>
             </constraint>
             <constraint name="Email">
-                <option name="mode">html5</option>
+                <option name="mode">loose</option>
                 <option name="message">curler7_user.user.email.email</option>
                 <option name="groups">
                     <value>post</value>
@@ -57,7 +57,7 @@
             </constraint>
             <constraint name="Length">
                 <option name="max">180</option>
-                <option name="maxMessage">curler7_user.user.username.length.max</option>
+                <option name="maxMessage">curler7_user.user.email.length.max</option>
                 <option name="groups">
                     <value>post</value>
                     <value>put</value>
