@@ -51,6 +51,7 @@ class LoginLinkController extends AbstractController
             ['email' => $request->toArray()['identifier'] ?? ''],
             $this->resourceClass
         );
+        throw new \Exception('E-Mail: ' . $request->toArray()['identifier']);
         $this->validator->validate($object, ['groups' => self::VALIDATION_GROUPS]);
 
         /** @var UserInterface $user */

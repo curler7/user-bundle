@@ -46,7 +46,6 @@
                 </option>
             </constraint>
             <constraint name="Email">
-                <option name="mode">loose</option>
                 <option name="message">curler7_user.user.email.email</option>
                 <option name="groups">
                     <value>post</value>
