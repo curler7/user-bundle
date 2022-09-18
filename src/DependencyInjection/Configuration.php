@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Curler7\UserBundle\DependencyInjection;
 
 use Curler7\UserBundle\Controller\LoginLinkController;
-use Curler7\UserBundle\DataPersister\UserDataPersister;
+use Curler7\UserBundle\State\UserProcessor;
 use Curler7\UserBundle\EventSubscriber\JWTSubscriber;
 use Curler7\UserBundle\EventSubscriber\ValidateBeforeDeleteSubscriber;
 use Curler7\UserBundle\OpenApi\JwtDecorator;
@@ -53,7 +53,7 @@ class Configuration implements ConfigurationInterface
         $this->addApiPlatformSection($rootNode);
         $this->addSecuritySection($rootNode);
         $this->addSerializerSection($rootNode);
-        $this->addDataPersisterSection($rootNode);
+        $this->addSateSection($rootNode);
         $this->addOpenApiSection($rootNode);
         $this->addCommandSection($rootNode);
         $this->addUtilSection($rootNode);
@@ -140,15 +140,15 @@ class Configuration implements ConfigurationInterface
         ;
     }
 
-    private function addDataPersisterSection(ArrayNodeDefinition $node): void
+    private function addStateSection(ArrayNodeDefinition $node): void
     {
         $node
             ->addDefaultsIfNotSet()
             ->children()
-                ->arrayNode('data_persister')
+                ->arrayNode('state')
                     ->addDefaultsIfNotSet()
                         ->children()
-                            ->scalarNode('user_data_persister')->defaultValue(UserDataPersister::class)->end()
+                            ->scalarNode('user_processor')->defaultValue(UserProcessor::class)->end()
                         ->end()
                     ->end()
                 ->end()

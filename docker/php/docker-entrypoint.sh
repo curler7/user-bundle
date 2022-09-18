@@ -7,15 +7,8 @@ if [ "${1#-}" != "$1" ]; then
 fi
 
 if [ "$1" = 'php-fpm' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
-	PHP_INI_RECOMMENDED="$PHP_INI_DIR/php.ini-production"
-	if [ "$APP_ENV" != 'prod' ]; then
-		PHP_INI_RECOMMENDED="$PHP_INI_DIR/php.ini-development"
-	fi
-	ln -sf "$PHP_INI_RECOMMENDED" "$PHP_INI_DIR/php.ini"
-
-	mkdir -p fixtures/var/cache fixtures/var/log
-	setfacl -R -m u:www-data:rwX -m u:"$(whoami)":rwX fixtures/var
-	setfacl -dR -m u:www-data:rwX -m u:"$(whoami)":rwX fixtures/var
+	setfacl -R -m u:www-data:rwX -m u:"$(whoami)":rwX var
+	setfacl -dR -m u:www-data:rwX -m u:"$(whoami)":rwX var
 
 	if [ "$APP_ENV" != 'prod' ]; then
 		composer install --prefer-dist --no-progress --no-interaction
@@ -24,7 +17,7 @@ if [ "$1" = 'php-fpm' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 	if grep -q DATABASE_URL= .env; then
 		echo "Waiting for database to be ready..."
 		ATTEMPTS_LEFT_TO_REACH_DATABASE=60
-		until [ $ATTEMPTS_LEFT_TO_REACH_DATABASE -eq 0 ] || DATABASE_ERROR=$(php fixtures/bin/console dbal:run-sql -q "SELECT 1" 2>&1); do
+		until [ $ATTEMPTS_LEFT_TO_REACH_DATABASE -eq 0 ] || DATABASE_ERROR=$(php bin/console dbal:run-sql -q "SELECT 1" 2>&1); do
 			if [ $? -eq 255 ]; then
 				# If the Doctrine command exits with 255, an unrecoverable error occurred
 				ATTEMPTS_LEFT_TO_REACH_DATABASE=0
@@ -43,8 +36,8 @@ if [ "$1" = 'php-fpm' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 			echo "The database is now ready and reachable"
 		fi
 
-		if ls -A migrations/*.php >/dev/null 2>&1; then
-			php fixtures/bin/console doctrine:migrations:migrate --no-interaction
+		if [ "$( find ./migrations -iname '*.php' -print -quit )" ]; then
+			php bin/console doctrine:migrations:migrate --no-interaction
 		fi
 	fi
 fi

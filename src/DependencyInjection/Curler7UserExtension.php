@@ -115,8 +115,8 @@ class Curler7UserExtension extends Extension implements PrependExtensionInterfac
         $container->setParameter('curler7_user.security.user_voter.class', $config['security']['user_voter']);
         // Serializer
         $container->setParameter('curler7_user.serializer.user_normalizer.class', $config['serializer']['user_normalizer']);
-        // Data persister
-        $container->setParameter('curler7_user.data_persister.user_data_persister.class', $config['data_persister']['user_data_persister']);
+        // State
+        $container->setParameter('curler7_user.state_processor.user_processor.class', $config['state_processor']['user_processor']);
         // Subscriber
         $container->setParameter('curler7_user.subscriber.jwt_subscriber.class', $config['subscriber']['jwt_subscriber']);
         $container->setParameter('curler7_user.subscriber.validate_before_delete.class', $config['subscriber']['validate_before_delete']);
@@ -133,7 +133,7 @@ class Curler7UserExtension extends Extension implements PrependExtensionInterfac
 
         foreach ([
             'api_platform', 'command', 'controller',
-            'data_persister', 'event_subscriber', 'open_api',
+            'state', 'event_subscriber', 'open_api',
             'security', 'serializer', 'util', 'validator',
          ] as $file) {
             $loader->load($file.'.xml');

@@ -4,20 +4,25 @@ declare(strict_types=1);
 
 namespace Curler7\UserBundle\ApiPlatform;
 
-use ApiPlatform\Core\Metadata\Resource\Factory\ResourceMetadataFactoryInterface;
-use ApiPlatform\Core\Metadata\Resource\ResourceMetadata;
-use JetBrains\PhpStorm\Pure;
+use ApiPlatform\Serializer\SerializerContextBuilderInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @author Gunnar Suwe
  */
-class AutoGroupResourceMetadataFactory implements ResourceMetadataFactoryInterface
+class AutoGroupResourceMetadataFactory implements SerializerContextBuilderInterface
 {
-    public function __construct(protected ResourceMetadataFactoryInterface $decorated)
+    public function __construct(protected SerializerContextBuilderInterface $decorated)
     {}
 
-    public function create(string $resourceClass): ResourceMetadata
+    public function createFromRequest(Request $request, bool $normalization, ?array $extractedAttributes = null): array
     {
+        $context = $this->decorated->createFromRequest($request, $normalization, $extractedAttributes);
+        $resourceClass = $context['resource_class'] ?? null;
+
+        return $context;
+
+        /*
         $resourceMetadata = $this->decorated->create($resourceClass);
 
         $resourceMetadata = $resourceMetadata->withItemOperations(
@@ -35,9 +40,9 @@ class AutoGroupResourceMetadataFactory implements ResourceMetadataFactoryInterfa
                 false
             )
         );
+        */
     }
 
-    #[Pure]
     protected function updateContextOnOperations(array $operations, string $shortName, bool $isItem): array
     {
         foreach ($operations as $operationName => $operationOptions) {

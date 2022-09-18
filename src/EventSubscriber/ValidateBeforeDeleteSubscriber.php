@@ -13,13 +13,13 @@ declare(strict_types=1);
 
 namespace Curler7\UserBundle\EventSubscriber;
 
-use ApiPlatform\Core\EventListener\EventPriorities;
+use ApiPlatform\Symfony\EventListener\EventPriorities;
+use ApiPlatform\Validator\ValidatorInterface;
 use JetBrains\PhpStorm\ArrayShape;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
-use ApiPlatform\Core\Validator\ValidatorInterface;
 
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
