@@ -8,7 +8,7 @@
 
         <service id="curler7_user.api_platform.auto_group_resource_metadata_factory"
                  class="%curler7_user.api_platform.auto_group_resource_metadata_factory.class%"
-                 decorates="api_platform.metadata.resource.metadata_factory"
+                 decorates="api_platform.serializer.context_builder"
                  decoration-priority="-20"
                  public="false"
         >

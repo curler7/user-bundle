@@ -116,7 +116,7 @@ class Curler7UserExtension extends Extension implements PrependExtensionInterfac
         // Serializer
         $container->setParameter('curler7_user.serializer.user_normalizer.class', $config['serializer']['user_normalizer']);
         // State
-        $container->setParameter('curler7_user.state_processor.user_processor.class', $config['state_processor']['user_processor']);
+        $container->setParameter('curler7_user.state_processor.user_processor.class', $config['state']['user_processor']);
         // Subscriber
         $container->setParameter('curler7_user.subscriber.jwt_subscriber.class', $config['subscriber']['jwt_subscriber']);
         $container->setParameter('curler7_user.subscriber.validate_before_delete.class', $config['subscriber']['validate_before_delete']);

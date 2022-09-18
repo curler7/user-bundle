@@ -42,6 +42,7 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 class Configuration implements ConfigurationInterface
 {
     public const TREE_NAME = 'curler7_user';
+    const USER_ENTITY = 'App\Entity\User';
 
     public function getConfigTreeBuilder(): TreeBuilder
     {
@@ -97,7 +98,7 @@ class Configuration implements ConfigurationInterface
                     ->addDefaultsIfNotSet()
                         ->children()
                             ->scalarNode('db_driver')->defaultValue('orm')->end()
-                            ->scalarNode('user_class')->isRequired()->cannotBeEmpty()->end()
+                            ->scalarNode('user_class')->defaultValue(self::USER_ENTITY)->end()
                             ->scalarNode('model_manager_name')->defaultValue('default')->end()
                             ->scalarNode('user_manager')->defaultValue(UserManager::class)->end()
                             ->scalarNode('object_manager')->defaultValue(ObjectManager::class)->end()
@@ -116,7 +117,7 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('api_platform')
                     ->addDefaultsIfNotSet()
                         ->children()
-                            ->scalarNode('auto_group_resource_metadata_factory')->defaultValue(AutoGroupResourceMetadataFactory::class)->end()
+                            ->scalarNode('auto_group_resource_metadata_factory')->defaultValue(GroupsContextBuilder::class)->end()
                         ->end()
                     ->end()
                 ->end()
