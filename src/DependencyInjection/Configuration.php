@@ -53,7 +53,7 @@ class Configuration implements ConfigurationInterface
         $this->addApiPlatformSection($rootNode);
         $this->addSecuritySection($rootNode);
         $this->addSerializerSection($rootNode);
-        $this->addSateSection($rootNode);
+        $this->addStateSection($rootNode);
         $this->addOpenApiSection($rootNode);
         $this->addCommandSection($rootNode);
         $this->addUtilSection($rootNode);
