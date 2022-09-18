@@ -4,24 +4,24 @@ declare(strict_types=1);
 
 namespace Curler7\UserBundle\ApiPlatform;
 
-use ApiPlatform\Metadata\Resource\Factory\ResourceMetadataCollectionFactoryInterface;
-use ApiPlatform\Metadata\Resource\ResourceMetadataCollection;
 use ApiPlatform\Serializer\SerializerContextBuilderInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @author Gunnar Suwe
  */
-class AutoGroupResourceMetadataFactory implements ResourceMetadataCollectionFactoryInterface
+class AutoGroupResourceMetadataFactory implements SerializerContextBuilderInterface
 {
-    public function __construct(protected ResourceMetadataCollectionFactoryInterface $decorated)
+    public function __construct(protected SerializerContextBuilderInterface $decorated)
     {}
-
+    
+    /*
     public function create(string $resourceClass): ResourceMetadataCollection
     {
         $metadataCollection = $this->decorated->create($resourceClass);
         $metadataCollection->getOperation()->con
     }
+    */
 
     public function createFromRequest(Request $request, bool $normalization, ?array $extractedAttributes = null): array
     {
