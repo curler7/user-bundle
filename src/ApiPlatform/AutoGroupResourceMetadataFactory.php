@@ -15,9 +15,9 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class AutoGroupResourceMetadataFactory implements ResourceMetadataCollectionFactoryInterface
 {
-    public function __construct(protected ResourceMetadataCollectionFactoryInterface $decorated)
-    {}
-
+    public function __construct(
+        protected ResourceMetadataCollectionFactoryInterface $decorated
+    ) {}
 
     public function create(string $resourceClass): ResourceMetadataCollection
     {
@@ -26,7 +26,7 @@ class AutoGroupResourceMetadataFactory implements ResourceMetadataCollectionFact
         /** @var Operation $metadata */
         foreach ($metadataCollection->getIterator() as $metadata) {
             $context = $metadata->getNormalizationContext() ?? [];
-            $context['groups'] = $context['groups'] ?? [];
+            $context['groups'] ??= [];
             $context['groups'] = array_unique(array_merge(
                 [$context]['groups'],
                 $this->getDefaultGroups(strtolower($metadata->getShortName()), true, $metadata->getName())
@@ -34,7 +34,7 @@ class AutoGroupResourceMetadataFactory implements ResourceMetadataCollectionFact
             $metadataCollection->append($metadata->withNormalizationContext($context));
 
             $context = $metadata->getDenormalizationContext() ?? [];
-            $context['groups'] = $context['groups'] ?? [];
+            $context['groups'] ??=  [];
             $context['groups'] = array_unique(array_merge(
                 [$context]['groups'],
                 $this->getDefaultGroups(strtolower($metadata->getShortName()), false, $metadata->getName())

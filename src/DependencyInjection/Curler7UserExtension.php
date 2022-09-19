@@ -132,7 +132,7 @@ class Curler7UserExtension extends Extension implements PrependExtensionInterfac
         $container->setParameter('curler7_user.validator.last_super_admin_user.class', $config['validator']['last_super_admin_user']);
 
         foreach ([
-            'api_platform', 'command', 'controller',
+            'command', 'controller',
             'state', 'event_subscriber', 'open_api',
             'security', 'serializer', 'util', 'validator',
          ] as $file) {
