@@ -23,6 +23,10 @@ class AutoGroupResourceMetadataFactory implements ResourceMetadataCollectionFact
     {
         $metadataCollection = $this->decorated->create($resourceClass);
 
+        foreach ($metadataCollection->getIterator() as $name => $operation) {
+
+        }
+
         /** @var Operation $metadata */
         foreach ($metadataCollection->getIterator() as $metadata) {
             $context = $metadata->getNormalizationContext() ?? [];
