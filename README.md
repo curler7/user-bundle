@@ -3,6 +3,12 @@ Curler7UserBundle
 
 The Curler7UserBundle is a Symfony bundle handle user management for API Platform.
 
+### To Do:
+- Config serialization group - permission set by parameter
+- Config resource by merge files
+- Entity all getter / setter over traits
+- Need canonical properties?
+
 ### Features include:
 - Users stored in database or on custom way
 - Registration support, with optional email confirmation
@@ -16,12 +22,10 @@ The Curler7UserBundle is a Symfony bundle handle user management for API Platfor
 - CLI commands
 - 23 languages
 - API Unit tested
+- Containerized for easy development
 
 ### Storage
 - ORM entities
-- CouchDB entities
-- MongoDB ODM documents
-- PHPCR ODM documents
 
 ## Documentation
 

@@ -20,10 +20,6 @@ class Canonicalizer implements CanonicalizerInterface
 {
     public function canonicalize(string $string): string
     {
-        $encoding = mb_detect_encoding($string, mb_detect_order(), true);
-
-        return $encoding
-            ? mb_convert_case($string, MB_CASE_LOWER, $encoding)
-            : mb_convert_case($string, MB_CASE_LOWER);
+        return mb_convert_case($string, MB_CASE_LOWER, mb_detect_encoding($string, mb_detect_order(), true) ?: null);
     }
 }
