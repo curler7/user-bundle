@@ -1,74 +1,72 @@
-<resources xmlns="https://api-platform.com/schema/metadata"
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- api/config/api_platform/resources.xml -->
+
+<resources xmlns="https://api-platform.com/schema/metadata/resources-3.0"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:schemaLocation="https://api-platform.com/schema/metadata
-        https://api-platform.com/schema/metadata/metadata-2.0.xsd">
+           xsi:schemaLocation="https://api-platform.com/schema/metadata/resources-3.0
+        https://api-platform.com/schema/metadata/resources-3.0.xsd">
 
     <resource class="%curler7_user.model.user.class%">
-
-        <attribute name="order">
-            <attribute>username</attribute>
-        </attribute>
-
-        <property name="id" identifier="true"/>
-
-        <collectionOperations>
-
-            <collectionOperation name="get" />
-
-            <collectionOperation name="post">
-                <attribute name="validation_groups">
-                    <attribute>Default</attribute>
-                    <attribute>post</attribute>
-                </attribute>
-                <attribute name="security_post_denormalize">is_granted("POST", object)</attribute>
-            </collectionOperation>
-
-            <collectionOperation name="register">
-                <attribute name="method">POST</attribute>
-                <attribute name="path">/users/register</attribute>
-                <attribute name="validation_groups">
-                    <attribute>Default</attribute>
-                    <attribute>register</attribute>
-                </attribute>
-                <attribute name="security_post_denormalize">is_granted("REGISTER", object)</attribute>
-            </collectionOperation>
-
-            <collectionOperation name="login_link">
-                <attribute name="method">POST</attribute>
-                <attribute name="path">/users/login-link</attribute>
-                <attribute name="controller">curler7_user.controller.login_link</attribute>
-                <attribute name="validation_groups">
-                    <attribute>Default</attribute>
-                    <attribute>login_link</attribute>
-                </attribute>
-                <attribute name="security_post_denormalize">is_granted("LOGIN_LINK", object)</attribute>
-            </collectionOperation>
-
-        </collectionOperations>
-
-        <itemOperations>
-
-            <itemOperation name="get">
-                <attribute name="security">is_granted("GET", object)</attribute>
-            </itemOperation>
-
-            <itemOperation name="put">
-                <attribute name="validation_groups">
-                    <attribute>Default</attribute>
-                    <attribute>put</attribute>
-                </attribute>
-                <attribute name="security">is_granted("PUT", object)</attribute>
-            </itemOperation>
-
-            <itemOperation name="delete">
-                <attribute name="validation_groups">
-                    <attribute>delete</attribute>
-                </attribute>
-                <attribute name="security">is_granted("DELETE", object)</attribute>
-            </itemOperation>
-
-        </itemOperations>
-
+        <order>
+            <values>
+                <value>username</value>
+            </values>
+        </order>
+        <operations>
+            <operation class="ApiPlatform\Metadata\GetCollection" />
+            <operation class="ApiPlatform\Metadata\Post" security="is_granted('POST', object)" securityPostDenormalize="true">
+                <validationContext>
+                    <values>
+                        <value>Default</value>
+                        <value>post</value>
+                    </values>
+                </validationContext>
+            </operation>
+            <operation
+                    class="ApiPlatform\Metadata\Post"
+                    name="register"
+                    uriTemplate="/users/register"
+                    security="is_granted('REGISTER', object)"
+                    securityPostDenormalize="true"
+            >
+                <validationContext>
+                    <values>
+                        <value>Default</value>
+                        <value>register</value>
+                    </values>
+                </validationContext>
+            </operation>
+            <operation
+                    class="ApiPlatform\Metadata\Post"
+                    name="login_link"
+                    uriTemplate="/users/login-link"
+                    controller="curler7_user.controller.login_link"
+                    security="is_granted('LOGIN_LINK', object)"
+                    securityPostDenormalize="true"
+            >
+                <validationContext>
+                    <values>
+                        <value>Default</value>
+                        <value>login_link</value>
+                    </values>
+                </validationContext>
+            </operation>
+            <operation class="ApiPlatform\Metadata\Get" security="is_granted('GET', object)" />
+            <operation class="ApiPlatform\Metadata\Put" security="is_granted('PUT', object)">
+                <validationContext>
+                    <values>
+                        <value>Default</value>
+                        <value>put</value>
+                    </values>
+                </validationContext>
+            </operation>
+            <operation class="ApiPlatform\Metadata\Delete" security="is_granted('DELETE', object)">
+                <validationContext>
+                    <values>
+                        <value>delete</value>
+                    </values>
+                </validationContext>
+            </operation>
+        </operations>
     </resource>
-
 </resources>
