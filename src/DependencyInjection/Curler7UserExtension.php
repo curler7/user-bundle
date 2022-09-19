@@ -67,7 +67,7 @@ class Curler7UserExtension extends Extension implements PrependExtensionInterfac
                 $paths[] = __DIR__ . '/../../config/resource/resource_user_default.xml';
             }
         }
-        //$container->prependExtensionConfig('api_platform', ['mapping' => ['paths' => $paths]]);
+        $container->prependExtensionConfig('api_platform', ['mapping' => ['paths' => $paths]]);
 
         $paths = [];
         !$config['config']['serializer_user'] ?: $paths[] = __DIR__ . '/../../config/serializer/serializer_user.xml';
