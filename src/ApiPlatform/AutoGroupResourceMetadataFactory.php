@@ -4,75 +4,48 @@ declare(strict_types=1);
 
 namespace Curler7\UserBundle\ApiPlatform;
 
+use ApiPlatform\Metadata\Operation;
+use ApiPlatform\Metadata\Resource\Factory\ResourceMetadataCollectionFactoryInterface;
+use ApiPlatform\Metadata\Resource\ResourceMetadataCollection;
 use ApiPlatform\Serializer\SerializerContextBuilderInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @author Gunnar Suwe
  */
-class AutoGroupResourceMetadataFactory implements SerializerContextBuilderInterface
+class AutoGroupResourceMetadataFactory implements ResourceMetadataCollectionFactoryInterface
 {
-    public function __construct(protected SerializerContextBuilderInterface $decorated)
+    public function __construct(protected ResourceMetadataCollectionFactoryInterface $decorated)
     {}
-    
-    /*
+
+
     public function create(string $resourceClass): ResourceMetadataCollection
     {
         $metadataCollection = $this->decorated->create($resourceClass);
-        $metadataCollection->getOperation()->con
-    }
-    */
 
-    public function createFromRequest(Request $request, bool $normalization, ?array $extractedAttributes = null): array
-    {
-        $context = $this->decorated->createFromRequest($request, $normalization, $extractedAttributes);
-        $resourceClass = $context['resource_class'] ?? null;
+        /** @var Operation $metadata */
+        foreach ($metadataCollection->getIterator() as $metadata) {
+            $context = $metadata->getNormalizationContext() ?? [];
+            $context['groups'] = $context['groups'] ?? [];
+            $context['groups'] = array_unique(array_merge(
+                [$context]['groups'],
+                $this->getDefaultGroups(strtolower($metadata->getShortName()), true, $metadata->getName())
+            ));
+            $metadataCollection->append($metadata->withNormalizationContext($context));
 
-        return $context;
-
-        /*
-        $resourceMetadata = $this->decorated->create($resourceClass);
-
-        $resourceMetadata = $resourceMetadata->withItemOperations(
-            $this->updateContextOnOperations(
-                $resourceMetadata->getItemOperations(),
-                $resourceMetadata->getShortName(),
-                true
-            )
-        );
-
-        return $resourceMetadata->withCollectionOperations(
-            $this->updateContextOnOperations(
-                $resourceMetadata->getCollectionOperations(),
-                $resourceMetadata->getShortName(),
-                false
-            )
-        );
-        */
-    }
-
-    protected function updateContextOnOperations(array $operations, string $shortName, bool $isItem): array
-    {
-        foreach ($operations as $operationName => $operationOptions) {
-            foreach ([
-                'normalization_context' => true,
-                'denormalization_context' => false
-            ] as $context => $normalization) {
-                $operationOptions[$context] = $operationOptions[$context] ?? [];
-                $operationOptions[$context]['groups'] = $operationOptions[$context]['groups'] ?? [];
-                $operationOptions[$context]['groups'] = array_unique(array_merge(
-                    $operationOptions[$context]['groups'],
-                    $this->getDefaultGroups(strtolower($shortName), $normalization, $isItem, $operationName)
-                ));
-            }
-
-            $operations[$operationName] = $operationOptions;
+            $context = $metadata->getDenormalizationContext() ?? [];
+            $context['groups'] = $context['groups'] ?? [];
+            $context['groups'] = array_unique(array_merge(
+                [$context]['groups'],
+                $this->getDefaultGroups(strtolower($metadata->getShortName()), false, $metadata->getName())
+            ));
+            $metadataCollection->append($metadata->withDenormalizationContext($context));
         }
 
-        return $operations;
+        return $metadataCollection;
     }
 
-    protected function getDefaultGroups(string $shortName, bool $normalization, bool $isItem, string $operationName): array
+    protected function getDefaultGroups(string $shortName, bool $normalization, string $operationName): array
     {
         /*
         * {class}
