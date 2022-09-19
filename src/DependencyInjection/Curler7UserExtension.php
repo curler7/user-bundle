@@ -54,7 +54,7 @@ class Curler7UserExtension extends Extension implements PrependExtensionInterfac
             new Configuration(),
             $container->getParameterBag()->resolveValue($container->getExtensionConfig($this->getAlias()))
         );
-
+        
         $paths = [];
         if ($config['config']['resource_user']) {
             if ($config['config']['operation_login_link'] && $config['config']['operation_registration']) {
