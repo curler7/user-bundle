@@ -190,6 +190,11 @@ abstract class AbstractUser implements UserInterface
         return $this->username;
     }
 
+    public function getUserIdentifier(): string
+    {
+        return 'username';
+    }
+
     public function getSalt()
     {}
 }
