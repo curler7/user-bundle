@@ -23,6 +23,7 @@ use Symfony\Component\Uid\AbstractUid;
 interface UserInterface extends PasswordAuthenticatedUserInterface, BaseUserInterface
 {
     public const ROLE_DEFAULT = 'ROLE_USER';
+    public const ROLE_ADMIN = 'ROLE_ADMIN';
     public const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
 
     public const IS_AUTHENTICATED_REMEMBERED = 'IS_AUTHENTICATED_REMEMBERED';

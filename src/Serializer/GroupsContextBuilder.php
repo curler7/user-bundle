@@ -49,6 +49,7 @@ final class GroupsContextBuilder implements SerializerContextBuilderInterface
          */
         foreach ([
             'super_admin' => UserInterface::ROLE_SUPER_ADMIN,
+            'admin' => UserInterface::ROLE_ADMIN,
             'user' => UserInterface::ROLE_DEFAULT
         ] as $key => $role) {
             if ($this->security->isGranted($role)) {
