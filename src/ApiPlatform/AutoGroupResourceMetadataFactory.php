@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Curler7\UserBundle\ApiPlatform;
+namespace App\ApiPlatform;
 
+use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\Metadata\Resource\Factory\ResourceMetadataCollectionFactoryInterface;
 use ApiPlatform\Metadata\Resource\ResourceMetadataCollection;
-use ApiPlatform\Serializer\SerializerContextBuilderInterface;
-use Symfony\Component\HttpFoundation\Request;
+use Psr\Log\LoggerInterface;
 
 /**
  * @author Gunnar Suwe
@@ -16,34 +16,37 @@ use Symfony\Component\HttpFoundation\Request;
 class AutoGroupResourceMetadataFactory implements ResourceMetadataCollectionFactoryInterface
 {
     public function __construct(
-        protected ResourceMetadataCollectionFactoryInterface $decorated
+        protected ResourceMetadataCollectionFactoryInterface $decorated,
+        protected LoggerInterface $logger,
     ) {}
 
     public function create(string $resourceClass): ResourceMetadataCollection
     {
         $metadataCollection = $this->decorated->create($resourceClass);
 
-        foreach ($metadataCollection->getIterator() as $name => $operation) {
+        /** @var ApiResource $item */
+        foreach ($metadataCollection->getIterator() as $item) {
+            /**
+             * @var string $name
+             * @var Operation $operation
+             */
+            foreach ($item->getOperations() ?? [] as $name => $operation) {
+                $context = $operation->getNormalizationContext() ?? [];
+                $context['groups'] = array_unique(array_merge(
+                    [$context]['groups'] ?? [],
+                    $this->getDefaultGroups(strtolower($operation->getShortName()), true, $name)
+                ));
+                $operation->withNormalizationContext($context);
 
-        }
+                $context = $operation->getDenormalizationContext() ?? [];
+                $context['groups'] = array_unique(array_merge(
+                    [$context]['groups'] ?? [],
+                    $this->getDefaultGroups(strtolower($operation->getShortName()), false, $name)
+                ));
+                $operation->withDenormalizationContext($context);
 
-        /** @var Operation $metadata */
-        foreach ($metadataCollection->getIterator() as $metadata) {
-            $context = $metadata->getNormalizationContext() ?? [];
-            $context['groups'] ??= [];
-            $context['groups'] = array_unique(array_merge(
-                [$context]['groups'],
-                $this->getDefaultGroups(strtolower($metadata->getShortName()), true, $metadata->getName())
-            ));
-            $metadataCollection->append($metadata->withNormalizationContext($context));
-
-            $context = $metadata->getDenormalizationContext() ?? [];
-            $context['groups'] ??=  [];
-            $context['groups'] = array_unique(array_merge(
-                [$context]['groups'],
-                $this->getDefaultGroups(strtolower($metadata->getShortName()), false, $metadata->getName())
-            ));
-            $metadataCollection->append($metadata->withDenormalizationContext($context));
+                $this->logger->error('context', $metadataCollection->getOperation($name)->getDenormalizationContext() ?? ['noop']);
+            }
         }
 
         return $metadataCollection;

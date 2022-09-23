@@ -68,13 +68,13 @@ final class GroupsContextBuilder implements SerializerContextBuilderInterface
                         '%s:%s:%s',
                         $key,
                         $shortName,
-                        $context[$context['operation_type'] . '_operation_name'],
+                        $context['operation_name'],
                     ),
                     sprintf(
                         '%s:%s:%s:%s',
                         $key,
                         $shortName,
-                        $context[$context['operation_type'] . '_operation_name'],
+                        $context['operation_name'],
                         $normalization ? 'read' : 'write',
                     ),
                 ]);
