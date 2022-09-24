@@ -30,7 +30,7 @@ class UserVoter extends AbstractVoter
 
     protected function checkGet(?UserInterface $user, UserInterface $subject): bool
     {
-        return $this->security->isGranted(ModelUserInterface::IS_AUTHENTICATED_ANONYMOUSLY);
+        return $this->security->isGranted(ModelUserInterface::IS_AUTHENTICATED_ANONYMOUSLY|ModelUserInterface::IS_AUTHENTICATED_FULLY);
     }
 
     protected function checkPut(?UserInterface $user, UserInterface $subject): bool
