@@ -52,12 +52,12 @@ final class GroupsContextBuilder implements SerializerContextBuilderInterface
             sprintf(
                 '%s:%s',
                 $shortName,
-                explode('_', $context['operation_name'])[substr_count($context['operation_name'], '_') - 1]
+                explode('_', $context['operation_name'])[substr_count($context['operation_name'], '_')],
             ),
             sprintf(
                 '%s:%s:%s',
                 $shortName,
-                explode('_', $context['operation_name'])[substr_count($context['operation_name'], '_') - 1],
+                explode('_', $context['operation_name'])[substr_count($context['operation_name'], '_')],
                 $normalization ? 'read' : 'write',
             ),
         ];
@@ -90,13 +90,13 @@ final class GroupsContextBuilder implements SerializerContextBuilderInterface
                         '%s:%s:%s',
                         $key,
                         $shortName,
-                        $context['operation_name'],
+                        explode('_', $context['operation_name'])[substr_count($context['operation_name'], '_')],
                     ),
                     sprintf(
                         '%s:%s:%s:%s',
                         $key,
                         $shortName,
-                        $context['operation_name'],
+                        explode('_', $context['operation_name'])[substr_count($context['operation_name'], '_')],
                         $normalization ? 'read' : 'write',
                     ),
                 ]);
