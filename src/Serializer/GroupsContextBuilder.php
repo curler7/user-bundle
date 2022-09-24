@@ -52,12 +52,12 @@ final class GroupsContextBuilder implements SerializerContextBuilderInterface
             sprintf(
                 '%s:%s',
                 $shortName,
-                $context['operation_name'],
+                $context['operation'],
             ),
             sprintf(
                 '%s:%s:%s',
                 $shortName,
-                $context['operation_name'],
+                $context['operation'],
                 $normalization ? 'read' : 'write',
             ),
         ];
