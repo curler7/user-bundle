@@ -38,9 +38,6 @@ final class GroupsContextBuilder implements SerializerContextBuilderInterface
             return null;
         }
 
-        var_dump($context['operation_name']);
-        die();
-
         $shortName = lcfirst((new \ReflectionClass($resourceClass))->getShortName());
         $groups = [
             sprintf(
@@ -55,12 +52,12 @@ final class GroupsContextBuilder implements SerializerContextBuilderInterface
             sprintf(
                 '%s:%s',
                 $shortName,
-                $context['operation_name'],
+                explode('_', $context['operation_name'])[substr_count($context['operation_name'], '_') - 1]
             ),
             sprintf(
                 '%s:%s:%s',
                 $shortName,
-                $context['operation_name'],
+                explode('_', $context['operation_name'])[substr_count($context['operation_name'], '_') - 1],
                 $normalization ? 'read' : 'write',
             ),
         ];
