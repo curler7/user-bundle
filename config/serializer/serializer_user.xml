@@ -13,6 +13,7 @@
         </attribute>
 
         <attribute name="username">
+            <group>user:read</group>
             <group>user:post</group>
             <group>user:put</group>
             <group>user:register</group>
@@ -20,6 +21,7 @@
         </attribute>
 
         <attribute name="email">
+            <group>user:read</group>
             <group>user:user</group>
             <group>user:write</group>
             <group>user:register</group>
