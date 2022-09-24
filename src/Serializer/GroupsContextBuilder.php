@@ -37,6 +37,9 @@ final class GroupsContextBuilder implements SerializerContextBuilderInterface
         if (!$resourceClass = $context['resource_class'] ?? null) {
             return null;
         }
+        
+        var_dump(array_keys($context));
+        die();
 
         $shortName = lcfirst((new \ReflectionClass($resourceClass))->getShortName());
         $groups = [
