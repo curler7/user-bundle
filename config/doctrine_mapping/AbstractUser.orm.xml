@@ -27,7 +27,7 @@
 
         <field name="password" column="password" />
 
-        <field name="lastLogin" column="last_login" type="datetime" nullable="true" />
+        <field name="lastLoginAt" column="last_login" type="datetime" nullable="true" />
 
         <field name="loginLinkRequestedAt" column="login_link_requested_at" type="datetime" nullable="true" />
 

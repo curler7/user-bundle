@@ -27,7 +27,7 @@
             <group>user:register</group>
         </attribute>
 
-        <attribute name="lastLogin">
+        <attribute name="lastLoginAt">
             <group>user:user:read</group>
         </attribute>
 
