@@ -24,5 +24,5 @@ interface PlainPasswordAwareInterface
 
     function getPlainPassword(): ?string;
     function setPlainPassword(?string $plainPassword): self;
-    function eraseCredentials(): self;
+    function eraseCredentials();
 }
