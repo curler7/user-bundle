@@ -13,8 +13,22 @@ declare(strict_types=1);
 
 namespace Curler7\UserBundle\Model;
 
-use Curler7\UserBundle\Model\AwareTrait\ResourceAwareTrait;
-use Curler7\UserBundle\Model\AwareTrait\RolesAwareTrait;
+use Curler7\UserBundle\Model\Aware\Traits\DateControlAwareTrait;
+use Curler7\UserBundle\Model\Aware\Traits\EmailAwareTrait;
+use Curler7\UserBundle\Model\Aware\Traits\EmailCanonicalAwareTrait;
+use Curler7\UserBundle\Model\Aware\Traits\EnabledAwareTrait;
+use Curler7\UserBundle\Model\Aware\Traits\LastLoginAtAwareTrait;
+use Curler7\UserBundle\Model\Aware\Traits\LoginLinkRequestedAtAwareTrait;
+use Curler7\UserBundle\Model\Aware\Traits\PasswordAwareTrait;
+use Curler7\UserBundle\Model\Aware\Traits\PlainPasswordAwareTrait;
+use Curler7\UserBundle\Model\Aware\Traits\ResourceAwareTrait;
+use Curler7\UserBundle\Model\Aware\Traits\RolesAwareTrait;
+use Curler7\UserBundle\Model\Aware\Traits\ShareAwareTrait;
+use Curler7\UserBundle\Model\Aware\Traits\UserControlAwareTrait;
+use Curler7\UserBundle\Model\Aware\Traits\UsernameAwareTrait;
+use Curler7\UserBundle\Model\Aware\Traits\UsernameCanonicalAwareTrait;
+use Curler7\UserBundle\Model\Aware\Traits\VerifiedAwareTrait;
+use Symfony\Component\Uid\AbstractUid;
 
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
@@ -22,167 +36,37 @@ use Curler7\UserBundle\Model\AwareTrait\RolesAwareTrait;
 abstract class AbstractUser implements UserInterface
 {
     use ResourceAwareTrait,
-        RolesAwareTrait;
-
-    protected ?string $username = null;
-
-    protected ?string $email = null;
-
-    protected ?string $usernameCanonical = null;
-
-    protected ?string $emailCanonical = null;
-
-    protected ?string $password = null;
-
-    protected bool $enabled = true;
-
-    protected bool $verified = false;
-
-    protected bool $share = false;
-
-    protected ?\DateTimeInterface $lastLogin = null;
-
-    protected ?\DateTimeInterface $loginLinkRequestedAt = null;
-
-    protected ?string $plainPassword = null;
-
-    public function eraseCredentials(): static
-    {
-        $this->plainPassword = null;
-
-        return $this;
+        DateControlAwareTrait,
+        UserControlAwareTrait,
+        RolesAwareTrait,
+        VerifiedAwareTrait,
+        ShareAwareTrait,
+        EnabledAwareTrait,
+        UsernameAwareTrait,
+        UsernameCanonicalAwareTrait,
+        EmailAwareTrait,
+        EmailCanonicalAwareTrait,
+        PlainPasswordAwareTrait,
+        PasswordAwareTrait,
+        LastLoginAtAwareTrait,
+        LoginLinkRequestedAtAwareTrait {
+        ResourceAwareTrait::__construct as protected __constructResource;
+        DateControlAwareTrait::__construct as protected __constructDateControl;
+        UserControlAwareTrait::__construct as protected __constructUserControl;
     }
 
-    public function isEnabled(): bool
+    public ?string $__toString = null;
+
+    public function __construct(AbstractUid $id = null, UserInterface $createdFrom = null)
     {
-        return $this->enabled;
+        $this->__constructResource($id);
+        $this->__constructDateControl();
+        $this->__constructUserControl($createdFrom);
     }
 
-    public function setEnabled(bool $enabled): static
+    public function __toString(): string
     {
-        $this->enabled = $enabled;
-
-        return $this;
-    }
-
-    public function isVerified(): bool
-    {
-        return $this->verified;
-    }
-
-    public function setVerified(bool $verified): static
-    {
-        $this->verified = $verified;
-
-        return $this;
-    }
-
-    public function isShare(): bool
-    {
-        return $this->share;
-    }
-
-    public function setShare(bool $share): static
-    {
-        $this->share = $share;
-
-        return $this;
-    }
-
-    public function getUsername(): ?string
-    {
-        return $this->username;
-    }
-
-    public function setUsername(?string $username): static
-    {
-        $this->username = $username;
-
-        return $this;
-    }
-
-    public function getUsernameCanonical(): ?string
-    {
-        return $this->usernameCanonical;
-    }
-
-    public function setUsernameCanonical(?string $usernameCanonical): static
-    {
-        $this->usernameCanonical = $usernameCanonical;
-
-        return $this;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(?string $email): static
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    public function getEmailCanonical(): ?string
-    {
-        return $this->emailCanonical;
-    }
-
-    public function setEmailCanonical(?string $emailCanonical): static
-    {
-        $this->emailCanonical = $emailCanonical;
-
-        return $this;
-    }
-
-    public function getPlainPassword(): ?string
-    {
-        return $this->plainPassword;
-    }
-
-    public function setPlainPassword(?string $plainPassword): static
-    {
-        $this->plainPassword = $plainPassword;
-
-        return $this;
-    }
-
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(?string $password): static
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    public function getLastLogin(): ?\DateTimeInterface
-    {
-        return $this->lastLogin;
-    }
-
-    public function setLastLogin(?\DateTimeInterface $lastLogin): static
-    {
-        $this->lastLogin = $lastLogin;
-
-        return $this;
-    }
-
-    public function getLoginLinkRequestedAt(): ?\DateTimeInterface
-    {
-        return $this->loginLinkRequestedAt;
-    }
-
-    public function setLoginLinkRequestedAt(?\DateTimeInterface $loginLinkRequestedAt): static
-    {
-        $this->loginLinkRequestedAt = $loginLinkRequestedAt;
-
-        return $this;
+        return $this->username ?? 'Unknown username';
     }
 
     public function loadUserByIdentifier(): string
@@ -195,6 +79,5 @@ abstract class AbstractUser implements UserInterface
         return 'username';
     }
 
-    public function getSalt()
-    {}
+    public function getSalt() {}
 }

@@ -11,5 +11,5 @@ use Curler7\UserBundle\Model\UserInterface;
  */
 interface UserSpyInterface
 {
-    public function spy(UserInterface $user, array $data, array $context): static;
+    public function spy(UserInterface $user, array $data, array $context): self;
 }

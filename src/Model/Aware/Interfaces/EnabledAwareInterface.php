@@ -11,18 +11,17 @@
 
 declare(strict_types=1);
 
-namespace Curler7\UserBundle\Util;
-
-use Curler7\UserBundle\Model\UserInterface;
+namespace Curler7\UserBundle\Model\Aware\Interfaces;
 
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
  */
-interface CanonicalFieldsUpdaterInterface
+interface EnabledAwareInterface
 {
-    public function updateCanonicalFields(UserInterface $user): self;
+    const ENABLED_AWARE_FILTER = [
+        'enabled',
+    ];
 
-    public function canonicalizeUsername(string $username): string;
-
-    public function canonicalizeEmail(string $email): string;
+    function isEnabled(): bool;
+    function setEnabled(bool $enabled): self;
 }

@@ -24,7 +24,7 @@ interface UserManagerInterface
 {
     public function createUser(): UserInterface;
 
-    public function deleteUser(UserInterface $user): static;
+    public function deleteUser(UserInterface $user): self;
 
     public function findUserBy(array $criteria): ?UserInterface;
 
@@ -40,11 +40,11 @@ interface UserManagerInterface
 
     public function getClass(): string;
 
-    public function reloadUser(UserInterface $user): static;
+    public function reloadUser(UserInterface $user): self;
 
-    public function updateUser(UserInterface $user, $flush = true): static;
+    public function updateUser(UserInterface $user, $flush = true): self;
 
-    public function updateCanonicalFields(UserInterface $user): static;
+    public function updateCanonicalFields(UserInterface $user): self;
 
-    public function updatePassword(UserInterface $user): static;
+    public function updatePassword(UserInterface $user): self;
 }

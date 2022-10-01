@@ -11,18 +11,17 @@
 
 declare(strict_types=1);
 
-namespace Curler7\UserBundle\Util;
-
-use Curler7\UserBundle\Model\UserInterface;
+namespace Curler7\UserBundle\Model\Aware\Interfaces;
 
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
  */
-interface CanonicalFieldsUpdaterInterface
+interface UsernameCanonicalAwareInterface
 {
-    public function updateCanonicalFields(UserInterface $user): self;
+    const USERNAME_CANONICAL_AWARE_FILTER = [
+        'usernameCanonical',
+    ];
 
-    public function canonicalizeUsername(string $username): string;
-
-    public function canonicalizeEmail(string $email): string;
+    function getUsernameCanonical(): ?string;
+    function setUsernameCanonical(?string $usernameCanonical): self;
 }

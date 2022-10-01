@@ -20,5 +20,5 @@ use Curler7\UserBundle\Model\UserInterface;
  */
 interface PasswordUpdaterInterface
 {
-    public function hashPassword(UserInterface $user): static;
+    public function hashPassword(UserInterface $user): self;
 }

@@ -13,75 +13,54 @@ declare(strict_types=1);
 
 namespace Curler7\UserBundle\Model;
 
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Curler7\UserBundle\Model\Aware\Interfaces\DateControlAwareInterface;
+use Curler7\UserBundle\Model\Aware\Interfaces\EmailAwareInterface;
+use Curler7\UserBundle\Model\Aware\Interfaces\EmailCanonicalAwareInterface;
+use Curler7\UserBundle\Model\Aware\Interfaces\EnabledAwareInterface;
+use Curler7\UserBundle\Model\Aware\Interfaces\LastLoginAtAwareInterface;
+use Curler7\UserBundle\Model\Aware\Interfaces\LoginLinkRequestedAtAwareInterface;
+use Curler7\UserBundle\Model\Aware\Interfaces\PasswordAwareInterface;
+use Curler7\UserBundle\Model\Aware\Interfaces\PlainPasswordAwareInterface;
+use Curler7\UserBundle\Model\Aware\Interfaces\ResourceAwareInterface;
+use Curler7\UserBundle\Model\Aware\Interfaces\RolesAwareInterface;
+use Curler7\UserBundle\Model\Aware\Interfaces\ShareAwareInterface;
+use Curler7\UserBundle\Model\Aware\Interfaces\UserControlAwareInterface;
+use Curler7\UserBundle\Model\Aware\Interfaces\UsernameAwareInterface;
+use Curler7\UserBundle\Model\Aware\Interfaces\UsernameCanonicalAwareInterface;
+use Curler7\UserBundle\Model\Aware\Interfaces\VerifiedAwareInterface;
 use Symfony\Component\Security\Core\User\UserInterface as BaseUserInterface;
-use Symfony\Component\Uid\AbstractUid;
 
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
  */
-interface UserInterface extends PasswordAuthenticatedUserInterface, BaseUserInterface
+interface UserInterface extends
+    BaseUserInterface,
+    ResourceAwareInterface,
+    DateControlAwareInterface,
+    UserControlAwareInterface,
+    RolesAwareInterface,
+    VerifiedAwareInterface,
+    ShareAwareInterface,
+    EnabledAwareInterface,
+    UsernameAwareInterface,
+    UsernameCanonicalAwareInterface,
+    EmailAwareInterface,
+    EmailCanonicalAwareInterface,
+    PlainPasswordAwareInterface,
+    PasswordAwareInterface,
+    LastLoginAtAwareInterface,
+    LoginLinkRequestedAtAwareInterface
 {
-    public const ROLE_DEFAULT = 'ROLE_USER';
-    public const ROLE_ADMIN = 'ROLE_ADMIN';
-    public const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
+    const ROLE_DEFAULT = 'ROLE_USER';
+    const ROLE_ADMIN = 'ROLE_ADMIN';
+    const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
 
-    public const IS_AUTHENTICATED_REMEMBERED = 'IS_AUTHENTICATED_REMEMBERED';
-    public const IS_AUTHENTICATED_FULLY = 'IS_AUTHENTICATED_FULLY';
-    public const IS_AUTHENTICATED_ANONYMOUSLY = 'IS_AUTHENTICATED_ANONYMOUSLY';
-    public const IS_ANONYMOUS = 'IS_ANONYMOUS';
-    public const IS_REMEMBERED = 'IS_REMEMBERED';
-    public const IS_IMPERSONATOR = 'IS_IMPERSONATOR';
+    const IS_AUTHENTICATED_REMEMBERED = 'IS_AUTHENTICATED_REMEMBERED';
+    const IS_AUTHENTICATED_FULLY = 'IS_AUTHENTICATED_FULLY';
+    const IS_AUTHENTICATED_ANONYMOUSLY = 'IS_AUTHENTICATED_ANONYMOUSLY';
+    const IS_ANONYMOUS = 'IS_ANONYMOUS';
+    const IS_REMEMBERED = 'IS_REMEMBERED';
+    const IS_IMPERSONATOR = 'IS_IMPERSONATOR';
 
-    public const IDENTIFIERS = ['username', 'email'];
-
-    public function getId(): AbstractUid;
-
-    public function addRole(string $role): static;
-
-    public function hasRole(string $role): bool;
-
-    public function removeRole(string $role): static;
-
-    public function setRoles(?array $roles): static;
-
-    public function isVerified(): bool;
-
-    public function setVerified(bool $verified): static;
-
-    public function isShare(): bool;
-
-    public function setShare(bool $share): static;
-
-    public function isEnabled(): bool;
-
-    public function setEnabled(bool $enabled): static;
-
-    public function setUsername(?string $username): static;
-
-    public function getUsernameCanonical(): ?string;
-
-    public function setUsernameCanonical(?string $usernameCanonical): static;
-
-    public function getEmail(): ?string;
-
-    public function setEmail(?string $email): static;
-
-    public function getEmailCanonical(): ?string;
-
-    public function setEmailCanonical(?string $emailCanonical): static;
-
-    public function getPlainPassword(): ?string;
-
-    public function setPlainPassword(?string $plainPassword): static;
-
-    public function setPassword(?string $password): static;
-
-    public function getLastLogin(): ?\DateTimeInterface;
-
-    public function setLastLogin(?\DateTimeInterface $lastLogin);
-
-    public function getLoginLinkRequestedAt(): ?\DateTimeInterface;
-
-    public function setLoginLinkRequestedAt(?\DateTimeInterface $loginLinkRequestedAt): static;
+    const IDENTIFIERS = ['username', 'email'];
 }

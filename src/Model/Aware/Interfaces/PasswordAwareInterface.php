@@ -11,18 +11,18 @@
 
 declare(strict_types=1);
 
-namespace Curler7\UserBundle\Util;
+namespace Curler7\UserBundle\Model\Aware\Interfaces;
 
-use Curler7\UserBundle\Model\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
  */
-interface CanonicalFieldsUpdaterInterface
+interface PasswordAwareInterface extends PasswordAuthenticatedUserInterface
 {
-    public function updateCanonicalFields(UserInterface $user): self;
+    const PASSWORD_AWARE_FILTER = [
+        'password',
+    ];
 
-    public function canonicalizeUsername(string $username): string;
-
-    public function canonicalizeEmail(string $email): string;
+    function setPassword(?string $password): self;
 }

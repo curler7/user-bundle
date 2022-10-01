@@ -11,18 +11,17 @@
 
 declare(strict_types=1);
 
-namespace Curler7\UserBundle\Util;
+namespace Curler7\UserBundle\Model\Aware\Interfaces;
 
 use Curler7\UserBundle\Model\UserInterface;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
  */
-interface CanonicalFieldsUpdaterInterface
+interface UsersAwareInterface
 {
-    public function updateCanonicalFields(UserInterface $user): self;
-
-    public function canonicalizeUsername(string $username): string;
-
-    public function canonicalizeEmail(string $email): string;
+    function getUsers(bool $asArray = true): array|Collection;
+    function addUser(UserInterface $user, \Closure $p = null): self;
+    function removeUser(UserInterface $user, \Closure $p = null): self;
 }

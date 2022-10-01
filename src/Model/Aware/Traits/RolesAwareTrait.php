@@ -1,9 +1,19 @@
 <?php
 
+/*
+ * This file is part of the Curler7UserBundle project.
+ *
+ * (c) Gunnar Suwe <suwe@smart-media.design>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
-namespace Curler7\UserBundle\Model\AwareTrait;
+namespace Curler7\UserBundle\Model\Aware\Traits;
 
+use Curler7\UserBundle\Model\Aware\Interfaces\RolesAwareInterface;
 use Curler7\UserBundle\Model\UserInterface;
 
 /**
@@ -21,7 +31,7 @@ trait RolesAwareTrait
         return array_unique($roles);
     }
 
-    public function addRole(string $role): static
+    public function addRole(string $role): RolesAwareInterface
     {
         $role = strtoupper($role);
 
@@ -37,7 +47,7 @@ trait RolesAwareTrait
         return \in_array(strtoupper($role), $this->roles, true);
     }
 
-    public function removeRole(string $role): static
+    public function removeRole(string $role): RolesAwareInterface
     {
         if (false !== $key = array_search(strtoupper($role), $this->roles, true)) {
             unset($this->roles[$key]);
@@ -47,7 +57,7 @@ trait RolesAwareTrait
         return $this;
     }
 
-    public function setRoles(?array $roles): static
+    public function setRoles(?array $roles): RolesAwareInterface
     {
         $this->roles = [];
 

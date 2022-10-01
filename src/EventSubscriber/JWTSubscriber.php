@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Curler7UserBundle project.
+ *
+ * (c) Gunnar Suwe <suwe@smart-media.design>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Curler7\UserBundle\EventSubscriber;
 
 use Curler7\UserBundle\Manager\UserManagerInterface;
@@ -34,7 +43,7 @@ class JWTSubscriber implements EventSubscriberInterface
             $event->setData([]);
             $event->getResponse()->setStatusCode(401, 'User not verified');
         } else {
-            $this->userManager->updateUser($user->setLastLogin(new \DateTime()));
+            $this->userManager->updateUser($user->setLastLoginAt(new \DateTime()));
         }
         
         $this->addRolesToPayload($event);
