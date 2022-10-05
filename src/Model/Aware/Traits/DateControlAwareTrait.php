@@ -18,7 +18,7 @@ use Curler7\UserBundle\Model\Aware\Interfaces\DateControlAwareInterface;
 trait DateControlAwareTrait
 {
     protected \DateTimeInterface $createdAt;
-    protected ?\DateTimeInterface $updatedAt;
+    protected ?\DateTimeInterface $updatedAt = null;
 
     public function __construct()
     {
