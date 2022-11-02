@@ -39,8 +39,6 @@ abstract class AbstractVoter extends Voter
             throw new \InvalidArgumentException('const RESOURCE must defined: '.static::RESOURCE);
         }
 
-        throw new \Exception($subject);
-
         return
             in_array(
                 $attribute,

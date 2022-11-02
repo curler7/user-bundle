@@ -41,8 +41,6 @@
                     name="login_link"
                     uriTemplate="/users/login-link"
                     controller="curler7_user.controller.login_link"
-                    security="is_granted('LOGIN_LINK', object)"
-                    securityPostDenormalize="true"
             >
                 <validationContext>
                     <values>
