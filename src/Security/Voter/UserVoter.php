@@ -50,6 +50,6 @@ class UserVoter extends AbstractVoter
 
     protected function checkLoginLink(?UserInterface $user, UserInterface $subject): bool
     {
-        return true;
+        return $this->security->isGranted(ModelUserInterface::ROLE_SUPER_ADMIN);
     }
 }
