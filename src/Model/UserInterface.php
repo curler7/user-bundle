@@ -62,6 +62,7 @@ interface UserInterface extends
     const IS_ANONYMOUS = 'IS_ANONYMOUS';
     const IS_REMEMBERED = 'IS_REMEMBERED';
     const IS_IMPERSONATOR = 'IS_IMPERSONATOR';
+    const PUBLIC_ACCESS = 'PUBLIC_ACCESS';
 
     const IDENTIFIERS = ['username', 'email'];
 }
