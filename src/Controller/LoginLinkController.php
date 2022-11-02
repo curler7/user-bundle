@@ -23,6 +23,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
@@ -37,7 +38,7 @@ class LoginLinkController extends AbstractController
         private LoginLinkSenderInterface    $loginLinkSender,
         private Security                    $security,
         private bool                        $loginLinkShare,
-        protected ItemNormalizer            $itemNormalizer,
+        private NormalizerInterface         $itemNormalizer,
         private ValidatorInterface          $validator,
     ) {}
 
