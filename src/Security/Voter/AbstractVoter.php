@@ -39,6 +39,8 @@ abstract class AbstractVoter extends Voter
             throw new \InvalidArgumentException('const RESOURCE must defined: '.static::RESOURCE);
         }
 
+        throw new \Exception($subject);
+
         return
             in_array(
                 $attribute,
@@ -50,8 +52,6 @@ abstract class AbstractVoter extends Voter
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         $user = $token->getUser() ?: null;
-
-        return true;
 
         return match ($attribute) {
             static::POST => $this->checkPost($user, $subject),
