@@ -42,6 +42,7 @@
                     <value>post</value>
                     <value>put</value>
                     <value>register</value>
+                    <value>login_link</value>
                 </option>
             </constraint>
             <constraint name="Email">
