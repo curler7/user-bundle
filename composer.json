@@ -17,7 +17,7 @@
         "ext-iconv": "*",
         "api-platform/core": ">=2.6",
         "composer/package-versions-deprecated": "1.11.99.5",
-        "doctrine/annotations": "^1.13",
+        "doctrine/annotations": "^1.13 || 2.0",
         "doctrine/doctrine-bundle": "^2.7",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.12",
