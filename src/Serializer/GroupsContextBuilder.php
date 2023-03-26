@@ -17,6 +17,7 @@ use ApiPlatform\Serializer\SerializerContextBuilderInterface;
 use Curler7\UserBundle\Model\UserInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter;
 
 
 /**
@@ -24,7 +25,11 @@ use Symfony\Component\Security\Core\Security;
  */
 final class GroupsContextBuilder implements SerializerContextBuilderInterface
 {
-    public function __construct(private SerializerContextBuilderInterface $decorated, private Security $security)
+    public function __construct(
+        private SerializerContextBuilderInterface $decorated,
+        private Security $security,
+        private CamelCaseToSnakeCaseNameConverter $camelCaseToSnakeCaseNameConverter,
+    )
     {}
 
     /** @throws \ReflectionException */
@@ -47,7 +52,7 @@ final class GroupsContextBuilder implements SerializerContextBuilderInterface
             return null;
         }
 
-        $shortName = lcfirst((new \ReflectionClass($resourceClass))->getShortName());
+        $shortName = $this->camelCaseToSnakeCaseNameConverter->normalize((new \ReflectionClass($resourceClass))->getShortName());
         $groups = [
             sprintf(
                 '%s',

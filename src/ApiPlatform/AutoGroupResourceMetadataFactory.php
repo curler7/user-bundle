@@ -18,6 +18,7 @@ use ApiPlatform\Metadata\Operation;
 use ApiPlatform\Metadata\Resource\Factory\ResourceMetadataCollectionFactoryInterface;
 use ApiPlatform\Metadata\Resource\ResourceMetadataCollection;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter;
 
 /**
  * @author Gunnar Suwe
@@ -27,6 +28,7 @@ class AutoGroupResourceMetadataFactory implements ResourceMetadataCollectionFact
     public function __construct(
         protected ResourceMetadataCollectionFactoryInterface $decorated,
         protected LoggerInterface $logger,
+        protected CamelCaseToSnakeCaseNameConverter $camelCaseToSnakeCaseNameConverter,
     ) {}
 
     public function create(string $resourceClass): ResourceMetadataCollection
@@ -40,17 +42,18 @@ class AutoGroupResourceMetadataFactory implements ResourceMetadataCollectionFact
              * @var Operation $operation
              */
             foreach ($item->getOperations() ?? [] as $name => $operation) {
+                $shortName = $this->camelCaseToSnakeCaseNameConverter->normalize($operation->getShortName());
                 $context = $operation->getNormalizationContext() ?? [];
                 $context['groups'] = array_unique(array_merge(
                     [$context]['groups'] ?? [],
-                    $this->getDefaultGroups(strtolower($operation->getShortName()), true, $name)
+                    $this->getDefaultGroups($shortName, true, $name)
                 ));
                 $operation->withNormalizationContext($context);
 
                 $context = $operation->getDenormalizationContext() ?? [];
                 $context['groups'] = array_unique(array_merge(
                     [$context]['groups'] ?? [],
-                    $this->getDefaultGroups(strtolower($operation->getShortName()), false, $name)
+                    $this->getDefaultGroups($shortName, false, $name)
                 ));
                 $operation->withDenormalizationContext($context);
 
