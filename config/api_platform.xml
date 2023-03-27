@@ -13,6 +13,7 @@
                  public="false"
         >
             <argument type="service" id=".inner" />
+            <argument type="service" id="serializer.name_converter.camel_case_to_snake_case" />
         </service>
 
     </services>

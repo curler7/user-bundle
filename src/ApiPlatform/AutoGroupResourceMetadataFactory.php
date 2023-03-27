@@ -27,8 +27,8 @@ class AutoGroupResourceMetadataFactory implements ResourceMetadataCollectionFact
 {
     public function __construct(
         protected ResourceMetadataCollectionFactoryInterface $decorated,
-        protected LoggerInterface $logger,
         protected CamelCaseToSnakeCaseNameConverter $camelCaseToSnakeCaseNameConverter,
+        protected LoggerInterface $logger,
     ) {}
 
     public function create(string $resourceClass): ResourceMetadataCollection
