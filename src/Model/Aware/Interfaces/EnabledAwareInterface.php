@@ -23,5 +23,5 @@ interface EnabledAwareInterface
     ];
 
     function isEnabled(): bool;
-    function setEnabled(bool $enabled): self;
+    function setEnabled(bool $enabled): static;
 }
