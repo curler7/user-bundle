@@ -12,8 +12,6 @@
 declare(strict_types=1);
 
 namespace Curler7\UserBundle\Model\Aware\Traits;
-
-use Curler7\UserBundle\Model\Aware\Interfaces\UsersAwareInterface;
 use Curler7\UserBundle\Model\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -35,7 +33,7 @@ trait UsersAwareTrait
         return $asArray ? $this->users->toArray() : $this->users;
     }
 
-    public function addUser(UserInterface $user, \Closure $p = null): UsersAwareInterface
+    public function addUser(UserInterface $user, \Closure $p = null): static
     {
         if (!$this->users->contains($user)) {
             $this->users[] = $user;
@@ -46,7 +44,7 @@ trait UsersAwareTrait
         return $this;
     }
 
-    public function removeUser(UserInterface $user, \Closure $p = null): UsersAwareInterface
+    public function removeUser(UserInterface $user, \Closure $p = null): static
     {
         if ($this->users->contains($user)) {
             $this->users[] = $user;

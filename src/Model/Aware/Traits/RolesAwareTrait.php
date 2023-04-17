@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Curler7\UserBundle\Model\Aware\Traits;
 
-use Curler7\UserBundle\Model\Aware\Interfaces\RolesAwareInterface;
 use Curler7\UserBundle\Model\UserInterface;
 
 /**
@@ -31,7 +30,7 @@ trait RolesAwareTrait
         return array_unique($roles);
     }
 
-    public function addRole(string $role): RolesAwareInterface
+    public function addRole(string $role): static
     {
         $role = strtoupper($role);
 
@@ -47,7 +46,7 @@ trait RolesAwareTrait
         return \in_array(strtoupper($role), $this->roles, true);
     }
 
-    public function removeRole(string $role): RolesAwareInterface
+    public function removeRole(string $role): static
     {
         if (false !== $key = array_search(strtoupper($role), $this->roles, true)) {
             unset($this->roles[$key]);
@@ -57,7 +56,7 @@ trait RolesAwareTrait
         return $this;
     }
 
-    public function setRoles(?array $roles): RolesAwareInterface
+    public function setRoles(?array $roles): static
     {
         $this->roles = [];
 

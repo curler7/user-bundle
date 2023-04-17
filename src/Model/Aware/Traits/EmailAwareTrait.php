@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace Curler7\UserBundle\Model\Aware\Traits;
 
-use Curler7\UserBundle\Model\Aware\Interfaces\EmailAwareInterface;
-
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
  */
@@ -27,7 +25,7 @@ trait EmailAwareTrait
         return $this->email;
     }
 
-    public function setEmail(?string $email): EmailAwareInterface
+    public function setEmail(?string $email): static
     {
         $this->email = $email;
 

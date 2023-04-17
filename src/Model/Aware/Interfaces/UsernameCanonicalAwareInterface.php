@@ -23,5 +23,5 @@ interface UsernameCanonicalAwareInterface
     ];
 
     function getUsernameCanonical(): ?string;
-    function setUsernameCanonical(?string $usernameCanonical): self;
+    function setUsernameCanonical(?string $usernameCanonical): static;
 }

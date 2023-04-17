@@ -23,5 +23,5 @@ interface LoginLinkRequestedAtAwareInterface
     ];
 
     function getLoginLinkRequestedAt(): ?\DateTimeInterface;
-    function setLoginLinkRequestedAt(?\DateTimeInterface $loginLinkRequestedAt): self;
+    function setLoginLinkRequestedAt(?\DateTimeInterface $loginLinkRequestedAt): static;
 }

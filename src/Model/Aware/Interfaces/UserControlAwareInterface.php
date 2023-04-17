@@ -26,8 +26,8 @@ interface UserControlAwareInterface
     ];
 
     function getCreatedFrom(): ?UserInterface;
-    function setCreatedFrom(?UserInterface $user): self;
+    function setCreatedFrom(?UserInterface $user): static;
 
     function getUpdatedFrom(): ?UserInterface;
-    function setUpdatedFrom(?UserInterface $user): self;
+    function setUpdatedFrom(?UserInterface $user): static;
 }

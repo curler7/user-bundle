@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace Curler7\UserBundle\Model\Aware\Traits;
 
-use Curler7\UserBundle\Model\Aware\Interfaces\LastLoginAtAwareInterface;
-
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
  */
@@ -27,7 +25,7 @@ trait LastLoginAtAwareTrait
         return $this->lastLoginAt;
     }
 
-    public function setLastLoginAt(?\DateTimeInterface $lastLoginAt): LastLoginAtAwareInterface
+    public function setLastLoginAt(?\DateTimeInterface $lastLoginAt): static
     {
         $this->lastLoginAt = $lastLoginAt;
 

@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace Curler7\UserBundle\Model\Aware\Traits;
 
-use Curler7\UserBundle\Model\Aware\Interfaces\ShareAwareInterface;
-
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
  */
@@ -27,7 +25,7 @@ trait ShareAwareTrait
         return $this->share;
     }
 
-    public function setShare(bool $share): ShareAwareInterface
+    public function setShare(bool $share): static
     {
         $this->share = $share;
 

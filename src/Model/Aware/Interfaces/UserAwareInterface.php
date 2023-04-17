@@ -25,5 +25,5 @@ interface UserAwareInterface
     ];
 
     function getUser(): ?UserInterface;
-    function setUser(?UserInterface $user): self;
+    function setUser(?UserInterface $user): static;
 }

@@ -24,8 +24,8 @@ interface DateControlAwareInterface
     ];
 
     function getCreatedAt(): \DateTimeInterface;
-    function setCreatedAt(\DateTimeInterface $createdAt): self;
+    function setCreatedAt(\DateTimeInterface $createdAt): static;
 
     function getUpdatedAt(): ?\DateTimeInterface;
-    function setUpdatedAt(?\DateTimeInterface $updatedAt): self;
+    function setUpdatedAt(?\DateTimeInterface $updatedAt): static;
 }

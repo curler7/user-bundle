@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace Curler7\UserBundle\Model\Aware\Traits;
 
-use Curler7\UserBundle\Model\Aware\Interfaces\PlainPasswordAwareInterface;
-
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
  */
@@ -27,14 +25,14 @@ trait PlainPasswordAwareTrait
         return $this->plainPassword;
     }
 
-    public function setPlainPassword(?string $plainPassword): PlainPasswordAwareInterface
+    public function setPlainPassword(?string $plainPassword): static
     {
         $this->plainPassword = $plainPassword;
 
         return $this;
     }
 
-    public function eraseCredentials(): PlainPasswordAwareInterface
+    public function eraseCredentials(): static
     {
         $this->plainPassword = null;
 

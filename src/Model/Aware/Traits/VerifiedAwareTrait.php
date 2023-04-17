@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace Curler7\UserBundle\Model\Aware\Traits;
 
-use Curler7\UserBundle\Model\Aware\Interfaces\VerifiedAwareInterface;
-
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
  */
@@ -27,7 +25,7 @@ trait VerifiedAwareTrait
         return $this->verified;
     }
 
-    public function setVerified(bool $verified): VerifiedAwareInterface
+    public function setVerified(bool $verified): static
     {
         $this->verified = $verified;
 

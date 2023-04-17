@@ -22,6 +22,6 @@ use Doctrine\Common\Collections\Collection;
 interface UsersAwareInterface
 {
     function getUsers(bool $asArray = true): array|Collection;
-    function addUser(UserInterface $user, \Closure $p = null): self;
-    function removeUser(UserInterface $user, \Closure $p = null): self;
+    function addUser(UserInterface $user, \Closure $p = null): static;
+    function removeUser(UserInterface $user, \Closure $p = null): static;
 }

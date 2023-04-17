@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace Curler7\UserBundle\Model\Aware\Traits;
 
-use Curler7\UserBundle\Model\Aware\Interfaces\DateControlAwareInterface;
-
 trait DateControlAwareTrait
 {
     protected \DateTimeInterface $createdAt;
@@ -30,7 +28,7 @@ trait DateControlAwareTrait
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): DateControlAwareInterface
+    public function setCreatedAt(\DateTimeInterface $createdAt): static
     {
         $this->createdAt = $createdAt;
 
@@ -42,7 +40,7 @@ trait DateControlAwareTrait
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(?\DateTimeInterface $updatedAt): DateControlAwareInterface
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
 

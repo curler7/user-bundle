@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace Curler7\UserBundle\Model\Aware\Traits;
 
-use Curler7\UserBundle\Model\Aware\Interfaces\EnabledAwareInterface;
-
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
  */
@@ -27,7 +25,7 @@ trait EnabledAwareTrait
         return $this->enabled;
     }
 
-    public function setEnabled(bool $enabled): EnabledAwareInterface
+    public function setEnabled(bool $enabled): static
     {
         $this->enabled = $enabled;
 

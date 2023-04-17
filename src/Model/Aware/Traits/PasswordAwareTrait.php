@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace Curler7\UserBundle\Model\Aware\Traits;
 
-use Curler7\UserBundle\Model\Aware\Interfaces\PasswordAwareInterface;
-
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
  */
@@ -27,7 +25,7 @@ trait PasswordAwareTrait
         return $this->password;
     }
 
-    public function setPassword(?string $password): PasswordAwareInterface
+    public function setPassword(?string $password): static
     {
         $this->password = $password;
 

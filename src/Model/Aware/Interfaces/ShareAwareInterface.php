@@ -23,5 +23,5 @@ interface ShareAwareInterface
     ];
 
     function isShare(): bool;
-    function setShare(bool $share): self;
+    function setShare(bool $share): static;
 }

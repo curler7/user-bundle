@@ -22,8 +22,8 @@ interface RoleAwareInterface
         'role',
     ];
 
-    function addRole(string $role): self;
+    function addRole(string $role): static;
     function hasRole(string $role): bool;
-    function removeRole(string $role): self;
-    function setRoles(?array $roles): self;
+    function removeRole(string $role): static;
+    function setRoles(?array $roles): static;
 }

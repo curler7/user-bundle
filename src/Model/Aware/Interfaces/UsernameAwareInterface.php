@@ -23,5 +23,5 @@ interface UsernameAwareInterface
     ];
 
     function getUsername(): ?string;
-    function setUsername(?string $username): self;
+    function setUsername(?string $username): static;
 }

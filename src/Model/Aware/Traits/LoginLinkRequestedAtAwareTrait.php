@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace Curler7\UserBundle\Model\Aware\Traits;
 
-use Curler7\UserBundle\Model\Aware\Interfaces\LoginLinkRequestedAtAwareInterface;
-
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
  */
@@ -27,7 +25,7 @@ trait LoginLinkRequestedAtAwareTrait
         return $this->loginLinkRequestedAt;
     }
 
-    public function setLoginLinkRequestedAt(?\DateTimeInterface $loginLinkRequestedAt): LoginLinkRequestedAtAwareInterface
+    public function setLoginLinkRequestedAt(?\DateTimeInterface $loginLinkRequestedAt): static
     {
         $this->loginLinkRequestedAt = $loginLinkRequestedAt;
 

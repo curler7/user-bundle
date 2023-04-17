@@ -23,5 +23,5 @@ interface VerifiedAwareInterface
     ];
 
     function isVerified(): bool;
-    function setVerified(bool $verified): self;
+    function setVerified(bool $verified): static;
 }

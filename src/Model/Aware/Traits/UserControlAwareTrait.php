@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Curler7\UserBundle\Model\Aware\Traits;
 
-use Curler7\UserBundle\Model\Aware\Interfaces\UserControlAwareInterface;
 use Curler7\UserBundle\Model\UserInterface;
 
 /**
@@ -34,7 +33,7 @@ trait UserControlAwareTrait
         return $this->createdFrom;
     }
 
-    function setCreatedFrom(?UserInterface $createdFrom): UserControlAwareInterface
+    function setCreatedFrom(?UserInterface $createdFrom): static
     {
         $this->createdFrom = $createdFrom;
 
@@ -46,7 +45,7 @@ trait UserControlAwareTrait
         return $this->updatedFrom;
     }
 
-    function setUpdatedFrom(?UserInterface $updatedFrom): UserControlAwareInterface
+    function setUpdatedFrom(?UserInterface $updatedFrom): static
     {
         $this->updatedFrom = $updatedFrom;
 

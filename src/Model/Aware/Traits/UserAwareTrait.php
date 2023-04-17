@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Curler7\UserBundle\Model\Aware\Traits;
 
-use Curler7\UserBundle\Model\Aware\Interfaces\UserAwareInterface;
 use Curler7\UserBundle\Model\UserInterface;
 
 /**
@@ -28,7 +27,7 @@ trait UserAwareTrait
         return $this->user;
     }
 
-    public function setUser(?UserInterface $user): UserAwareInterface
+    public function setUser(?UserInterface $user): static
     {
         $this->user = $user;
 

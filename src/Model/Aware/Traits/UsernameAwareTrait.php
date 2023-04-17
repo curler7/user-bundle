@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace Curler7\UserBundle\Model\Aware\Traits;
 
-use Curler7\UserBundle\Model\Aware\Interfaces\UsernameAwareInterface;
-
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
  */
@@ -27,7 +25,7 @@ trait UsernameAwareTrait
         return $this->username;
     }
 
-    public function setUsername(?string $username): UsernameAwareInterface
+    public function setUsername(?string $username): static
     {
         $this->username = $username;
 

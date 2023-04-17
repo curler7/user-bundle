@@ -23,5 +23,5 @@ interface EmailAwareInterface
     ];
 
     function getEmail(): ?string;
-    function setEmail(?string $email): self;
+    function setEmail(?string $email): static;
 }

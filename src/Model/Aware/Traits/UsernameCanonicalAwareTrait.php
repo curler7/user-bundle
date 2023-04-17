@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace Curler7\UserBundle\Model\Aware\Traits;
 
-use Curler7\UserBundle\Model\Aware\Interfaces\UsernameCanonicalAwareInterface;
-
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
  */
@@ -27,7 +25,7 @@ trait UsernameCanonicalAwareTrait
         return $this->usernameCanonical;
     }
 
-    public function setUsernameCanonical(?string $usernameCanonical): UsernameCanonicalAwareInterface
+    public function setUsernameCanonical(?string $usernameCanonical): static
     {
         $this->usernameCanonical = $usernameCanonical;
 

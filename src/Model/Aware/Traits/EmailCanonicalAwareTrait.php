@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace Curler7\UserBundle\Model\Aware\Traits;
 
-use Curler7\UserBundle\Model\Aware\Interfaces\EmailCanonicalAwareInterface;
-
 /**
  * @author Gunnar Suwe <suwe@smart-media.design>
  */
@@ -27,7 +25,7 @@ trait EmailCanonicalAwareTrait
         return $this->emailCanonical;
     }
 
-    public function setEmailCanonical(?string $emailCanonical): EmailCanonicalAwareInterface
+    public function setEmailCanonical(?string $emailCanonical): static
     {
         $this->emailCanonical = $emailCanonical;
 

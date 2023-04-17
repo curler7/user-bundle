@@ -24,5 +24,5 @@ interface PasswordAwareInterface extends PasswordAuthenticatedUserInterface
         'password',
     ];
 
-    function setPassword(?string $password): self;
+    function setPassword(?string $password): static;
 }

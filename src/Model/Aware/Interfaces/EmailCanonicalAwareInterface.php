@@ -23,5 +23,5 @@ interface EmailCanonicalAwareInterface
     ];
 
     function getEmailCanonical(): ?string;
-    function setEmailCanonical(?string $emailCanonical): self;
+    function setEmailCanonical(?string $emailCanonical): static;
 }
